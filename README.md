@@ -1,12 +1,11 @@
 # [gsawellfailure.com](gsawellfailure.com)
 
-Jekyll github page for the project detailed at [github.com/richpauloo/aife](github.com/richpauloo/aife). 
-
+Github page for the project detailed at [github.com/richpauloo/aife](github.com/richpauloo/aife).
 
 ## Contents
 
 `index.html`: landing page  
-`index_files`: JS assets for pages  
+`/libs`: JS assets for pages  
 `/etc`: additional CSS files for pages  
 `/gsas`: directories for each GSA, which each contain an `index.html` and additional directories for the various groundwater level scenarios   
 
