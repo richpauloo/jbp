@@ -1,0 +1,2936 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>GSA well failure</title>
+
+<meta property="og:title" content="GSA well failure" />
+
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+
+<link rel="icon" href="data:image/x-icon;" type="image/x-icon">
+
+
+<script type="text/javascript">
+window.FlexDashboardComponents = [];
+</script>
+
+<script id="flexdashboard-navbar" type="application/json">
+[{"title":"Instructions","align":"right"},{"title":"About","href":"https://www.gsawellfailure.com","align":"right"},{"icon":"fa-github","href":"https://www.github.com/richpauloo/aife","align":"right"}]
+</script>
+<script src="../../../index_files/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+<meta name="name" content="viewport" />
+<meta name="content" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<link href="../../../index_files/bootstrap-3.4.1/bootstrap-custom.min.css" rel="stylesheet" />
+<script src="../../../index_files/bootstrap-3.4.1/bootstrap.min.js"></script>
+<script src="../../../index_files/stickytableheaders-0.1.19/jquery.stickytableheaders.min.js"></script>
+<link href="../../../index_files/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="../../../index_files/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="../../../index_files/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+<script src="../../../index_files/htmlwidgets-1.3/htmlwidgets.js"></script>
+<link href="../../../index_files/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="../../../index_files/leaflet-1.3.1/leaflet.js"></script>
+<link href="../../../index_files/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="../../../index_files/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="../../../index_files/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="../../../index_files/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="../../../index_files/leaflet-binding-2.0.2/leaflet.js"></script>
+<script src="../../../index_files/leaflet-providers-1.1.17/leaflet-providers.js"></script>
+<script src="../../../index_files/leaflet-providers-plugin-2.0.2/leaflet-providers-plugin.js"></script>
+<link href="../../../index_files/leaflet-easybutton-1.3.1/easy-button.css" rel="stylesheet" />
+<script src="../../../index_files/leaflet-easybutton-1.3.1/easy-button.js"></script>
+<script src="../../../index_files/leaflet-easybutton-1.3.1/EasyButton-binding.js"></script>
+<link href="../../../index_files/fontawesome-4.7.0/font-awesome.min.css" rel="stylesheet" />
+<script src="../../../index_files/X2019groundwaterlevel-1/data_stars_X2019groundwaterlevelcd65e3.txt"></script>
+<script src="../../../index_files/joda-0.0.1/joda.js"></script>
+<script src="../../../index_files/X2040minthreshold-1/data_stars_X2040minthresholdd60f39.txt"></script>
+<script src="../../../index_files/plotly-binding-4.9.2/plotly.js"></script>
+<script src="../../../index_files/plotly-main-1.52.2/plotly-latest.min.js"></script>
+<link href="../../../index_files/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="../../../index_files/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<script src="../../../index_files/typedarray-0.1/typedarray.min.js"></script>
+<link href="../../../index_files/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<style type="text/css">
+
+/*
+ Dashboard CSS from Keen IO Dashboards
+ (https://github.com/keen/dashboards)
+*/
+
+body {
+  background: #f2f2f2;
+  padding: 60px 0 0 8px; /* padding-top overridden by theme */
+}
+
+body hr {
+  border-color: #d7d7d7;
+  margin: 10px 0;
+}
+
+.navbar-inverse .navbar-nav > li > a,
+.navbar .navbar-brand {
+  text-decoration: none;
+}
+
+.navbar-logo {
+  margin-top: 1px;
+}
+
+.navbar-logo img {
+  margin-right: 12px;
+}
+
+.navbar-author {
+  margin-left: 10px;
+  font-size: 15px;
+}
+
+.navbar .dropdown-menu .fa {
+  min-width: 20px;
+}
+
+.navbar .dropdown-menu {
+  min-width: 150px;
+  max-height: 500px;
+  overflow: auto;
+}
+
+.chart-wrapper,
+.nav-tabs-custom,
+.sbframe-commentary
+{
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  margin-bottom: 8px;
+  margin-right: 8px;
+}
+
+.chart-title {
+  border-bottom: 1px solid #d7d7d7;
+  color: #666;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 7px 10px 4px;
+}
+
+.chart-wrapper .chart-title:empty {
+  display: none;
+}
+
+.chart-wrapper .chart-stage {
+  overflow: hidden;
+  padding: 5px 10px;
+  position: relative;
+}
+
+.chart-wrapper .chart-notes {
+  background: #fbfbfb;
+  border-top: 1px solid #e2e2e2;
+  color: #808080;
+  font-size: 12px;
+  padding: 8px 10px 5px;
+}
+
+/*
+ CSS for handling flexbox layout
+*/
+
+#dashboard-container {
+  visibility: hidden;
+}
+
+.tab-content>.dashboard-page-wrapper.active {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.dashboard-page-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.dashboard-row-orientation {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.dashboard-row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.dashboard-row-flex {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.dashboard-column-orientation {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.dashboard-column {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.chart-wrapper-flex {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.chart-stage-flex {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  position: relative;
+}
+
+.chart-shim {
+  position: absolute;
+  left: 8px; top: 8px; right: 8px; bottom: 8px;
+}
+
+.no-padding .chart-shim {
+  left: 0; top: 0; right: 0; bottom: 0;
+}
+
+.flowing-content-shim {
+  overflow: auto;
+  left: 0; top: 0; right: 0; bottom: 0;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.flowing-content-container {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.chart-stage .table-bordered {
+  border: none;
+}
+
+.chart-stage .table-bordered > tbody > tr > th,
+.chart-stage .table-bordered > tfoot > tr > th,
+.chart-stage .table-bordered > tbody > tr > td,
+.chart-stage .table-bordered > tfoot > tr > td {
+  border: none;
+}
+
+.chart-stage .table-bordered > tbody > tr > td {
+  border-top: 1px solid #dddddd;
+}
+
+.chart-stage .table-bordered > thead > tr > th {
+  border: none;
+  border-bottom: 2px solid #dddddd;
+}
+
+.bootstrap-table table>thead {
+  background-color: #fff;
+}
+
+.bootstrap-table table.data,
+.bootstrap-table table.shiny-table {
+  width: inherit !important;
+}
+
+.bootstrap-table table.data>tbody>tr>th,
+.bootstrap-table table.shiny-table>tbody>tr>th {
+  border-top: none;
+  border-bottom: 2px solid #dddddd;
+  padding: 5px;
+}
+
+.bootstrap-table .data td[align=right] {
+  font-family: inherit;
+}
+
+.chart-wrapper form {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.shiny-input-container label {
+  font-weight: normal;
+}
+
+.chart-stage .html-widget {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.chart-stage .html-widget-static-bound {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.chart-stage .shiny-bound-output {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Omit display of empty paragraphs */
+
+.chart-shim>p:empty {
+  display: none;
+}
+
+.chart-stage>p:empty {
+  display: none;
+}
+
+/* Omit display of special knitr options div*/
+
+.chart-stage .knitr-options {
+  display: none;
+}
+
+/* Automatically resizing images */
+
+.image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+}
+
+.image-container img {
+  opacity: 0;
+  overflow: hidden;
+}
+
+/* Value box */
+
+.value-box {
+  border-radius: 2px;
+  position: relative;
+  display: block;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.value-box > .inner {
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.value-box .value {
+  font-size: 38px;
+  font-weight: bold;
+  margin: 0 0 3px 0;
+  white-space: nowrap;
+  padding: 0;
+}
+
+.value-box .caption {
+  font-size: 15px;
+}
+.value-box .caption > small {
+  display: block;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.value-box .icon i {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 80px;
+  color: rgba(0, 0, 0, 0.15);
+}
+
+.linked-value:hover {
+  cursor: pointer;
+}
+
+.value-box.linked-value:hover {
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* STORYBOARD */
+
+.storyboard-nav button {
+  background: transparent;
+  border: 0;
+  opacity: .3;
+  outline: none;
+  padding: 0;
+}
+
+.storyboard-nav button:hover,
+.storyboard-nav button:hover {
+  opacity: .5;
+}
+
+.storyboard-nav button:disabled,
+.storyboard-nav button:disabled {
+  opacity: .1;
+}
+
+.storyboard-nav .sbnext,
+.storyboard-nav .sbprev {
+  float: left;
+  width: 2%;
+  height: 120px;
+  font-size: 50px;
+}
+
+.storyboard-nav .sbprev {
+  text-align: left;
+  width: 2%;
+}
+
+.storyboard-nav .sbnext {
+  float: right;
+  text-align: right;
+  margin-right: 8px;
+}
+
+.storyboard-nav .sbframelist {
+  margin: 0 auto;
+  width: 94%;
+  height: 120px;
+  overflow: hidden;
+  text-shadow: none;
+  margin-bottom: 8px;
+}
+
+.storyboard-nav .sbframelist ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.storyboard-nav .sbframelist ul li {
+  float: left;
+  width: 270px;
+  height: 100%;
+  padding: 10px 10px 10px 10px;
+  margin-right: 8px;
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  color: #3a3c47;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.storyboard-nav .sbframelist ul li:last-child {
+  margin-right: 0px;
+}
+
+.storyboard-nav .sbframelist ul li.active {
+  color: #fff;
+  background: #B8B8B8;
+}
+
+.sbframe-commentary {
+  width: 300px;
+  background: #fbfbfb;
+  font-size: 14px;
+}
+
+.sbframe-commentary ul {
+  padding-left: 22px;
+}
+
+.sbframe.active {
+  display: flex;
+}
+
+.sbframe:not(.active) {
+  display: none;
+}
+
+/* NAV TABS */
+
+.nav-tabs-custom > .nav-tabs {
+  margin: 0;
+  border-bottom: 1px solid #d7d7d7;
+  color: #666;
+  font-size: 14px;
+  font-weight: 300;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+}
+.nav-tabs-custom > .nav-tabs > li {
+  border-top: 3px solid transparent;
+  margin-bottom: -1px;
+  margin-right: 5px;
+}
+.nav-tabs-custom > .nav-tabs > li > a,
+.nav-tabs-custom > .nav-tabs > li > a:active {
+  color: #666;
+  font-weight: 300;
+  font-size: 14px;
+  border-radius: 0;
+  padding: 3px 10px 5px;
+  text-transform: none;
+}
+
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a {
+  border-bottom-color: transparent;
+}
+
+.nav-tabs-custom > .nav-tabs > li > a.text-muted {
+  color: #999;
+}
+.nav-tabs-custom > .nav-tabs > li > a,
+.nav-tabs-custom > .nav-tabs > li > a:hover {
+  background: transparent;
+  margin: 0;
+}
+.nav-tabs-custom > .nav-tabs > li > a:hover {
+  color: #999;
+}
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a:hover,
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a:focus,
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a:active {
+  border-color: transparent;
+}
+.nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: #3c8dbc;
+}
+.nav-tabs-custom > .nav-tabs > li.active > a,
+.nav-tabs-custom > .nav-tabs > li.active:hover > a {
+  background-color: #fff;
+  color: #666;
+}
+.nav-tabs-custom > .nav-tabs > li.active > a {
+  border-top-color: transparent;
+  border-left-color: #d7d7d7;
+  border-right-color: #d7d7d7;
+}
+.nav-tabs-custom > .nav-tabs > li:first-of-type {
+  margin-left: 0;
+}
+.nav-tabs-custom > .nav-tabs > li:first-of-type.active > a {
+  border-left-color: transparent;
+}
+.nav-tabs-custom > .nav-tabs.pull-right {
+  float: none !important;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li {
+  float: right;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type {
+  margin-right: 0;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type > a {
+  border-left-width: 1px;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type.active > a {
+  border-left-color: #d7d7d7;
+  border-right-color: transparent;
+}
+.nav-tabs-custom > .nav-tabs > li.header {
+  line-height: 35px;
+  padding: 0 10px;
+  font-size: 20px;
+  color: #666;
+}
+.nav-tabs-custom > .nav-tabs > li.header > .fa,
+.nav-tabs-custom > .nav-tabs > li.header > .glyphicon,
+.nav-tabs-custom > .nav-tabs > li.header > .ion {
+  margin-right: 5px;
+}
+.nav-tabs-custom > .tab-content {
+  background: #fff;
+  padding: 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.nav-tabs-custom > .tab-content > .chart-wrapper {
+  background: #fff;
+  border: none;
+  margin: 0;
+}
+
+
+.nav-tabs-custom > .tab-content > .active {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.nav-tabs-custom .dropdown.open > a:active,
+.nav-tabs-custom .dropdown.open > a:focus {
+  background: transparent;
+  color: #999;
+}
+
+
+@media (max-width: 767px) {
+  .value-box {
+    text-align: center;
+    margin-right: 8px;
+  }
+  .value-box .icon {
+    display: none;
+  }
+}
+
+/* Fixed position sidebar */
+
+.section.sidebar {
+  position: fixed;
+  top: 51px; /* overridden by theme */
+  left: 0;
+  bottom: 0;
+  border-right: 1px solid #e2e2e2;
+  background-color: white; /* overridden by theme */
+  padding-left: 10px;
+  padding-right: 10px;
+  visibility: hidden;
+  overflow: auto;
+}
+
+.section.sidebar form p:first-child {
+  margin-top: 10px;
+}
+
+/* Embedded source code */
+
+#flexdashboard-source-code {
+  display: none;
+}
+
+.featherlight-content #flexdashboard-source-code {
+  display: inline-block;
+}
+
+.featherlight-content {
+  width: 80%;
+  max-width: 800px;
+  padding: 0 !important;
+  border-bottom: none !important;
+}
+
+.featherlight:last-of-type {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.featherlight-inner {
+  width: 100%;
+}
+
+.featherlight-content pre {
+  margin: 0;
+  border: 0;
+  background: #fff;
+  font-size: 12px;
+}
+
+.unselectable {
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: -moz-none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+#flexdashboard-source-code code {
+  -ms-user-select: text;
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -o-user-select: text;
+  user-select: text;
+}
+
+/* DataTables Tweaks */
+
+.dataTables_filter input[type="search"] {
+  -webkit-appearance: searchfield;
+  outline: none;
+}
+
+.dataTables_wrapper.no-footer
+.dataTables_info {
+  padding-top: 0;
+}
+
+
+table.dataTable thead th {
+  border-bottom: 1px solid #d7d7d7;
+}
+
+.dataTables_wrapper.no-footer .dataTables_scrollBody {
+  border-bottom: 1px solid #d7d7d7;
+}
+
+/* Mobile phone only CSS */
+
+.desktop-layout div.section.mobile {
+  display: none;
+}
+
+.mobile-layout div.section.no-mobile {
+  display: none;
+}
+
+.mobile-figure {
+  display: none;
+}
+
+
+
+body {
+  padding-top: 60px;
+}
+
+.section.sidebar {
+  top: 51px;
+  background-color: rgba(39, 128, 227, 0.1);
+}
+
+.value-box {
+  color: #f9f9f9;
+}
+
+.bg-primary {
+  background-color: rgba(39, 128, 227, 0.7);
+}
+
+.storyboard-nav .sbframelist ul li.active {
+  background-color: rgba(39, 128, 227, 0.7);
+}
+
+.nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: rgba(39, 128, 227, 0.7);
+}
+
+.bg-info {
+  background-color: rgba(153, 84, 187, 0.7);
+}
+
+.bg-warning {
+  background-color: rgba(255, 117, 24, 0.7);
+}
+
+.bg-danger {
+  background-color: rgba(255, 0, 57, 0.7);
+}
+
+.bg-success {
+  background-color: rgba(63, 182, 24, 0.7);
+}
+
+.chart-title {
+  font-weight: 500;
+}
+
+.nav-tabs-custom > .nav-tabs > li > a,
+.nav-tabs-custom > .nav-tabs > li > a:active {
+  font-weight: 500;
+}
+
+@media only screen and (min-width: 768px) {
+html, body {
+  height: 100%;
+}
+
+#dashboard-container {
+  height: 100%;
+}
+}
+</style>
+
+
+<link rel="stylesheet" href="../../../etc/w3.css" type="text/css" />
+
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+
+<button id="navbar-button" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+
+<span class="navbar-logo pull-left">
+  
+</span>
+<span class="navbar-brand">
+  GSA well failure
+  <span class="navbar-author">
+        </span>
+</span>
+
+</div>
+<div id="navbar" class="navbar-collapse collapse">
+<ul class="nav navbar-nav navbar-left">
+</ul>
+<ul class="nav navbar-nav navbar-right">
+</ul>
+</div><!--/.nav-collapse-->
+</div><!--/.container-->
+</div><!--/.navbar-->
+
+<script type="text/javascript">
+
+
+var FlexDashboard = (function () {
+
+  // initialize options
+  var _options = {};
+
+  var FlexDashboard = function() {
+
+    // default options
+    _options = $.extend(_options, {
+      theme: "cosmo",
+      fillPage: false,
+      orientation: 'columns',
+      storyboard: false,
+      defaultFigWidth: 576,
+      defaultFigHeight: 461,
+      defaultFigWidthMobile: 360,
+      defaultFigHeightMobile: 461,
+      isMobile: false,
+      isPortrait: false
+    });
+  };
+
+  function init(options) {
+
+    // extend default options
+    $.extend(true, _options, options);
+
+    // add ids to sections that don't have them (pandoc won't assign ids
+    // to e.g. sections with titles consisting of only chinese characters)
+    var nextId = 1;
+    $('.level1:not([id]),.level2:not([id]),.level3:not([id])').each(function() {
+      $(this).attr('id', 'dashboard-' + nextId++);
+    });
+
+    // find navbar items
+    var navbarItems = $('#flexdashboard-navbar');
+    if (navbarItems.length)
+      navbarItems = JSON.parse(navbarItems.html());
+    addNavbarItems(navbarItems);
+
+    // find the main dashboard container
+    var dashboardContainer = $('#dashboard-container');
+
+    // resolve mobile classes
+    resolveMobileClasses(dashboardContainer);
+
+    // one time global initialization for components
+    componentsInit(dashboardContainer);
+
+    // look for a global sidebar
+    var globalSidebar = dashboardContainer.find(".section.level1.sidebar");
+    if (globalSidebar.length > 0) {
+
+      // global layout for fullscreen displays
+      if (!isMobilePhone()) {
+
+         // hoist it up to the top level
+         globalSidebar.insertBefore(dashboardContainer);
+
+         // lay it out (set width/positions)
+         layoutSidebar(globalSidebar, dashboardContainer);
+
+      // tuck sidebar into first page for mobile phones
+      } else {
+
+        // convert it into a level3 section
+        globalSidebar.removeClass('sidebar');
+        globalSidebar.removeClass('level1');
+        globalSidebar.addClass('level3');
+        var h1 = globalSidebar.children('h1');
+        var h3 = $('<h3></h3>');
+        h3.html(h1.html());
+        h3.insertBefore(h1);
+        h1.remove();
+
+        // move it into the first page
+        var page = dashboardContainer.find('.section.level1').first();
+        if (page.length > 0)
+          page.prepend(globalSidebar);
+      }
+    }
+
+    // look for pages to layout
+    var pages = $('div.section.level1');
+    if (pages.length > 0) {
+
+        // find the navbar and collapse on clicked
+        var navbar = $('#navbar');
+        navbar.on("click", "a[data-toggle!=dropdown]", null, function () {
+           navbar.collapse('hide');
+        });
+
+        // envelop the dashboard container in a tab content div
+        dashboardContainer.wrapInner('<div class="tab-content"></div>');
+
+        pages.each(function(index) {
+
+          // lay it out
+          layoutDashboardPage($(this));
+
+          // add it to the navbar
+          addToNavbar($(this), index === 0);
+
+        });
+
+    } else {
+
+      // remove the navbar and navbar button if we don't
+      // have any navbuttons
+      if (navbarItems.length === 0) {
+        $('#navbar').remove();
+        $('#navbar-button').remove();
+      }
+
+      // add the storyboard class if requested
+      if (_options.storyboard)
+        dashboardContainer.addClass('storyboard');
+
+      // layout the entire page
+      layoutDashboardPage(dashboardContainer);
+    }
+
+    // if we are in shiny we need to trigger a window resize event to
+    // force correct layout of shiny-bound-output elements
+    if (isShinyDoc())
+      $(window).trigger('resize');
+
+    // make main components visible
+    $('.section.sidebar').css('visibility', 'visible');
+    dashboardContainer.css('visibility', 'visible');
+
+    // handle location hash
+    handleLocationHash();
+
+    // intialize prism highlighting
+    initPrismHighlighting();
+
+    // record mobile and orientation state then register a handler
+    // to refresh if it changes
+    _options.isMobile = isMobilePhone();
+    _options.isPortrait = isPortrait();
+    $(window).on('resize', function() {
+      if (_options.isMobile !== isMobilePhone() ||
+          _options.isPortrait !== isPortrait()) {
+        window.location.reload();
+      }
+    });
+
+    // trigger layoutcomplete event
+    dashboardContainer.trigger('flexdashboard:layoutcomplete');
+  }
+
+  function resolveMobileClasses(dashboardContainer) {
+     // add top level layout class
+    dashboardContainer.addClass(isMobilePhone() ? 'mobile-layout' :
+                                                  'desktop-layout');
+
+    // look for .mobile sections and add .no-mobile to their peers
+    var mobileSections = $('.section.mobile');
+    mobileSections.each(function() {
+       var id = $(this).attr('id');
+       var nomobileId = id.replace(/-\d+$/, '');
+       $('#' + nomobileId).addClass('no-mobile');
+    });
+  }
+
+  function addNavbarItems(navbarItems) {
+
+    var navbarLeft = $('ul.navbar-left');
+    var navbarRight = $('ul.navbar-right');
+
+    for (var i = 0; i<navbarItems.length; i++) {
+
+      // get the item
+      var item = navbarItems[i];
+
+      // determine the container
+      var container = null;
+      if (item.align === "left")
+        container = navbarLeft;
+      else
+        container = navbarRight;
+
+      // navbar menu if we have multiple items
+      if (item.items) {
+        var menu = navbarMenu(null, item.icon, item.title, container);
+        for (var j = 0; j<item.items.length; j++) {
+          var subItem = item.items[j];
+          var li = $('<li></li>');
+          li.append(navbarLink(subItem.icon, subItem.title, subItem.href, subItem.target));
+          menu.append(li);
+        }
+      } else {
+        var li = $('<li></li>');
+        li.append(navbarLink(item.icon, item.title, item.href, item.target));
+        container.append(li);
+      }
+    }
+  }
+
+  // create or get a reference to an existing dropdown menu
+  function navbarMenu(id, icon, title, container) {
+    var existingMenu = [];
+    if (id)
+      existingMenu = container.children('#' + id);
+    if (existingMenu.length > 0) {
+      return existingMenu.children('ul');
+    } else {
+      var li = $('<li></li>');
+      if (id)
+        li.attr('id', id);
+      li.addClass('dropdown');
+      // auto add "Share" title on mobile if necessary
+      if (!title && icon && (icon === "fa-share-alt") && isMobilePhone())
+        title = "Share";
+      if (title) {
+        title = title + ' <span class="caret"></span>';
+      }
+      var a = navbarLink(icon, title, "#");
+      a.addClass('dropdown-toggle');
+      a.attr('data-toggle', 'dropdown');
+      a.attr('role', 'button');
+      a.attr('aria-expanded', 'false');
+      li.append(a);
+      var ul = $('<ul class="dropdown-menu"></ul>');
+      ul.attr('role', 'menu');
+      li.append(ul);
+      container.append(li);
+      return ul;
+    }
+  }
+
+  function addToNavbar(page, active) {
+
+    // capture the id and data-icon attribute (if any)
+    var id = page.attr('id');
+    var icon = page.attr('data-icon');
+    var navmenu = page.attr('data-navmenu');
+
+    // get hidden state (transfer this to navbar)
+    var hidden = page.hasClass('hidden');
+    page.removeClass('hidden');
+
+    // sanitize the id for use with bootstrap tabs
+    id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
+    page.attr('id', id);
+
+    // get the wrapper
+    var wrapper = page.closest('.dashboard-page-wrapper');
+
+    // move the id to the wrapper
+    page.removeAttr('id');
+    wrapper.attr('id', id);
+
+    // add the tab-pane class to the wrapper
+    wrapper.addClass('tab-pane');
+    if (active)
+      wrapper.addClass('active');
+
+    // get a reference to the h1, discover it's id and title, then remove it
+    var h1 = wrapper.find('h1').first();
+    var title = h1.html();
+    h1.remove();
+
+    // create a navbar item
+    var li = $('<li></li>');
+    var a = navbarLink(icon, title, '#' + id);
+    a.attr('data-toggle', 'tab');
+    li.append(a);
+
+    // add it to the navbar (or navbar menu if specified)
+    var container = $('ul.navbar-left');
+    if (navmenu) {
+      var menuId = navmenu.replace(/\s+/g, '');
+      var menu = navbarMenu(menuId, null, navmenu, container);
+      menu.append(li);
+    } else {
+      container.append(li);
+    }
+
+    // hide it if requested
+    if (hidden)
+      li.addClass('hidden');
+  }
+
+  function navbarLink(icon, title, href, target) {
+
+    var a = $('<a></a>');
+    if (icon) {
+
+      // get the name of the icon set and icon
+      var dashPos = icon.indexOf("-");
+      var iconSet = icon.substring(0, dashPos);
+      var iconName = icon.substring(dashPos + 1);
+
+      // create the icon
+      var iconElement = $('<span class="' + iconSet + ' ' + icon + '"></span>');
+      if (title)
+        iconElement.css('margin-right', '7px');
+      a.append(iconElement);
+      // if href is null see if we can auto-generate based on icon (e.g. social)
+      if (!href)
+        maybeGenerateLinkFromIcon(iconName, a);
+    }
+    if (title)
+      a.append(title);
+
+    // add the href.
+    if (href) {
+      if (href === "source_embed") {
+        a.attr('href', '#');
+        a.attr('data-featherlight', "#flexdashboard-source-code");
+        a.featherlight({
+            beforeOpen: function(event){
+              $('body').addClass('unselectable');
+            },
+            afterClose: function(event){
+              $('body').removeClass('unselectable');
+            }
+        });
+      } else {
+        a.attr('href', href);
+      }
+    }
+
+    // add the arget
+    if (target)
+      a.attr('target', target);
+
+    return a;
+  }
+
+  // auto generate a link from an icon name (e.g. twitter) when possible
+  function maybeGenerateLinkFromIcon(iconName, a) {
+
+     var serviceLinks = {
+      "twitter": "https://twitter.com/share?text=" + encodeURIComponent(document.title) + "&url="+encodeURIComponent(location.href),
+      "facebook": "https://www.facebook.com/sharer/sharer.php?s=100&p[url]="+encodeURIComponent(location.href),
+      "google-plus": "https://plus.google.com/share?url="+encodeURIComponent(location.href),
+      "linkedin": "https://www.linkedin.com/shareArticle?mini=true&url="+encodeURIComponent(location.href) + "&title=" + encodeURIComponent(document.title),
+      "pinterest": "https://pinterest.com/pin/create/link/?url="+encodeURIComponent(location.href) + "&description=" + encodeURIComponent(document.title)
+    };
+
+    var makeSocialLink = function(a, href) {
+      a.attr('href', '#');
+      a.on('click', function(e) {
+        e.preventDefault();
+        window.open(href);
+      });
+    };
+
+    $.each(serviceLinks, function(key, value) {
+      if (iconName.indexOf(key) !== -1)
+        makeSocialLink(a, value);
+    });
+  }
+
+  // layout a dashboard page
+  function layoutDashboardPage(page) {
+
+    // use a page wrapper so that free form content above the
+    // dashboard appears at the top rather than the side (as it
+    // would without the wrapper in a column orientation)
+    var wrapper = $('<div class="dashboard-page-wrapper"></div>');
+    page.wrap(wrapper);
+
+    // if there are no level2 or level3 headers synthesize a level3
+    // header to contain the (e.g. frame it, scroll container, etc.)
+    var headers = page.find('h2,h3');
+    if (headers.length === 0)
+      page.wrapInner('<div class="section level3"></div>');
+
+    // hoist up any content before level 2 or level 3 headers
+    var children = page.children();
+    children.each(function(index) {
+      if ($(this).hasClass('level2') || $(this).hasClass('level3'))
+        return false;
+      $(this).insertBefore(page);
+    });
+
+    // determine orientation and fillPage behavior for distinct media
+    var orientation, fillPage, storyboard;
+
+    // media: mobile phone
+    if (isMobilePhone()) {
+
+      // if there is a sidebar we need to ensure it's content
+      // is properly framed as an h3
+      var sidebar = page.find('.section.sidebar');
+      sidebar.removeClass('sidebar');
+      sidebar.wrapInner('<div class="section level3"></div>');
+      var h2 = sidebar.find('h2');
+      var h3 = $('<h3></h3>');
+      h3.html(h2.html());
+      h3.insertBefore(h2);
+      h2.remove();
+
+      // wipeout h2 elements then enclose them in a single h2
+      var level2 = page.find('div.section.level2');
+      level2.each(function() {
+        level2.children('h2').remove();
+        level2.children().unwrap();
+      });
+      page.wrapInner('<div class="section level2"></div>');
+
+      // substitute mobile images
+      if (isPortrait()) {
+        var mobileFigures = $('img.mobile-figure');
+        mobileFigures.each(function() {
+          // get the src (might be base64 encoded)
+          var src = $(this).attr('src');
+
+          // find it's peer
+          var id = $(this).attr('data-mobile-figure-id');
+          var img = $('img[data-figure-id=' + id + "]");
+          img.attr('src', src)
+             .attr('width', _options.defaultFigWidthMobile)
+             .attr('height', _options.defaultFigHeightMobile);
+        });
+      }
+
+      // hoist storyboard commentary into it's own section
+      if (page.hasClass('storyboard')) {
+        var commentaryHR = page.find('div.section.level3 hr');
+        commentaryHR.each(function() {
+          var commentary = $(this).nextAll().detach();
+          var commentarySection = $('<div class="section level3"></div>');
+          commentarySection.append(commentary);
+          commentarySection.insertAfter($(this).closest('div.section.level3'));
+          $(this).remove();
+        });
+      }
+
+      // force a non full screen layout by columns
+      orientation = _options.orientation = 'columns';
+      fillPage = _options.fillPage = false;
+      storyboard = _options.storyboard = false;
+
+    // media: desktop
+    } else {
+
+      // determine orientation
+      orientation = page.attr('data-orientation');
+      if (orientation !== 'rows' && orientation != 'columns')
+        orientation = _options.orientation;
+
+      // determine storyboard mode
+      storyboard = page.hasClass('storyboard');
+
+      // fillPage based on options (force for storyboard)
+      fillPage = _options.fillPage || storyboard;
+
+      // handle sidebar
+      var sidebar = page.find('.section.level2.sidebar');
+      if (sidebar.length > 0)
+        layoutSidebar(sidebar, page);
+    }
+
+    // give it and it's parent divs height: 100% if we are in fillPage mode
+    if (fillPage) {
+      page.addClass('vertical-layout-fill');
+      page.css('height', '100%');
+      page.parents('div').css('height', '100%');
+    } else {
+      page.addClass('vertical-layout-scroll');
+    }
+
+    // perform the layout
+    if (storyboard)
+      layoutPageAsStoryboard(page);
+    else if (orientation === 'rows')
+      layoutPageByRows(page, fillPage);
+    else if (orientation === 'columns')
+      layoutPageByColumns(page, fillPage);
+  }
+
+  function layoutSidebar(sidebar, content) {
+
+    // get it out of the header hierarchy
+    sidebar = sidebar.first();
+    if (sidebar.hasClass('level1')) {
+      sidebar.removeClass('level1');
+      sidebar.children('h1').remove();
+    } else if (sidebar.hasClass('level2')) {
+      sidebar.removeClass('level2');
+      sidebar.children('h2').remove();
+    }
+
+    // determine width
+    var sidebarWidth = isTablet() ? 220 : 250;
+    var dataWidth = parseInt(sidebar.attr('data-width'));
+    if (dataWidth)
+      sidebarWidth = dataWidth;
+
+    // set the width and shift the page right to accomodate the sidebar
+    sidebar.css('width', sidebarWidth + 'px');
+    content.css('padding-left', sidebarWidth + 'px');
+
+    // wrap it's contents in a form
+    sidebar.wrapInner($('<form></form>'));
+  }
+
+  function layoutPageAsStoryboard(page) {
+
+    // create storyboard navigation
+    var nav = $('<div class="storyboard-nav"></div>');
+
+    // add navigation buttons
+    var prev = $('<button class="sbprev"><i class="fa fa-angle-left"></i></button>');
+    nav.append(prev);
+    var next= $('<button class="sbnext"><i class="fa fa-angle-right"></i></button>');
+    nav.append(next);
+
+    // add navigation frame
+    var frameList = $('<div class="sbframelist"></div>');
+    nav.append(frameList);
+    var ul = $('<ul></ul>');
+    frameList.append(ul);
+
+     // find all the level3 sections (those are the storyboard frames)
+    var frames = page.find('div.section.level3');
+    frames.each(function() {
+
+      // mark it
+      $(this).addClass('sbframe');
+
+      // divide it into chart content and (optional) commentary
+      $(this).addClass('dashboard-column-orientation');
+
+      // stuff the chart into it's own div w/ flex
+      $(this).wrapInner('<div class="sbframe-component"></div>');
+      setFlex($(this), 1);
+      var frame = $(this).children('.sbframe-component');
+
+      // extract the title from the h3
+      var li = $('<li></li>');
+      var h3 = frame.children('h3');
+      li.html(h3.html());
+      h3.remove();
+      ul.append(li);
+
+      // extract commentary
+      var hr = frame.children('hr');
+      if (hr.length) {
+        var commentary = hr.nextAll().detach();
+        hr.remove();
+        var commentaryFrame = $('<div class="sbframe-commentary"></div>');
+        commentaryFrame.addClass('flowing-content-shim');
+        commentaryFrame.addClass('flowing-content-container');
+        commentaryFrame.append(commentary);
+        $(this).append(commentaryFrame);
+
+        // look for a data-commentary-width attribute
+        var commentaryWidth = $(this).attr('data-commentary-width');
+        if (commentaryWidth)
+          commentaryFrame.css('width', commentaryWidth + 'px');
+      }
+
+      // layout the chart (force flex)
+      var result = layoutChart(frame, true);
+
+      // ice the notes if there are none
+      if (!result.notes)
+        frame.find('.chart-notes').remove();
+
+      // set flex on chart
+      setFlex(frame, 1);
+    });
+
+    // create a div to hold all the frames
+    var frameContent = $('<div class="sbframe-content"></div>');
+    frameContent.addClass('dashboard-row-orientation');
+    frameContent.append(frames.detach());
+
+    // row orientation to stack nav and frame content
+    page.addClass('dashboard-row-orientation');
+    page.append(nav);
+    page.append(frameContent);
+    setFlex(frameContent, 1);
+
+    // initialize sly
+    var sly = new Sly(frameList, {
+    		horizontal: true,
+    		itemNav: 'basic',
+    		smart: true,
+    		activateOn: 'click',
+    		startAt: 0,
+    		scrollBy: 1,
+    		activatePageOn: 'click',
+    		speed: 200,
+    		moveBy: 600,
+    		dragHandle: true,
+    		dynamicHandle: true,
+    		clickBar: true,
+    		keyboardNavBy: 'items',
+    		next: next,
+    		prev: prev
+    	}).init();
+
+    // make first frame active
+    frames.removeClass('active');
+    frames.first().addClass('active');
+
+    // subscribe to frame changed events
+    sly.on('active', function (eventName, itemIndex) {
+      frames.removeClass('active');
+      frames.eq(itemIndex).addClass('active')
+                          .trigger('shown');
+    });
+  }
+
+  function layoutPageByRows(page, fillPage) {
+
+    // row orientation
+    page.addClass('dashboard-row-orientation');
+
+    // find all the level2 sections (those are the rows)
+    var rows = page.find('div.section.level2');
+
+    // if there are no level2 sections then treat the
+    // entire page as if it's a level 2 section
+    if (rows.length === 0) {
+      page.wrapInner('<div class="section level2"></div>');
+      rows = page.find('div.section.level2');
+    }
+
+    rows.each(function () {
+
+      // flags
+      var haveNotes = false;
+      var haveFlexHeight = true;
+
+      // remove the h2
+      $(this).children('h2').remove();
+
+      // check for a tabset
+      var isTabset = $(this).hasClass('tabset');
+      if (isTabset)
+        layoutTabset($(this));
+
+      // give it row layout semantics if it's not a tabset
+      if (!isTabset)
+        $(this).addClass('dashboard-row');
+
+      // find all of the level 3 subheads
+      var columns = $(this).find('div.section.level3');
+
+      // determine figureSizes sizes
+      var figureSizes = chartFigureSizes(columns);
+
+      // fixup the columns
+      columns.each(function(index) {
+
+        // layout the chart (force flex if we are in a tabset)
+        var result = layoutChart($(this), isTabset);
+
+        // update flexHeight state
+        if (!result.flex)
+          haveFlexHeight = false;
+
+        // update state
+        if (result.notes)
+          haveNotes = true;
+
+        // set the column flex based on the figure width
+        // (value boxes will just get the default figure width)
+        var chartWidth = figureSizes[index].width;
+        setFlex($(this), chartWidth + ' ' + chartWidth + ' 0px');
+
+      });
+
+      // remove empty chart note divs
+      if (isTabset)
+        $(this).find('.chart-notes').filter(function() {
+            return $(this).html() === "&nbsp;";
+        }).remove();
+      if (!haveNotes)
+        $(this).find('.chart-notes').remove();
+
+       // make it a flexbox row
+      if (haveFlexHeight)
+        $(this).addClass('dashboard-row-flex');
+
+      // now we can set the height on all the wrappers (based on maximum
+      // figure height + room for title and notes, or data-height on the
+      // container if specified). However, don't do this if there is
+      // no flex on any of the constituent columns
+      var flexHeight = null;
+      var dataHeight = parseInt($(this).attr('data-height'));
+      if (dataHeight)
+        flexHeight = adjustedHeight(dataHeight, columns.first());
+      else if (haveFlexHeight)
+        flexHeight = maxChartHeight(figureSizes, columns);
+      if (flexHeight) {
+        if (fillPage)
+          setFlex($(this), flexHeight + ' ' + flexHeight + ' 0px');
+        else {
+          $(this).css('height', flexHeight + 'px');
+          setFlex($(this), '0 0 ' + flexHeight + 'px');
+        }
+      }
+
+    });
+  }
+
+  function layoutPageByColumns(page, fillPage) {
+
+    // column orientation
+    page.addClass('dashboard-column-orientation');
+
+    // find all the level2 sections (those are the columns)
+    var columns = page.find('div.section.level2');
+
+    // if there are no level2 sections then treat the
+    // entire page as if it's a level 2 section
+    if (columns.length === 0) {
+      page.wrapInner('<div class="section level2"></div>');
+      columns = page.find('div.section.level2');
+    }
+
+    // layout each column
+    columns.each(function (index) {
+
+      // remove the h2
+      $(this).children('h2').remove();
+
+      // make it a flexbox column
+      $(this).addClass('dashboard-column');
+
+      // check for a tabset
+      var isTabset = $(this).hasClass('tabset');
+      if (isTabset)
+        layoutTabset($(this));
+
+      // find all the h3 elements
+      var rows = $(this).find('div.section.level3');
+
+      // get the figure sizes for the rows
+      var figureSizes = chartFigureSizes(rows);
+
+      // column flex is the max row width (or data-width if specified)
+      var flexWidth;
+      var dataWidth = parseInt($(this).attr('data-width'));
+      if (dataWidth)
+        flexWidth = dataWidth;
+      else
+        flexWidth = maxChartWidth(figureSizes);
+      setFlex($(this), flexWidth + ' ' + flexWidth + ' 0px');
+
+      // layout each chart
+      rows.each(function(index) {
+
+        // perform the layout
+        var result = layoutChart($(this), false);
+
+        // ice the notes if there are none
+        if (!result.notes)
+          $(this).find('.chart-notes').remove();
+
+        // set flex height based on figHeight, then adjust
+        if (result.flex) {
+          var chartHeight = figureSizes[index].height;
+          chartHeight = adjustedHeight(chartHeight, $(this));
+          if (fillPage)
+            setFlex($(this), chartHeight + ' ' + chartHeight + ' 0px');
+          else {
+            $(this).css('height', chartHeight + 'px');
+            setFlex($(this), chartHeight + ' ' + chartHeight + ' ' + chartHeight + 'px');
+          }
+        }
+      });
+    });
+  }
+
+  function chartFigureSizes(charts) {
+
+    // sizes
+    var figureSizes = new Array(charts.length);
+
+    // check each chart
+    charts.each(function(index) {
+
+      // start with default
+      figureSizes[index] = {
+        width: _options.defaultFigWidth,
+        height: _options.defaultFigHeight
+      };
+
+      // look for data-height or data-width then knit options
+      var dataWidth = parseInt($(this).attr('data-width'));
+      var dataHeight = parseInt($(this).attr('data-height'));
+      var knitrOptions = $(this).find('.knitr-options:first');
+      var knitrWidth, knitrHeight;
+      if (knitrOptions) {
+        knitrWidth = parseInt(knitrOptions.attr('data-fig-width'));
+        knitrHeight =  parseInt(knitrOptions.attr('data-fig-height'));
+      }
+
+      // width
+      if (dataWidth)
+        figureSizes[index].width = dataWidth;
+      else if (knitrWidth)
+        figureSizes[index].width = knitrWidth;
+
+      // height
+      if (dataHeight)
+        figureSizes[index].height = dataHeight;
+      else if (knitrHeight)
+        figureSizes[index].height = knitrHeight;
+    });
+
+    // return sizes
+    return figureSizes;
+  }
+
+  function maxChartHeight(figureSizes, charts) {
+
+    // first compute the maximum height
+    var maxHeight = _options.defaultFigHeight;
+    for (var i = 0; i<figureSizes.length; i++)
+      if (figureSizes[i].height > maxHeight)
+        maxHeight = figureSizes[i].height;
+
+    // now add offests for chart title and chart notes
+    if (charts.length)
+      maxHeight = adjustedHeight(maxHeight, charts.first());
+
+    return maxHeight;
+  }
+
+  function adjustedHeight(height, chart) {
+    if (chart.length > 0) {
+      var chartTitle = chart.find('.chart-title');
+      if (chartTitle.length)
+        height += chartTitle.first().outerHeight();
+      var chartNotes = chart.find('.chart-notes');
+      if (chartNotes.length)
+        height += chartNotes.first().outerHeight();
+    }
+    return height;
+  }
+
+  function maxChartWidth(figureSizes) {
+    var maxWidth = _options.defaultFigWidth;
+    for (var i = 0; i<figureSizes.length; i++)
+      if (figureSizes[i].width > maxWidth)
+        maxWidth = figureSizes[i].width;
+    return maxWidth;
+  }
+
+  // layout a chart
+  function layoutChart(chart, forceFlex) {
+
+    // state to return
+    var result = {
+      notes: false,
+      flex: false
+    };
+
+    // extract the title
+    var title = extractTitle(chart);
+
+    // find components that apply to this container
+    var components = componentsFind(chart);
+
+    // if it's a custom component then call it and return
+    var customComponents = componentsCustom(components);
+    if (customComponents.length) {
+      componentsLayout(customComponents, title, chart);
+      result.notes = false;
+      result.flex = forceFlex || componentsFlex(customComponents);
+      return result;
+    }
+
+    // put all the content in a chart wrapper div
+    chart.addClass('chart-wrapper');
+    chart.wrapInner('<div class="chart-stage"></div>');
+    var chartContent = chart.children('.chart-stage');
+
+    // flex the content if appropriate
+    result.flex = forceFlex || componentsFlex(components);
+    if (result.flex) {
+      // add flex classes
+      chart.addClass('chart-wrapper-flex');
+      chartContent.addClass('chart-stage-flex');
+
+      // additional shim to break out of flexbox sizing
+      chartContent.wrapInner('<div class="chart-shim"></div>');
+      chartContent = chartContent.children('.chart-shim');
+    }
+
+    // set custom data-padding attribute
+    var pad = chart.attr('data-padding');
+    if (pad) {
+      if (pad === "0")
+        chart.addClass('no-padding');
+      else {
+        pad = pad + 'px';
+        chartContent.css('left', pad)
+                    .css('top', pad)
+                    .css('right', pad)
+                    .css('bottom', pad)
+      }
+    }
+
+    // call compoents
+    componentsLayout(components, title, chartContent);
+
+    // also activate components on shiny output
+    findShinyOutput(chartContent).on('shiny:value',
+      function(event) {
+        var element = $(event.target);
+        setTimeout(function() {
+
+          // see if we opted out of flex based on our output (for shiny
+          // we can't tell what type of output we have until after the
+          // value is bound)
+          var components = componentsFind(element);
+          var flex = forceFlex || componentsFlex(components);
+          if (!flex) {
+            chart.css('height', "");
+            setFlex(chart, "");
+            chart.removeClass('chart-wrapper-flex');
+            chartContent.removeClass('chart-stage-flex');
+            chartContent.children().unwrap();
+          }
+
+          // perform layout
+          componentsLayout(components, title, element.parent());
+        }, 10);
+      });
+
+    // add the title
+    var chartTitle = $('<div class="chart-title"></div>');
+    chartTitle.html(title);
+    chart.prepend(chartTitle);
+
+    // add the notes section
+    var chartNotes = $('<div class="chart-notes"></div>');
+    chartNotes.html('&nbsp;');
+    chart.append(chartNotes);
+
+    // attempt to extract notes if we have a component
+    if (components.length)
+      result.notes = extractChartNotes(chartContent, chartNotes);
+
+    // return result
+    return result;
+  }
+
+  // build a tabset from a section div with the .tabset class
+  function layoutTabset(tabset) {
+
+    // check for fade option
+    var fade = tabset.hasClass("tabset-fade");
+    var navClass = "nav-tabs";
+
+    // determine the heading level of the tabset and tabs
+    var match = tabset.attr('class').match(/level(\d) /);
+    if (match === null)
+      return;
+    var tabsetLevel = Number(match[1]);
+    var tabLevel = tabsetLevel + 1;
+
+    // find all subheadings immediately below
+    var tabs = tabset.find("div.section.level" + tabLevel);
+    if (!tabs.length)
+      return;
+
+    // create tablist and tab-content elements
+    var tabList = $('<ul class="nav ' + navClass + '" role="tablist"></ul>');
+    $(tabs[0]).before(tabList);
+    var tabContent = $('<div class="tab-content"></div>');
+    $(tabs[0]).before(tabContent);
+
+    // build the tabset
+    tabs.each(function(i) {
+
+      // get the tab div
+      var tab = $(tabs[i]);
+
+      // get the id then sanitize it for use with bootstrap tabs
+      var id = tab.attr('id');
+
+      // sanitize the id for use with bootstrap tabs
+      id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
+      tab.attr('id', id);
+
+      // get the heading element within it and grab it's text
+      var heading = tab.find('h' + tabLevel + ':first');
+      var headingText = heading.html();
+
+      // build and append the tab list item
+      var a = $('<a role="tab" data-toggle="tab">' + headingText + '</a>');
+      a.attr('href', '#' + id);
+      a.attr('aria-controls', id);
+      var li = $('<li role="presentation"></li>');
+      li.append(a);
+      if (i === 0)
+        li.attr('class', 'active');
+      tabList.append(li);
+
+      // set it's attributes
+      tab.attr('role', 'tabpanel');
+      tab.addClass('tab-pane');
+      tab.addClass('tabbed-pane');
+      tab.addClass('no-title');
+      if (fade)
+        tab.addClass('fade');
+      if (i === 0) {
+        tab.addClass('active');
+        if (fade)
+          tab.addClass('in');
+      }
+
+      // move it into the tab content div
+      tab.detach().appendTo(tabContent);
+    });
+
+    // add nav-tabs-custom
+    tabset.addClass('nav-tabs-custom');
+
+    // internal layout is dashboard-column with tab-content flexing
+    tabset.addClass('dashboard-column');
+    setFlex(tabContent, 1);
+  }
+
+  // one time global initialization for components
+  function componentsInit(dashboardContainer) {
+    for (var i=0; i<window.FlexDashboardComponents.length; i++) {
+      var component = window.FlexDashboardComponents[i];
+      if (component.init)
+        component.init(dashboardContainer);
+    }
+  }
+
+  // find components that apply within a container
+  function componentsFind(container) {
+
+    // look for components
+    var components = [];
+    for (var i=0; i<window.FlexDashboardComponents.length; i++) {
+      var component = window.FlexDashboardComponents[i];
+      if (component.find(container).length)
+        components.push(component);
+    }
+
+    // if there were none then use a special flowing content component
+    // that just adds a scrollbar in fillPage mode
+    if (components.length == 0) {
+      components.push({
+        find: function(container) {
+          return container;
+        },
+
+        flex: function(fillPage) {
+          return fillPage;
+        },
+
+        layout: function(title, container, element, fillPage) {
+          if (fillPage) {
+            container.addClass('flowing-content-shim');
+            container.addClass('flowing-content-container');
+          }
+        }
+      });
+    }
+
+    return components;
+  }
+
+  // if there is a custom component then pick it out
+  function componentsCustom(components) {
+    var customComponent = [];
+    for (var i=0; i<components.length; i++)
+      if (components[i].type === "custom") {
+        customComponent.push(components[i]);
+        break;
+      }
+    return customComponent;
+  }
+
+  // query all components for flex
+  function componentsFlex(components) {
+
+    // no components at all means no flex
+    if (components.length === 0)
+      return false;
+
+    // otherwise query components (assume true unless we see false)
+    var isMobile = isMobilePhone();
+    for (var i=0; i<components.length; i++)
+      if (components[i].flex && !components[i].flex(_options.fillPage))
+        return false;
+    return true;
+  }
+
+  // layout all components
+  function componentsLayout(components, title, container) {
+    var isMobile = isMobilePhone();
+    for (var i=0; i<components.length; i++) {
+      var element = components[i].find(container);
+      if (components[i].layout) {
+        // call layout (don't call other components if it returns false)
+        var result = components[i].layout(title, container, element, _options.fillPage);
+        if (result === false)
+          return;
+      }
+    }
+  }
+
+  // get a reference to the h3, discover it's inner html, and remove it
+  function extractTitle(container) {
+    var h3 = container.children('h3').first();
+    var title = '';
+    if (!container.hasClass('no-title'))
+      title = h3.html();
+    h3.remove();
+    return title;
+  }
+
+  // extract chart notes
+  function extractChartNotes(chartContent, chartNotes) {
+    // look for a terminating blockquote or image caption
+    var blockquote = chartContent.children('blockquote:last-child');
+    var caption = chartContent.children('div.image-container')
+                              .children('p.caption');
+    if (blockquote.length) {
+      chartNotes.html(blockquote.children('p:first-child').html());
+      blockquote.remove();
+      return true;
+    } else if (caption.length) {
+      chartNotes.html(caption.html());
+      caption.remove();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function findShinyOutput(chartContent) {
+    return chartContent.find('.shiny-text-output, .shiny-html-output');
+  }
+
+  // safely detect rendering on a mobile phone
+  function isMobilePhone() {
+    try
+    {
+      return ! window.matchMedia("only screen and (min-width: 768px)").matches;
+    }
+    catch(e) {
+      return false;
+    }
+  }
+
+  function isFillPage() {
+    return _options.fillPage;
+  }
+
+  // detect portrait mode
+  function isPortrait() {
+    return ($(window).width() < $(window).height());
+  }
+
+  // safely detect rendering on a tablet
+  function isTablet() {
+    try
+    {
+      return window.matchMedia("only screen and (min-width: 769px) and (max-width: 992px)").matches;
+    }
+    catch(e) {
+      return false;
+    }
+  }
+
+  // test whether this is a shiny doc
+  function isShinyDoc() {
+    return (typeof(window.Shiny) !== "undefined" && !!window.Shiny.outputBindings);
+  }
+
+  // set flex using vendor specific prefixes
+  function setFlex(el, flex) {
+    el.css('-webkit-box-flex', flex)
+      .css('-webkit-flex', flex)
+      .css('-ms-flex', flex)
+      .css('flex', flex);
+  }
+
+  // support bookmarking of pages
+  function handleLocationHash() {
+
+    // restore tab/page from bookmark
+    var hash = window.location.hash;
+    if (hash.length > 0)
+      $('ul.nav a[href="' + hash + '"]').tab('show');
+    FlexDashboardUtils.manageActiveNavbarMenu();
+
+    // navigate to a tab when the history changes
+    window.addEventListener("popstate", function(e) {
+      var hash = window.location.hash;
+      var activeTab = $('ul.nav a[href="' + hash + '"]');
+      if (activeTab.length) {
+        activeTab.tab('show');
+      } else {
+        $('ul.nav a:first').tab('show');
+      }
+      FlexDashboardUtils.manageActiveNavbarMenu();
+    });
+
+    // add a hash to the URL when the user clicks on a tab/page
+    $('.navbar-nav a[data-toggle="tab"]').on('click', function(e) {
+      var baseUrl = FlexDashboardUtils.urlWithoutHash(window.location.href);
+      var hash = FlexDashboardUtils.urlHash($(this).attr('href'));
+      var href = baseUrl + hash;
+      FlexDashboardUtils.setLocation(href);
+    });
+
+    // handle clicks of other links that should activate pages
+    var navPages = $('ul.navbar-nav li a[data-toggle=tab]');
+    navPages.each(function() {
+      var href =  $(this).attr('href');
+      var links = $('a[href="' + href + '"][data-toggle!=tab]');
+      links.each(function() {
+        $(this).on('click', function(e) {
+          window.FlexDashboardUtils.showPage(href);
+        });
+      });
+    });
+  }
+
+  // tweak Prism highlighting
+  function initPrismHighlighting() {
+
+    if (window.Prism) {
+      Prism.languages.insertBefore('r', 'comment', {
+        'heading': [
+          {
+            // title 1
+        	  // =======
+
+        	  // title 2
+        	  // -------
+        	  pattern: /\w+.*(?:\r?\n|\r)(?:====+|----+)/,
+            alias: 'operator'
+          },
+          {
+            // ### title 3
+            pattern: /(^\s*)###[^#].+/m,
+            lookbehind: true,
+            alias: 'operator'
+          }
+        ]
+      });
+
+      // prism highlight
+      Prism.highlightAll();
+    }
+  }
+
+
+  // get theme color
+  var themeColors = {
+    bootstrap: {
+      primary: "rgba(51, 122, 183, 0.4)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    cerulean: {
+      primary: "rgb(47, 164, 231)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    journal: {
+      primary: "rgba(235, 104, 100, 0.70)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    flatly: {
+      primary: "rgba(44, 62, 80, 0.70)",
+      info: "rgba(52, 152, 219, 0.70)",
+      success: "rgba(24, 188, 156, 0.70)",
+      warning: "rgba(243, 156, 18, 0.70)",
+      danger: "rgba(231, 76, 60, 0.70)"
+    },
+    readable: {
+      primary: "rgba(69, 130, 236, 0.4)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    spacelab: {
+      primary: "rgba(68, 110, 155, 0.25)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    united: {
+      primary: "rgba(221, 72, 20, 0.30)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    cosmo: {
+      primary: "rgba(39, 128, 227, 0.7)",
+      info: "rgba(153, 84, 187, 0.7)",
+      success: "rgba(63, 182, 24, 0.7)",
+      warning: "rgba(255, 117, 24, 0.7)",
+      danger: "rgba(255, 0, 57, 0.7)"
+    },
+    lumen: {
+      primary: "rgba(21, 140, 186, 0.70)",
+      info: "rgba(117, 202, 235, 0.90)",
+      success: "rgba(40, 182, 44, 0.70)",
+      warning: "rgba(255, 133, 27, 0.70)",
+      danger: "rgba(255, 65, 54, 0.70)"
+    },
+    paper: {
+      primary: "rgba(33, 150, 243, 0.35)",
+      info: "rgb(225, 190, 231)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(255, 224, 178)",
+      danger: "rgb(249, 189, 187)"
+    },
+    sandstone: {
+      primary: "rgba(50, 93, 136, 0.3)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    simplex: {
+      primary: "rgba(217, 35, 15, 0.25)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    yeti: {
+      primary: "rgba(0, 140, 186, 0.298039)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    }
+  }
+  function themeColor(color) {
+    return themeColors[_options.theme][color];
+  }
+
+  FlexDashboard.prototype = {
+    constructor: FlexDashboard,
+    init: init,
+    isMobilePhone: isMobilePhone,
+    isFillPage: isFillPage,
+    themeColor: themeColor
+  };
+
+  return FlexDashboard;
+
+})();
+
+// utils
+window.FlexDashboardUtils = {
+  resizableImage: function(img) {
+    var src = img.attr('src');
+    var url = 'url("' + src + '")';
+    img.parent().css('background', url)
+                .css('background-size', 'contain')
+                .css('background-repeat', 'no-repeat')
+                .css('background-position', 'center')
+                .addClass('image-container');
+  },
+  setLocation: function(href) {
+    if (history && history.pushState) {
+      history.pushState(null, null, href);
+    } else {
+      window.location.replace(href);
+    }
+    setTimeout(function() {
+        window.scrollTo(0, 0);
+    }, 10);
+    this.manageActiveNavbarMenu();
+  },
+  showPage: function(href) {
+    $('ul.navbar-nav li a[href="' + href + '"]').tab('show');
+    var baseUrl = this.urlWithoutHash(window.location.href);
+    var loc = baseUrl + href;
+    this.setLocation(loc);
+  },
+  showLinkedValue: function(href) {
+    // check for a page link
+    if ($('ul.navbar-nav li a[data-toggle=tab][href="' + href + '"]').length > 0)
+      this.showPage(href);
+    else
+      window.open(href);
+  },
+  urlWithoutHash: function(url) {
+    var hashLoc = url.indexOf('#');
+    if (hashLoc != -1)
+      return url.substring(0, hashLoc);
+    else
+      return url;
+  },
+  urlHash: function(url) {
+    var hashLoc = url.indexOf('#');
+    if (hashLoc != -1)
+      return url.substring(hashLoc);
+    else
+      return "";
+  },
+  manageActiveNavbarMenu: function () {
+    // remove active from anyone currently active
+    $('.navbar ul.nav').find('li').removeClass('active');
+    // find the active tab
+    var activeTab = $('.dashboard-page-wrapper.tab-pane.active');
+    if (activeTab.length > 0) {
+      var tabId = activeTab.attr('id');
+      if (tabId)
+        $(".navbar ul.nav a[href='#" + tabId + "']").parents('li').addClass('active');
+    }
+  }
+};
+
+window.FlexDashboard = new FlexDashboard();
+
+// empty content
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    if (container.find('p').length == 0)
+      return container;
+    else
+      return $();
+  }
+})
+
+// plot image
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('p')
+                    .children('img:only-child');
+  },
+
+  layout: function(title, container, element, fillPage) {
+    FlexDashboardUtils.resizableImage(element);
+  }
+});
+
+// plot image (figure style)
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('div.figure').children('img');
+  },
+
+  layout: function(title, container, element, fillPage) {
+    FlexDashboardUtils.resizableImage(element);
+  }
+});
+
+// htmlwidget
+window.FlexDashboardComponents.push({
+
+  init: function(dashboardContainer) {
+    // trigger "shown" after initial layout to force static htmlwidgets
+    // in runtime: shiny to be resized after the dom has been transformed
+    dashboardContainer.on('flexdashboard:layoutcomplete', function(event) {
+      setTimeout(function() {
+        dashboardContainer.trigger('shown');
+      }, 200);
+    });
+  },
+
+  find: function(container) {
+    return container.children('div[id^="htmlwidget-"],div.html-widget');
+  }
+});
+
+// gauge
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('div.html-widget.gauge');
+  },
+
+  flex: function(fillPage) {
+    return false;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+
+  }
+
+});
+
+// shiny output
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    return container.children('div[class^="shiny-"]');
+  }
+});
+
+// datatables
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    return container.find('.datatables');
+  },
+  flex: function(fillPage) {
+    return fillPage;
+  }
+});
+
+// bootstrap table
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    var bsTable = container.find('table.table');
+    if (bsTable.length !== 0)
+      return bsTable;
+    else
+      return container.find('tr.header').parent('thead').parent('table');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+    // alias variables
+    var bsTable = element;
+
+    // fixup xtable generated tables with a proper thead
+    var headerRow = bsTable.find('tbody > tr:first-child > th').parent();
+    if (headerRow.length > 0) {
+      var thead = $('<thead></thead>');
+      bsTable.prepend(thead);
+      headerRow.detach().appendTo(thead);
+    }
+
+    // improve appearance
+    container.addClass('bootstrap-table');
+
+    // for fill page provide scrolling w/ sticky headers
+    if (fillPage) {
+      // force scrollbar on overflow
+      container.addClass('flowing-content-shim');
+
+      // stable table headers when scrolling
+      bsTable.stickyTableHeaders({
+        scrollableArea: container
+      });
+    }
+  }
+});
+
+// embedded shiny app
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.find('iframe.shiny-frame');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+    if (fillPage) {
+      element.attr('height', '100%');
+    } else {
+      // provide default height if necessary
+      var height = element.get(0).style.height;
+      if (!height)
+        height = element.attr('height');
+      if (!height)
+        element.attr('height', 500);
+    }
+  }
+});
+
+// shiny fillRow or fillCol
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.find('.flexfill-container');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+    if (fillPage)
+      element.css('height', '100%');
+    else {
+      // provide default height if necessary
+      var height = element.get(0).style.height;
+      if (height === "100%" || height === "auto" || height === "initial" ||
+          height === "inherit" || !height) {
+        element.css('height', 500);
+      }
+    }
+  }
+});
+
+// valueBox
+window.FlexDashboardComponents.push({
+
+  type: "custom",
+
+  find: function(container) {
+    if (container.find('span.value-output, .shiny-valuebox-output').length)
+      return container;
+    else
+      return $();
+  },
+
+  flex: function(fillPage) {
+    return false;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+    // alias variables
+    var chartTitle = title;
+    var valueBox = element;
+
+    // add value-box class to container
+    container.addClass('value-box');
+
+    // value paragraph
+    var value = $('<p class="value"></p>');
+
+    // if we have shiny-text-output then just move it in
+    var valueOutputSpan = [];
+    var shinyOutput = valueBox.find('.shiny-valuebox-output').detach();
+    if (shinyOutput.length) {
+      valueBox.children().remove();
+      shinyOutput.html("&mdash;");
+      value.append(shinyOutput);
+    } else {
+      // extract the value (remove leading vector index)
+      var chartValue = valueBox.text().trim();
+      chartValue = chartValue.replace("[1] ", "");
+      valueOutputSpan = valueBox.find('span.value-output').detach();
+      valueBox.children().remove();
+      value.text(chartValue);
+    }
+
+    // caption
+    var caption = $('<p class="caption"></p>');
+    caption.html(chartTitle);
+
+    // build inner div for value box and add it
+    var inner = $('<div class="inner"></div>');
+    inner.append(value);
+    inner.append(caption);
+    valueBox.append(inner);
+
+    // add icon if specified
+    var icon = $('<div class="icon"><i></i></div>');
+    valueBox.append(icon);
+    function setIcon(chartIcon) {
+      var iconLib = "";
+      var components = chartIcon.split("-");
+      if (components.length > 1)
+        iconLib = components[0];
+      icon.children('i').attr('class', iconLib + ' ' + chartIcon);
+    }
+    var chartIcon = valueBox.attr('data-icon');
+    if (chartIcon)
+      setIcon(chartIcon);
+
+    // set color based on data-background if necessary
+    var dataBackground = valueBox.attr('data-background');
+    if (dataBackground)
+      valueBox.css('background-color', bgColor);
+    else {
+      // default to bg-primary if no other background is specified
+      if (!valueBox.hasClass('bg-primary') &&
+          !valueBox.hasClass('bg-info') &&
+          !valueBox.hasClass('bg-warning') &&
+          !valueBox.hasClass('bg-success') &&
+          !valueBox.hasClass('bg-danger')) {
+        valueBox.addClass('bg-primary');
+      }
+    }
+
+    // handle data attributes in valueOutputSpan
+    function handleValueOutput(valueOutput) {
+
+      // caption
+      var dataCaption = valueOutput.attr('data-caption');
+      if (dataCaption)
+        caption.html(dataCaption);
+
+      // icon
+      var dataIcon = valueOutput.attr('data-icon');
+      if (dataIcon)
+        setIcon(dataIcon);
+
+      // color
+      var dataColor = valueOutput.attr('data-color');
+      if (dataColor) {
+        if (dataColor.indexOf('bg-') === 0) {
+          valueBox.css('background-color', '');
+          if (!valueBox.hasClass(dataColor)) {
+             valueBox.removeClass('bg-primary bg-info bg-warning bg-danger bg-success');
+             valueBox.addClass(dataColor);
+          }
+        } else {
+          valueBox.removeClass('bg-primary bg-info bg-warning bg-danger bg-success');
+          valueBox.css('background-color', dataColor);
+        }
+      }
+
+      // url
+      var dataHref = valueOutput.attr('data-href');
+      if (dataHref) {
+        valueBox.addClass('linked-value');
+        valueBox.off('click.value-box');
+        valueBox.on('click.value-box', function(e) {
+          window.FlexDashboardUtils.showLinkedValue(dataHref);
+        });
+      }
+    }
+
+    // check for a valueOutputSpan
+    if (valueOutputSpan.length > 0) {
+      handleValueOutput(valueOutputSpan);
+    }
+
+    // if we have a shinyOutput then bind a listener to handle
+    // new valueOutputSpan values
+    shinyOutput.on('shiny:value',
+      function(event) {
+        var element = $(event.target);
+        setTimeout(function() {
+          var valueOutputSpan = element.find('span.value-output');
+          if (valueOutputSpan.length > 0)
+            handleValueOutput(valueOutputSpan);
+        }, 10);
+      }
+    );
+  }
+});
+
+
+</script>
+
+<div id="dashboard-container">
+
+<!-- a wee bit of JS that allows a modal popup when the first -->
+<!-- list element of the navbar (Instructions) is clicked -->
+<!-- adapted from: https://github.com/rstudio/flexdashboard/issues/208 -->
+<script>
+  $('.navbar-brand').wrap('<a href="http://www.gsawellfailure.com">');
+  
+  <!-- modal popup when valueboxes are clicked -->
+  $(document).ready(function() {
+    $('#dashboard-container').on('flexdashboard:layoutcomplete', 
+      function() {
+        $('#navbar li:nth-child(1)').click(function() {
+          $('#md-instructions').modal(); });
+    })
+  })
+  
+  $(document).ready(function() {
+    $('#dashboard-container').on('flexdashboard:layoutcomplete', 
+      function() {
+        $('#groundwater-level-decline').click(function() {
+          $('#md-groundwater-level-decline').modal(); });
+    })
+  })
+  
+  $(document).ready(function() {
+    $('#dashboard-container').on('flexdashboard:layoutcomplete', 
+      function() {
+        $('#well-failures').click(function() {
+          $('#md-well-failures').modal(); });
+    })
+  })
+  
+  $(document).ready(function() {
+    $('#dashboard-container').on('flexdashboard:layoutcomplete', 
+      function() {
+        $('#percent-of-failing-wells').click(function() {
+          $('#md-percent-of-failing-wells').modal(); });
+    })
+  })
+  
+  $(document).ready(function() {
+    $('#dashboard-container').on('flexdashboard:layoutcomplete', 
+      function() {
+        $('#cost').click(function() {
+          $('#md-cost').modal(); });
+    })
+  })
+</script>
+<div id="row" class="section level2 sidebar" data-width="150" data-padding="10">
+<h2>Row</h2>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<p><div class="dropdown">
+<button class="dropbtn">GSA</button>
+<div class="dropdown-content">
+<a href="https://www.gsawellfailure.com/gsas/ALL/400">ALL</a>
+<a href="https://www.gsawellfailure.com/gsas/northern-central/400">Northern Central (DM)</a>
+<a href="https://www.gsawellfailure.com/gsas/farmers/400">Farmers (DM)</a>
+<a href="https://www.gsawellfailure.com/gsas/east-kaweah/400">East Kaweah</a>
+<a href="https://www.gsawellfailure.com/gsas/chowchilla/400">Chowchilla</a>
+<a href="https://www.gsawellfailure.com/gsas/madera-joint/400">Madera Joint</a>
+<a href="https://www.gsawellfailure.com/gsas/central-kings/400">Central Kings</a>
+<a href="https://www.gsawellfailure.com/gsas/north-fork-kings/400">North Fork Kings</a>
+<a href="https://www.gsawellfailure.com/gsas/south-kings/400">South Kings</a>
+<a href="https://www.gsawellfailure.com/gsas/mc-mullin/400">Mc Mullin</a>
+<a href="https://www.gsawellfailure.com/gsas/gravelly-ford-madera/400">Gravelly Ford (Madera)</a>
+<a href="https://www.gsawellfailure.com/gsas/pixley-tule/400">Pixley (Tule)</a>
+<a href="https://www.gsawellfailure.com/gsas/westside/400">Westside</a>
+<a href="https://www.gsawellfailure.com/gsas/greater-kaweah/400">Greater Kaweah</a>
+<a href="https://www.gsawellfailure.com/gsas/new-stone-madera/400">New Stone (Madera)</a>
+<a href="https://www.gsawellfailure.com/gsas/mid-kaweah/400">Mid Kaweah</a>
+<a href="https://www.gsawellfailure.com/gsas/aliso/400">Aliso (DM)</a>
+<a href="https://www.gsawellfailure.com/gsas/merced/400">Merced</a>
+<a href="https://www.gsawellfailure.com/gsas/kings-river-east/400">Kings River East</a>
+<a href="https://www.gsawellfailure.com/gsas/north-kings/400">North Kings</a>
+<a href="https://www.gsawellfailure.com/gsas/henry-miller-kern/400">Henry Miller (Kern)</a>
+<a href="https://www.gsawellfailure.com/gsas/grassland/400">Grassland (DM)</a>
+<a href="https://www.gsawellfailure.com/gsas/tulare-lake/400">Tulare Lake</a>
+<a href="https://www.gsawellfailure.com/gsas/east-tule/400">East Tule</a>
+<a href="https://www.gsawellfailure.com/gsas/olcese-kern/400">Olcese (Kern)</a>
+<a href="https://www.gsawellfailure.com/gsas/root-creek-madera/400">Root Creek (Madera)</a>
+<a href="https://www.gsawellfailure.com/gsas/buena-vista-kern/400">Buena Vista (Kern)</a>
+<a href="https://www.gsawellfailure.com/gsas/kern-river/400">Kern River</a>
+<a href="https://www.gsawellfailure.com/gsas/delano-earlimart-tule/400">Delano-Earlimart (Tule)</a>
+<a href="https://www.gsawellfailure.com/gsas/sjrec/400">SJREC (DM)</a>
+<a href="https://www.gsawellfailure.com/gsas/fresno-county/400">Fresno County (DM)</a>
+<a href="https://www.gsawellfailure.com/gsas/james-kings/400">James (Kings)</a>
+<a href="https://www.gsawellfailure.com/gsas/kern-groundwater-authority/400">Kern Groundwater Authority</a>
+<a href="https://www.gsawellfailure.com/gsas/eastern-san-joaquin/400">Eastern San Joaquin</a>
+<a href="https://www.gsawellfailure.com/gsas/alpaugh-tule/400">Alpaugh (Tule)</a>
+<a href="https://www.gsawellfailure.com/gsas/lower-tule-river/400">Lower Tule River</a>
+<a href="https://www.gsawellfailure.com/gsas/tri-county-tule/400">Tri-County (Tule)</a>
+</div>
+</div><br/><br/><div class="dropdown">
+<button class="dropbtn">Groundwater scenario</button>
+<div class="dropdown-content">
+<a href="https://www.gsawellfailure.com/gsas/madera_joint/mt">Minimum Threshold</a>
+<a href="https://www.gsawellfailure.com/gsas/madera_joint/0">0 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/madera_joint/10">10 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/madera_joint/20">20 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/madera_joint/30">30 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/madera_joint/40">40 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/madera_joint/50">50 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/madera_joint/100">100 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/madera_joint/150">150 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/madera_joint/200">200 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/madera_joint/250">250 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/madera_joint/300">300 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/madera_joint/400">400 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/madera_joint/500">500 ft decline</a>
+</div>
+</div></p>
+<!-- Row {data-width=100} -->
+</div>
+<div id="row-1" class="section level2">
+<h2>Row</h2>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<p><div class="modal fade" id="md-instructions" tabindex="-1" role="dialog" aria-labelledby="md-instructions-title">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="md-instructions-title">Using Markdown</h4>
+</div>
+<div class="modal-body"><h4>4th-level headers work well</h4>
+
+<p>We can do our regular Markdown stuff in modal windows.</p>
+
+<ul>
+<li>\(F = ma\)</li>
+<li>\(E = mc^2\)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div><div class="modal fade" id="md-groundwater-level-decline" tabindex="-1" role="dialog" aria-labelledby="md-groundwater-level-decline-title">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="md-groundwater-level-decline-title">Using Markdown</h4>
+</div>
+<div class="modal-body"><h4>4th-level headers work well</h4>
+
+<p>We can do our regular Markdown stuff in modal windows.</p>
+
+<ul>
+<li>\(F = ma\)</li>
+<li>\(E = mc^2\)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div><div class="modal fade" id="md-well-failures" tabindex="-1" role="dialog" aria-labelledby="md-well-failures-title">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="md-well-failures-title">Using Markdown</h4>
+</div>
+<div class="modal-body"><h4>4th-level headers work well</h4>
+
+<p>We can do our regular Markdown stuff in modal windows.</p>
+
+<ul>
+<li>\(F = ma\)</li>
+<li>\(E = mc^2\)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div><div class="modal fade" id="md-percent-of-failing-wells" tabindex="-1" role="dialog" aria-labelledby="md-percent-of-failing-wells-title">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="md-percent-of-failing-wells-title">Using Markdown</h4>
+</div>
+<div class="modal-body"><h4>4th-level headers work well</h4>
+
+<p>We can do our regular Markdown stuff in modal windows.</p>
+
+<ul>
+<li>\(F = ma\)</li>
+<li>\(E = mc^2\)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div><div class="modal fade" id="md-cost" tabindex="-1" role="dialog" aria-labelledby="md-cost-title">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="md-cost-title">Using Markdown</h4>
+</div>
+<div class="modal-body"><h4>4th-level headers work well</h4>
+
+<p>We can do our regular Markdown stuff in modal windows.</p>
+
+<ul>
+<li>\(F = ma\)</li>
+<li>\(E = mc^2\)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div></p>
+<div id="groundwater-level-decline" class="section level3">
+<h3>Groundwater level decline</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<span class="value-output" data-icon="ion-arrow-down-a" data-color="bg-primary">400 ft.</span>
+</div>
+<div id="well-failures" class="section level3">
+<h3>Well failures</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<span class="value-output" data-icon="fa-times-circle" data-color="bg-danger">5000-10000</span>
+</div>
+<div id="percent-of-failing-wells" class="section level3">
+<h3>Percent of failing wells</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<span class="value-output" data-icon="fa-percent" data-color="bg-warning">15-60</span>
+</div>
+<div id="cost" class="section level3">
+<h3>Cost</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<span class="value-output" data-icon="ion-cash" data-color="bg-success">$1.2-1.3M</span>
+</div>
+</div>
+<div id="row-2" class="section level2">
+<h2>Row</h2>
+<div id="madera-joint-gsa-and-groundwater-levels" class="section level3">
+<h3>Madera Joint GSA and groundwater levels</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-0b4de86f957d234ea6a0" style="width:100%;height:400px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0b4de86f957d234ea6a0">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["CartoDB",null,"Light",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addRasterImage","args":["data:image/png;base64,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",[[41.0652008079021,-123.077303607865],[34.4977008079021,-118.138303607865]],0.8,null,"2019","2019 groundwater level"]},{"method":"addRasterImage","args":["data:image/png;base64,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",[[38.4344017153556,-121.639295994648],[34.7984017153556,-118.496295994648]],0.8,null,"2040","2040 min threshold"]},{"method":"addLegend","args":[{"colors":["#FCFDBF , #FED79B 7.7793377040786%, #FC9B6E 20.6843780459319%, #EB6063 33.5894183877852%, #C23D74 46.4944587296385%, #8C2980 59.3994990714917%, #59167D 72.304539413345%, #25104C 85.2095797551983%, #040210 98.1146200970516%, #000004 "],"labels":["100","200","300","400","500","600","700","800"],"na_color":null,"na_label":"NA","opacity":0.5,"position":"bottomright","type":"numeric","title":"Groundwater <br>level (ft. BLS)","extra":{"p_1":0.077793377040786,"p_n":0.981146200970516},"layerId":null,"className":"info legend","group":null}]},{"method":"addLayersControl","args":[["2019 groundwater level","2040 min threshold"],"critical priority GSAs",{"collapsed":true,"autoZIndex":true,"position":"bottomleft","position.1":"topright"}]},{"method":"addEasyButton","args":[{"icon":"fa-globe","title":"Zoom to center","onClick":"function(btn, map){ map.setView([37.1905613330082,-119.679747336801],8); }","position":"topleft"}]},{"method":"addPolygons","args":[[[[{"lng":[-119.937718865058,-119.945630810673,-119.948218998872,-119.975313206886,-119.983258673158,-119.983246231175,-119.989199299697,-119.990852597011,-120.001786414762,-120.011019075547,-120.011027429343,-120.020184633404,-120.024481650608,-120.02454805101,-120.029535169339,-120.038959932183,-120.042536232447,-120.042549017472,-120.048120781663,-120.051552551751,-120.060567187083,-120.060634284683,-120.074136484453,-120.076253798614,-120.089311535726,-120.089326739989,-120.089455385197,-120.090507588247,-120.091063293974,-120.091375342081,-120.091878833246,-120.092581730698,-120.0930076885,-120.112018588057,-120.113823946401,-120.113997749362,-120.114699539487,-120.115262511332,-120.115996227037,-120.116445936579,-120.116966936162,-120.117470293587,-120.117800333645,-120.118008347424,-120.118164486805,-120.118355614038,-120.118511644517,-120.119223560452,-120.119449372866,-120.124820746557,-120.126391531099,-120.12748694136,-120.127910231383,-120.129305580272,-120.129774657354,-120.131076314836,-120.133174330351,-120.135376526558,-120.136552096479,-120.140427511204,-120.148832592913,-120.15068048557,-120.150837142538,-120.160073304011,-120.16012300897,-120.155642191754,-120.16886571493,-120.164566159001,-120.164834576954,-120.150938517099,-120.146560001198,-120.146490363427,-120.128543527562,-120.128570851785,-120.132921421042,-120.132948928,-120.146396286013,-120.146459684914,-120.160152530328,-120.164746619243,-120.164840285885,-120.164840341601,-120.221559252295,-120.221567989871,-120.219658240403,-120.226745776089,-120.226692366135,-120.228532541629,-120.228599643116,-120.2371917999,-120.237257096343,-120.219157326427,-120.218937964278,-120.254998455596,-120.25521162042,-120.255374986484,-120.255438305805,-120.273197079576,-120.273224914377,-120.273275278201,-120.282281028712,-120.316862508298,-120.31364031829,-120.313487495651,-120.316484030864,-120.335264043422,-120.341206702074,-120.342647883493,-120.371181342987,-120.372712315125,-120.372664408835,-120.382754813387,-120.384024017456,-120.384237482074,-120.384652905772,-120.386761456401,-120.38711204616,-120.387240461378,-120.387356589935,-120.387622097682,-120.387844616935,-120.388210545038,-120.389025496068,-120.389434972429,-120.3896549711,-120.38946976112,-120.38897610855,-120.389007941228,-120.390803943147,-120.391159125406,-120.391557653263,-120.392153233785,-120.393352914106,-120.394134391762,-120.394695453963,-120.395417345634,-120.395970993083,-120.39590396685,-120.396872125106,-120.397269331215,-120.397021855774,-120.399152994515,-120.399786957202,-120.426605830595,-120.426696359679,-120.440421977592,-120.440442300472,-120.440448282776,-120.441664685077,-120.445855567181,-120.446201664075,-120.446293072967,-120.444898709992,-120.443469806986,-120.444272643437,-120.444010556816,-120.444685254221,-120.446948712671,-120.446791990758,-120.446838322031,-120.44585339262,-120.449505675309,-120.449501189428,-120.445176860524,-120.444939070781,-120.42069113249,-120.415778813342,-120.414252172799,-120.400349231332,-120.38240624835,-120.382287085481,-120.363580793918,-120.363610458056,-120.363640677975,-120.345539962899,-120.327545927203,-120.339206883991,-120.327623010793,-120.328417913456,-120.310195819581,-120.310468150485,-120.292397591476,-120.292415084189,-120.243390691516,-120.238642578106,-120.238642204517,-120.202501248874,-120.202348710586,-120.183024294743,-120.202348657564,-120.197577951061,-120.197529261766,-120.165777317369,-120.165899743878,-120.14721839861,-120.147219065907,-120.151524119642,-120.074493594504,-120.074847480931,-120.064768223921,-120.063916156206,-120.051446156205,-120.043274620727,-120.03845726549,-120.026380564711,-120.02034513442,-120.011456578858,-120.005787921775,-120.006865099145,-119.993467627929,-119.995385684002,-119.98743200878,-119.978419317098,-119.976002482629,-119.964534223576,-119.976732222214,-119.974840190722,-119.956086773785,-119.945835145476,-119.944267572291,-119.933941139272,-119.930744114149,-119.919279768946,-119.91282075977,-119.91161249542,-119.898596576871,-119.887370138321,-119.902394672876,-119.901941344417,-119.892990038659,-119.877158045108,-119.898610017238,-119.900707171499,-119.891093727294,-119.878057869875,-119.877783512799,-119.871334938457,-119.860786845936,-119.854458725889,-119.846195042667,-119.850133728789,-119.840852972587,-119.816159130639,-119.808407942273,-119.804385334116,-119.796566330572,-119.790136146466,-119.79348063972,-119.802521454102,-119.802045730726,-119.806165972881,-119.79475982011,-119.800493577317,-119.797892784724,-119.788541584626,-119.788852870564,-119.775641760459,-119.771838096751,-119.772316868828,-119.757422210766,-119.755342093263,-119.752795454247,-119.733630767446,-119.721136064478,-119.717441410293,-119.709988998294,-119.710318702346,-119.710902398327,-119.711273992817,-119.711447115968,-119.71184649625,-119.712142063405,-119.712333913979,-119.712410548808,-119.712659238333,-119.712766789187,-119.712917746012,-119.713183642011,-119.716134687266,-119.716621080199,-119.716812181686,-119.718044617965,-119.718287862994,-119.718739354138,-119.719607120772,-119.720215076864,-119.720423110738,-119.720770664851,-119.723878674175,-119.724833449904,-119.725978973051,-119.72625709379,-119.728375064793,-119.728618333969,-119.730059480905,-119.730701557731,-119.732437604512,-119.732680791985,-119.736257259341,-119.736604585333,-119.737055726827,-119.737316742393,-119.738965580093,-119.739469054126,-119.742785022746,-119.742576515394,-119.742299083536,-119.741465275706,-119.742539792087,-119.742561193414,-119.744781638906,-119.74933527923,-119.749467080168,-119.758567714719,-119.758577434205,-119.766834183414,-119.766861305688,-119.776236417668,-119.776241632953,-119.785261432557,-119.785175069552,-119.79401252332,-119.793779466123,-119.771152655804,-119.77106854804,-119.758540497904,-119.758419845864,-119.749088580074,-119.749316669728,-119.73880762757,-119.735961405646,-119.735302087321,-119.735058933556,-119.734433583637,-119.734260014299,-119.745718581148,-119.745892452475,-119.746952041003,-119.747177595771,-119.747246777057,-119.747767554229,-119.748097734922,-119.748670622019,-119.749034891668,-119.749330021064,-119.749504053369,-119.749937642041,-119.750042009831,-119.75151801708,-119.752038542545,-119.751431102663,-119.750979481379,-119.757004066658,-119.757547473923,-119.758444643705,-119.75898301665,-119.766014860597,-119.766813401917,-119.77026828876,-119.770824208292,-119.771327739583,-119.77370584762,-119.774035682801,-119.774435515986,-119.774140428638,-119.775459565906,-119.783046580734,-119.783532749514,-119.783688817685,-119.783880033337,-119.784018733977,-119.784244796701,-119.784504751231,-119.789783215119,-119.789748408313,-119.785268560935,-119.785253729776,-119.786238633417,-119.78733456314,-119.787612210835,-119.789383405819,-119.789643469996,-119.789955908838,-119.790512000486,-119.790893888242,-119.791999474586,-119.793109931078,-119.799001636217,-119.799261899117,-119.800546930496,-119.800738054705,-119.804609788711,-119.80478336506,-119.811199936169,-119.81161910763,-119.813533566221,-119.819887909002,-119.820651640861,-119.821623968971,-119.822005834602,-119.822388129209,-119.822665977453,-119.823255709687,-119.823585663756,-119.825825854633,-119.826138071015,-119.826242219703,-119.826468297574,-119.826936549382,-119.827978449945,-119.830617220009,-119.830895555739,-119.834003503859,-119.834298566925,-119.834958458244,-119.835322619716,-119.835531288338,-119.835722164946,-119.835843622423,-119.836242519876,-119.836746545031,-119.837215049753,-119.837579633143,-119.837770506703,-119.83822239175,-119.838343928829,-119.838535063542,-119.838691057247,-119.838777898481,-119.83877793985,-119.838643291555,-119.838424416354,-119.840596185076,-119.840706215819,-119.845779521708,-119.84666306245,-119.846837655933,-119.847578101948,-119.848351230704,-119.848897753628,-119.848901765504,-119.848750352906,-119.849172106208,-119.849558427979,-119.847490516974,-119.847092490526,-119.847092145186,-119.846319855077,-119.84570175825,-119.843626306624,-119.843498728583,-119.842737814133,-119.833879794017,-119.824883113864,-119.820199572352,-119.820852632143,-119.829930218904,-119.830287408037,-119.810978300008,-119.8108883723,-119.799931349053,-119.800462925723,-119.793615226861,-119.793886586497,-119.794130714661,-119.794165400695,-119.794143403276,-119.802951735591,-119.81080903235,-119.812110228937,-119.81219704743,-119.821085735409,-119.821042057404,-119.83054028528,-119.830540301893,-119.839662695577,-119.839628193986,-119.853307231244,-119.857649962076,-119.85756080059,-119.871176735118,-119.875629409869,-119.875164564693,-119.879678852897,-119.879726429731,-119.884163872664,-119.884132098717,-119.883676048011,-119.883235208438,-119.882902525831,-119.882486816913,-119.882222692323,-119.881483268838,-119.881257615447,-119.881101382523,-119.881297533766,-119.88145371082,-119.881644723238,-119.885273029926,-119.886102222867,-119.892669613812,-119.893121017905,-119.89947550712,-119.89963146452,-119.908347029192,-119.908347465363,-119.908451210437,-119.90865991952,-119.916090911466,-119.916333317429,-119.91866026403,-119.919215611311,-119.92355628366,-119.923833788299,-119.925153775426,-119.925570509632,-119.926039316261,-119.93288128914,-119.933002033017,-119.934094775853,-119.934285546341,-119.934563871229,-119.934841693422,-119.937718865058],"lat":[36.8366902893267,36.8342625216727,36.8366838214962,36.8366592375569,36.841754371886,36.843838568937,36.8438069320587,36.8366919320323,36.8366406925794,36.8325819297137,36.8330401269358,36.8252572139276,36.8197728026681,36.8220731094207,36.8220756711405,36.8172667079381,36.8195558132929,36.8195633395431,36.8211388201702,36.8234183264744,36.8221714476044,36.8257886828209,36.8258459183139,36.8245897411064,36.8222237181101,36.8222209885381,36.8221741521301,36.8218219737075,36.8215426398941,36.8214219241508,36.821057998426,36.8204201258195,36.8200335661941,36.8136352513665,36.8139832873158,36.8140009738006,36.8139498158681,36.8138769206575,36.8138593696821,36.8138713646927,36.8138366907166,36.8137136073506,36.8136540948509,36.8136006088201,36.8136021399493,36.813566241339,36.8134979048099,36.8133235745533,36.813297620616,36.8126809831852,36.812308021881,36.8120304672003,36.8120193325517,36.8115696341538,36.8114507671605,36.8111551205571,36.8105395512281,36.8096027505022,36.8095863983635,36.8076683658161,36.8076329117551,36.8076301558161,36.8222084193728,36.8221946357618,36.8294128898929,36.8329929928861,36.8329839650848,36.8366710905985,36.8657270140905,36.8657748490301,36.8729229615636,36.8657155672599,36.8657137796672,36.8693030154451,36.8692906307858,36.8729064953428,36.8728982483235,36.8801857293938,36.8802874042176,36.8728926979797,36.8802876771305,36.8802927666112,36.880006488534,36.8824450988623,36.8870346293038,36.8870564599394,36.8821546788343,36.8821113002665,36.8799657907558,36.879904943022,36.8652974137618,36.8654077569359,36.8510646723659,36.8510354267653,36.8652747488923,36.8652744037975,36.8802566301322,36.8802403753429,36.9008787839417,36.9008809574977,36.9012598626923,36.8730282023897,36.8589039690789,36.8510800940711,36.8509900799929,36.8567839983352,36.858518554913,36.8585273790354,36.8586984523618,36.8587074370134,36.8656844006146,36.8665718237212,36.8667095649864,36.8671602465482,36.8675973166028,36.8677477115901,36.867907870005,36.8680760810463,36.8686040019732,36.8689570623186,36.8690467193307,36.8690810521511,36.8691577458722,36.8694393604982,36.8698860008383,36.8702088709427,36.8712674550728,36.8714421402739,36.8719601198637,36.8720715001926,36.8726806072243,36.873470506059,36.8742926617769,36.8744496472472,36.8745625202791,36.875492847517,36.8761470922484,36.8766796123875,36.8775563536098,36.8779851449985,36.87839514502,36.8798693919589,36.8946884916806,36.8946118217782,36.886940010598,36.8869743661741,36.8992936653704,36.8992949262132,36.9009994265823,36.9028148367354,36.9038180466655,36.9052782749725,36.9134053683293,36.9136557125411,36.9153349083695,36.9163597416185,36.917200220414,36.9179158740539,36.9187557210997,36.9194578065326,36.9212375612645,36.9233956239894,36.9233956454927,36.9234165151601,36.9234176581984,36.9235316769454,36.9235542076606,36.9235496283127,36.9236235561822,36.9237417288978,36.9237736647229,36.9235285994653,36.9093978831059,36.8950074065666,36.8948436571091,36.8947325269846,36.9240934879242,36.9239587236162,36.996515834738,36.9965559534946,37.0109768424074,37.0109640900208,37.0176820580806,37.0175807110445,37.025533302686,37.0619423298595,37.0618729934403,37.0797174871738,37.0645344166205,37.0797228632196,37.0909293206317,37.098104030077,37.0984026436671,37.1125488013861,37.1124406525142,37.1213033282861,37.1269894232234,37.1267677115608,37.1769361194911,37.1779218595191,37.1784208434472,37.1838576652015,37.1803010776327,37.166755037515,37.1639720224909,37.1506381585242,37.1509235655702,37.1478789062866,37.1372076057465,37.1369103384414,37.1230669896499,37.1161560684479,37.1231955360453,37.111956478209,37.1106131680633,37.1004080949577,37.0912221228027,37.0843322367434,37.0759496217776,37.0699037197808,37.0676351151685,37.0765149976691,37.081795968709,37.079955431498,37.0876781581205,37.0814249210233,37.0821868680296,37.0679702682134,37.0586018092261,37.0576343797228,37.0407692521993,37.0475388386465,37.0357528536113,37.0326754212337,37.023277211774,37.0172217742655,37.0157788570086,37.0043622172426,37.0078891352755,37.0184568186273,37.0266602841449,37.0282053715806,37.0254454052813,37.0301785560955,37.036145895117,37.0415071918035,37.0422312108018,37.0321541687799,37.0275856370675,37.0223312724703,37.0113347743804,37.0068318706944,37.0004545775168,36.9964713515716,36.9986973256211,37.0098384913533,37.0114588637356,37.0097093792845,36.9987350180068,36.9953915670672,37.0118035927616,37.015075085347,37.0144381198234,37.0073626856395,36.9998916261977,36.9949416506366,36.9946714349388,36.9942962611637,36.9939951545926,36.9938219706535,36.9934817039746,36.9932218015449,36.9929822050648,36.9928864983132,36.9925759165454,36.9924415972408,36.9922196595693,36.9918765938298,36.9895683381084,36.9893587843805,36.9893077912977,36.9887606713678,36.9886209589901,36.9883092575662,36.9877699008603,36.98732720059,36.9871099450679,36.9866510239616,36.9844550479704,36.9838821883124,36.9833741046313,36.9832751198509,36.9818331537092,36.9816935604095,36.9806429812112,36.9799939451645,36.9785955983083,36.9784737077955,36.9749749330325,36.9744371025903,36.9740281949716,36.9739160350984,36.9720241293412,36.97131260452,36.9538916350601,36.9537958036335,36.953752185615,36.9536728429473,36.9526689698106,36.9526638015851,36.9559312157797,36.9558978205021,36.9595652860435,36.9595586207611,36.9667279703695,36.9666183145573,36.9702790173866,36.9702671429808,36.9739025961889,36.9738537333729,36.9665053919488,36.9666303899634,36.9520548376235,36.9522176264363,36.948371622169,36.9484496976263,36.9447900773022,36.9448509235313,36.9523475336119,36.9524099492598,36.9527106447266,36.9511291312045,36.950644945426,36.949809945631,36.9496024220992,36.93891762295,36.9388728016385,36.9386046056121,36.93843042397,36.938421152909,36.9382665074933,36.9380750454271,36.9375545230838,36.937319060294,36.9372595905577,36.9372576381295,36.9370757382856,36.9369636407595,36.9360084535267,36.9358425422995,36.9317800204317,36.9311639909227,36.9203740083083,36.9205958447293,36.92042692856,36.9202365638463,36.9188380306506,36.918760742914,36.9193321818507,36.9192730928902,36.9191065709116,36.9177363209508,36.9173803123516,36.9157490051126,36.915261140889,36.9092891568691,36.902092579124,36.9016845352894,36.9015107190445,36.901364869693,36.9012853462417,36.9010954895879,36.9007646978348,36.8943860269764,36.8942115806756,36.8843407414973,36.8836818402448,36.8788348018237,36.8775889028056,36.8768844827327,36.8758871660599,36.8759211562513,36.8760423260926,36.8763727504436,36.876477662714,36.8762150578252,36.8760486294407,36.8723869542945,36.8719277109951,36.8697411803113,36.8694287897658,36.8653315363214,36.8653228263875,36.8596215132948,36.8571968377593,36.8499058861477,36.8485938803003,36.8482740321209,36.8482641152967,36.8482991313,36.8482913413723,36.8483347750299,36.8482739436756,36.8484111472365,36.8488540506944,36.8492025083891,36.8493764849368,36.8496708339419,36.849940232156,36.8504005951114,36.8511895955235,36.8514246862806,36.852309520368,36.8521888978994,36.8526211098845,36.8528470324773,36.8529517001609,36.8530830533402,36.8532124125066,36.8534302267237,36.8538198292751,36.8540463117904,36.8542971097884,36.8543765167629,36.8546700977469,36.8547657145661,36.854991601781,36.855626518649,36.8557819754578,36.856919522518,36.8570585073443,36.8572587566864,36.8609061347754,36.8609514962146,36.8607117378565,36.8605469982454,36.860513729625,36.8603052523856,36.8594070768304,36.858649763276,36.8586387699633,36.8580250580626,36.8564270861412,36.8633127615747,36.863649769921,36.8630967093457,36.8628610366076,36.862894226987,36.8627322616124,36.862567973981,36.8625578733472,36.8626143501722,36.8599062942402,36.8662528440936,36.8664148722486,36.8737196254604,36.8734256208957,36.8802371796022,36.8805299188207,36.8951101298287,36.8955585407941,36.9086659141007,36.9130230655621,36.9304830901226,36.9304828194267,36.9375897488985,36.930482812445,36.9304777537143,36.9303218149713,36.9303249964714,36.9376735458002,36.9376808538362,36.9232364899114,36.9232981657158,36.9232931965238,36.9231344275118,36.9164750053173,36.9163873735784,36.9092968361801,36.9020941047592,36.9020798289211,36.8984585800994,36.8803960880091,36.8803796978648,36.8658520261501,36.8622675739894,36.8592604182337,36.8592220945241,36.8591207193457,36.8589962207989,36.8587668846841,36.8585621324365,36.8577851262826,36.8575628606376,36.8573898004989,36.8571965558039,36.8573696215109,36.8574646316848,36.8592090354687,36.8592463975246,36.851797317792,36.8518473497717,36.852220737314,36.8521773613961,36.8472659253823,36.8471690683979,36.8469082366028,36.8466838256981,36.8449036473855,36.8449391742036,36.845224832751,36.8456153852419,36.8478296870534,36.8478121529086,36.8478193214046,36.8479494777122,36.8481238048698,36.8420120419222,36.8417081556069,36.8403548602886,36.8399631776586,36.8394860711507,36.8387926151335,36.8366902893267]},{"lng":[-120.273275278201,-120.2732933607,-120.254837172398,-120.231874947107,-120.254849957866,-120.273306147791,-120.273275278201],"lat":[36.9008809574977,36.9090208630225,36.9235998680395,36.9236661257068,36.9236048910355,36.9090258836658,36.9008809574977]},{"lng":[-120.228771965791,-120.219677272288,-120.219821733086,-120.201320963592,-120.198943762245,-120.201333740519,-120.219834514011,-120.219690051762,-120.228771965791],"lat":[36.9161738664195,36.9162360527516,36.9236449330672,36.9236359479407,36.9344431171562,36.9236409743697,36.9236499582218,36.9162410778418,36.9161738664195]},{"lng":[-120.228971115784,-120.220270306829,-120.220458930344,-120.220283089885,-120.228971115784],"lat":[36.9491661515173,36.9529437625446,36.963855658906,36.9529487903944,36.9491661515173]},{"lng":[-120.2383805016,-120.238517051121,-120.229486886511,-120.229525371382,-120.229499674014,-120.23852983942,-120.2383805016],"lat":[36.9674075804384,36.9746318786583,36.9746186397385,36.9819267244346,36.9746236693692,36.9746369069997,36.9674075804384]},{"lng":[-120.274363316159,-120.283531377991,-120.283450414486,-120.283518579519,-120.274363316159],"lat":[36.9950558094146,36.9938292552625,36.9817681151715,36.9938242268067,36.9950558094146]},{"lng":[-120.256567408091,-120.25639680213,-120.262514649327,-120.256384011713,-120.256567408091],"lat":[36.9818911140669,36.9673279187033,36.9673036716858,36.9673228923377,36.9818911140669]},{"lng":[-120.292088928911,-120.292347195267,-120.274361882994,-120.274223274984,-120.265974481837,-120.261408121224,-120.265987277428,-120.27423607166,-120.274374679905,-120.292359994442,-120.292088928911],"lat":[36.971541433238,36.9962144665244,36.9964469385753,37.003575036159,37.0037653650796,37.0109289031616,37.003770394629,37.0035800648208,36.9964519667158,36.9962194934777,36.971541433238]},{"lng":[-120.17731597211,-120.179878532665,-120.15767406861,-120.165618170544,-120.165728923451,-120.165605386779,-120.15766128574,-120.17986574311,-120.17731597211],"lat":[37.0655319133784,37.0619527567015,37.0436279557587,37.0401677649671,37.0256418350906,37.0401627251297,37.0436229152654,37.0619477153149,37.0655319133784]},{"lng":[-120.165728923451,-120.128774890749,-120.110782280478,-120.110821900429,-120.110795053715,-120.128787668393,-120.165728923451],"lat":[37.0256418350906,37.0256043118896,37.0328761013511,37.0364610267433,37.0328811442323,37.0256093534173,37.0256418350906]},{"lng":[-120.080358300268,-120.083459697082,-120.083388508244,-120.092469804106,-120.092469138642,-120.097616970778,-120.101706651641,-120.108326680134,-120.119384707619,-120.12862189144,-120.128454934775,-120.110433572848,-120.110359572609,-120.108143305513,-120.101450428744,-120.101376234073,-120.092211968363,-120.092250927717,-120.083102063977,-120.067239876018,-120.069500739871,-120.05593879534,-120.05601405376,-120.048029415288,-120.047238669616,-120.033160831697,-120.032583507083,-120.037414893112,-120.037643113298,-120.046518950414,-120.036086368415,-120.041233939525,-120.055107872671,-120.057914010301,-120.083497958625,-120.095634799854,-120.095640667727,-120.092489708166,-120.092461690058,-120.092457035264,-120.083375740598,-120.083446927334,-120.080358300268],"lat":[37.0286146205764,37.0286351330309,37.0147110623933,37.0111561410617,37.0006822021049,36.9998444035511,37.0013515720739,37.0001096482274,36.9964108717848,37.0061077687976,36.982014858365,36.9820268999183,36.9602247808695,36.9526925889197,36.9525889256341,36.9454099489157,36.9418769245713,36.9347416091712,36.9382777040404,36.9383193290616,36.9309843463332,36.9310265476568,36.9382937659792,36.9382557348657,36.9288324899799,36.9273497705041,36.9356744189325,36.9406649478346,36.9706976490246,36.9814863333213,36.9814900176643,36.9867943400688,36.9868360675072,36.9828100860572,36.9828971745509,36.9926793722977,36.9926841712151,36.9926842171102,36.9964101679614,37.0111510986443,37.0147060179684,37.0286300881081,37.0286146205764]},{"lng":[-120.023633156723,-120.01944575122,-120.019517672101,-120.019458505886,-120.023633156723],"lat":[36.9843428577867,36.9865150444338,36.996055274266,36.9865200893716,36.9843428577867]},{"lng":[-119.933877160198,-119.945013616585,-119.929074553348,-119.916509644178,-119.929087279332,-119.945026345312,-119.933877160198],"lat":[36.8433323899324,36.8511547836665,36.8513379377957,36.8584721936757,36.8513429767237,36.851159821623,36.8433323899324]},{"lng":[-119.913155085658,-119.911132140536,-119.910929155432,-119.911144863702,-119.913155085658],"lat":[36.8548935477445,36.8549481726202,36.8767327939858,36.8549532126628,36.8548935477445]},{"lng":[-119.91530327239,-119.920391027008,-119.924946351654,-119.920378298919,-119.91530327239],"lat":[36.8876103787729,36.8803284978621,36.8803339001051,36.8803234560627,36.8876103787729]},{"lng":[-119.987825940106,-119.983235611135,-119.983206580752,-119.983248352968,-119.987825940106],"lat":[36.9164947204014,36.9232258094236,36.9376811010961,36.9232308516715,36.9164947204014]},{"lng":[-119.986760368262,-119.993862052592,-119.989986282141,-119.974282232439,-119.974359569032,-119.974294976253,-119.989999027728,-119.993874799154,-119.986760368262],"lat":[36.9377206418165,36.9455391351231,36.9487950910207,36.9507062600859,36.9595496436054,36.9507113049015,36.9488001342453,36.94554417832,36.9377206418165]},{"lng":[-119.974359569032,-120.005607898848,-119.996689219888,-120.009194567766,-120.010222146964,-120.028376947032,-120.010209399044,-120.009181818386,-119.996676472841,-120.005595149397,-119.974359569032],"lat":[36.9595496436054,36.9597027924264,36.9496011423539,36.9471048373528,36.9416141603273,36.9417676205181,36.9416091193654,36.9470997952194,36.9495960991806,36.9596977493517,36.9595496436054]},{"lng":[-120.028376947032,-120.019532064553,-120.012760607516,-120.010622971931,-120.012773357532,-120.019544816016,-120.028376947032],"lat":[36.9417676205181,36.9524789200662,36.9525460148868,36.9598664815856,36.9525510567982,36.9524839622032,36.9417676205181]},{"lng":[-120.010610894827,-120.006384447484,-120.019582791712,-120.01955651979,-120.019595544875,-120.006397196722,-120.010610894827],"lat":[36.9597581796347,36.959695650334,36.9757283419895,36.9782164765834,36.9757333861629,36.9597006940214,36.9597581796347]},{"lng":[-120.022237607046,-120.025341952069,-120.008225931508,-120.02535470713,-120.022237607046],"lat":[36.9783436599309,36.9832015678981,36.9913041071674,36.9832066118302,36.9783436599309]},{"lng":[-120.008245430851,-120.005788440684,-119.991796788881,-120.005801193263,-120.008245430851],"lat":[36.9851771822673,36.9923977842304,37.0004331087012,36.9924028316888,36.9851771822673]},{"lng":[-119.987477652705,-119.977868457164,-119.970946088491,-119.960445856991,-119.952972984795,-119.960458606015,-119.970958837207,-119.977881207169,-119.987477652705],"lat":[37.0059105583813,37.0104953220016,37.0104576817766,37.0189394371054,37.0279371404529,37.0189444899624,37.0104627329659,37.010500372202,37.0059105583813]},{"lng":[-119.951442443562,-119.94112948244,-119.933579201364,-119.941142229383,-119.951442443562],"lat":[37.0264418906978,37.0337401402952,37.0472379498231,37.0337451956254,37.0264418906978]},{"lng":[-119.936165706819,-119.941697795563,-119.954225531304,-119.965274013846,-119.954212782694,-119.941685047627,-119.936165706819],"lat":[37.0485954784896,37.0458562823433,37.0273007556034,37.0249788095938,37.0272957019352,37.0458512257535,37.0485954784896]},{"lng":[-119.947232781265,-119.965255845931,-119.961796644614,-119.947200664379,-119.947232781265],"lat":[36.8729707063193,36.8729761489366,36.867492935017,36.8674488344961,36.8729707063193]},{"lng":[-119.894599917463,-119.903198023441,-119.903124857548,-119.894148126235,-119.894599917463],"lat":[36.9229039734993,36.9228767048375,36.9094106580051,36.9092251530184,36.9229039734993]},{"lng":[-120.178893224724,-120.19122552239,-120.191081960295,-120.178722028499,-120.178893224724],"lat":[36.9327729161995,36.9305500638032,36.9237853352167,36.9237864144115,36.9327729161995]},{"lng":[-120.15611594993,-120.158273098573,-120.156116449985,-120.165576421547,-120.174213308739,-120.183393842218,-120.15611594993],"lat":[36.938374346427,36.9436571916774,36.9438046841169,36.9454592240453,36.9454119096596,36.93827311752,36.938374346427]},{"lng":[-120.038437991727,-120.056704276381,-120.056546581033,-120.042863828403,-120.038394200532,-120.038437991727],"lat":[37.1486091565693,37.1485664725323,37.1268009283622,37.1267765914666,37.1302870941741,37.1486091565693]},{"lng":[-120.130905472842,-120.147130221889,-120.146960722577,-120.121648334603,-120.130905472842],"lat":[37.0979818997673,37.0980892474302,37.0838225842487,37.0837861522092,37.0979818997673]},{"lng":[-119.925459716785,-119.912851780086,-119.912854286948,-119.931644584781,-119.930748496024,-119.930193395784,-119.926142723177,-119.925459716785],"lat":[37.0482492695758,37.0606845419581,37.0644589538712,37.0501695878942,37.0504872347412,37.0496001675746,37.0493000682683,37.0482492695758]},{"lng":[-120.074137997648,-120.07428922116,-120.073782473582,-120.056334866782,-120.056261635909,-120.035810732479,-120.029055312899,-120.029020776805,-120.02682383243,-120.026786544965,-120.001738199059,-120.001952575379,-120.02924905687,-120.029294819575,-120.029304954851,-120.029032455061,-120.02839649659,-120.02594361823,-120.0241931519,-120.020209505642,-120.019761658933,-120.016189746254,-120.014671993612,-120.001795547926,-120.002069839689,-120.018248513715,-120.022783931353,-120.029469118368,-120.029331541072,-120.056503581395,-120.056456739387,-120.039592811559,-120.038307142273,-120.03940944025,-120.038308789538,-120.056520295079,-120.056559463426,-120.074776635089,-120.074743205955,-120.082260541711,-120.081548116752,-120.074699889719,-120.082129171694,-120.082141585156,-120.082486620251,-120.082693249495,-120.083016426682,-120.082878040817,-120.08293673182,-120.082285306278,-120.092819171973,-120.09273219322,-120.111058831164,-120.111325207932,-120.129098760351,-120.129046854772,-120.140657014454,-120.134983202102,-120.134538909382,-120.132650892243,-120.12606465839,-120.129279778714,-120.119524143157,-120.074508022327,-120.065439544068,-120.065461629096,-120.056481143304,-120.056337984691,-120.059740728811,-120.060008532935,-120.061766401652,-120.062409354428,-120.070710441856,-120.074538372138,-120.074573870248,-120.07903850623,-120.074524742639,-120.07433995275,-120.074137997648],"lat":[37.0449145558664,37.0334304863924,37.0399879715677,37.0399380209791,37.032691903996,37.032699253268,37.0363235154353,37.0346226919102,37.0346221556373,37.0327047675459,37.0325911043959,37.0542320326927,37.0544060902488,37.0580460603305,37.0580511080339,37.0676950561228,37.0672066152378,37.0689781916506,37.0679576009754,37.0678655658442,37.067635686775,37.0699466970229,37.0682720920846,37.076450861618,37.0794479233778,37.079412677091,37.0831784491587,37.0832130421061,37.0976928421885,37.0976581801831,37.1019826747606,37.1020195127903,37.1079191456793,37.1079877020027,37.109287595699,37.1092330310942,37.1122486199591,37.1123730690946,37.1150807963771,37.1151281414937,37.1223571286786,37.1237363444143,37.1237291423916,37.1266974754913,37.1266986915848,37.1266994198601,37.1264275492447,37.1263978149866,37.1223459219189,37.1223079884977,37.1210065101359,37.1267328951932,37.1266841828593,37.1197516816404,37.1197752778721,37.1126993657538,37.1126160294237,37.1047915378352,37.1049389277845,37.1023437218541,37.1025688461333,37.0968974527415,37.0834718338171,37.0832578184935,37.0868253863309,37.0832463996931,37.0832166062279,37.0626529089423,37.0619712553746,37.0620870004884,37.0620531233438,37.0624389105663,37.0545368366881,37.054547896799,37.0591685695375,37.0509273452423,37.050919953535,37.0449046828259,37.0449145558664]},{"lng":[-119.965605670521,-119.974725381874,-119.974502796023,-119.965560978656,-119.965605670521],"lat":[37.0610894315139,37.0611950979633,37.053901072677,37.0537541765141,37.0610894315139]},{"lng":[-120.138111398788,-120.138098338522,-120.129174812967,-120.12917719927,-120.147006710164,-120.146992863862,-120.155747376576,-120.155850059358,-120.166129612549,-120.166013364578,-120.17493413825,-120.174970684268,-120.147130122057,-120.147233051264,-120.138111398788],"lat":[37.0763470527916,37.0761871157092,37.0761181520311,37.0833218576942,37.0834263225877,37.0779697832402,37.0779228501354,37.0694437514565,37.0695193200761,37.0834937465701,37.0835430594239,37.0619502474708,37.061800359599,37.0762519792455,37.0763470527916]}],[{"lng":[-119.975399088797,-119.959477756132,-119.968541077711,-119.975399088797],"lat":[36.8345895494682,36.8357443698198,36.8322993209959,36.8345895494682]}],[{"lng":[-120.222932966483,-120.222945362738,-120.213964657243,-120.213964580801,-120.204971381924,-120.20494672701,-120.240940885913,-120.240880183474,-120.23682434177,-120.222931198416,-120.222932966483],"lat":[36.8219283792913,36.8182657652529,36.8183206913469,36.8146793642613,36.8147549010179,36.8076435775891,36.8074816681445,36.8365729592747,36.8365518485891,36.8365280552257,36.8219283792913]}],[{"lng":[-120.099344271021,-120.09962269663,-120.099917758008,-120.100212511825,-120.100837843528,-120.101184623871,-120.101427795238,-120.101722848331,-120.102226348536,-120.102434978727,-120.102643073735,-120.10420569124,-120.104448858028,-120.104848089568,-120.105039418695,-120.10550820454,-120.10590730298,-120.106185257654,-120.107070569008,-120.107400468956,-120.107956178935,-120.108129782264,-120.108320610308,-120.108494400825,-120.10868534873,-120.09326777139,-120.093511291613,-120.093559482737,-120.094448712539,-120.094743718948,-120.094934968813,-120.095230187486,-120.096410105142,-120.097070012371,-120.097452226164,-120.097452047476,-120.09764322607,-120.097816540501,-120.098059958201,-120.098268043369,-120.098875547484,-120.099344271021],"lat":[36.8148694683513,36.8148243898338,36.8148585821122,36.8148432906699,36.814754897875,36.8146081190694,36.8143999950436,36.8141909829276,36.8139914895818,36.8139560235811,36.8139385518608,36.8133660141303,36.8133066166071,36.8132893936907,36.8133413791795,36.8133572691228,36.8133241578836,36.8132543219791,36.8130889061224,36.8129415620036,36.8126194122561,36.8125852335217,36.8125763437233,36.8126121722139,36.8126190253944,36.8198416122007,36.819590768799,36.8195532207284,36.8186608020325,36.8182894390064,36.8179922440624,36.8177246260543,36.8171249464591,36.8168301765715,36.8162222830267,36.8159879389027,36.8155622495115,36.8153886325793,36.8152503824992,36.815154054237,36.8150585169705,36.8148694683513]}],[{"lng":[-119.983258673158,-119.983408961954,-119.988941272622,-119.983246231175,-119.983258673158],"lat":[36.841754371886,36.8407838255062,36.8390247701771,36.843838568937,36.841754371886]}],[{"lng":[-120.011019075547,-119.991267656877,-119.991528345157,-119.991284994013,-119.99083341563,-119.990747009857,-119.995469624024,-119.995816432607,-120.000990233179,-120.001598070295,-120.002327042759,-120.002743793991,-120.004983448748,-120.005209434849,-120.008525597478,-120.008907314721,-120.010851949358,-120.011737516273,-120.012553515234,-120.012692407429,-120.020036056319,-120.011027429343,-120.011019075547],"lat":[36.8325819297137,36.836055759166,36.8342510437507,36.8335576972621,36.8314218665259,36.8311606664179,36.8282883740093,36.8282701127759,36.8273058184306,36.8273661192511,36.8276617425955,36.8278457501812,36.8276702358349,36.8275317571168,36.8279757903505,36.8280868188517,36.827966883465,36.8279305310692,36.8280975937837,36.8281844564476,36.8249896508518,36.8330401269358,36.8325819297137]}],[{"lng":[-120.024481650608,-120.02158142884,-120.022102322464,-120.031356116092,-120.031512047743,-120.032397727973,-120.033478836279,-120.02454805101,-120.024481650608],"lat":[36.8197728026681,36.8200247231624,36.8189293821852,36.8149798493406,36.8150243711779,36.8153619424997,36.8199577875219,36.8220731094207,36.8197728026681]}],[{"lng":[-120.042536232447,-120.042710748557,-120.042953388833,-120.043126886397,-120.043405204554,-120.043665080599,-120.043804132104,-120.044533337256,-120.044706809354,-120.044967652953,-120.045158606884,-120.045349720913,-120.045887786192,-120.046078580062,-120.046964072485,-120.047311689982,-120.047484996693,-120.04764148503,-120.048084158562,-120.048318477416,-120.048405355523,-120.048956671531,-120.048966963009,-120.049464698495,-120.04984636303,-120.050002830704,-120.050141487739,-120.051029216846,-120.051113931862,-120.051304772728,-120.051589685815,-120.051552551751,-120.048120781663,-120.042549017472,-120.042536232447],"lat":[36.8195558132929,36.815605664107,36.8157086207893,36.8158232695283,36.8161254109995,36.8163256393208,36.8164643391352,36.8168631690977,36.8169260825999,36.817047443503,36.8170905285051,36.8171673512923,36.8174194825232,36.8175414296933,36.8181220916786,36.8185746149266,36.8187298857524,36.8189049827237,36.8192341601134,36.8194083997779,36.8195548462791,36.8202011206431,36.8202103177589,36.820554342374,36.8210301793082,36.8213337622545,36.8214994449435,36.8218790081824,36.8218998177225,36.8218910187927,36.8219480654509,36.8234183264744,36.8211388201702,36.8195633395431,36.8195558132929]}],[{"lng":[-120.060567187083,-120.060558897406,-120.062433641799,-120.062884978323,-120.063232028435,-120.063805252734,-120.064464687795,-120.065072918401,-120.065402653998,-120.065645810888,-120.065940523038,-120.066114452946,-120.066218658119,-120.069951269359,-120.070193956486,-120.07038512897,-120.070645649077,-120.070836508598,-120.071322754107,-120.071947830677,-120.072243092552,-120.072434084143,-120.072955112588,-120.073197983769,-120.073388568727,-120.073528057559,-120.073753504621,-120.073857338545,-120.073926685749,-120.073944718885,-120.07412373842,-120.060634284683,-120.060567187083],"lat":[36.8221714476044,36.8216203888872,36.8206664344084,36.8204591238695,36.8203797934927,36.8203016045818,36.8200768838411,36.8198327888582,36.8197282975675,36.8196171063331,36.8195297840596,36.8194349366133,36.8193474392466,36.8183312997975,36.8183057104403,36.8183240134425,36.8184183262448,36.8185580880852,36.8187391413244,36.8191216981559,36.8192597068229,36.8193207418074,36.8195813349107,36.8197720897167,36.8199548647252,36.8201542579705,36.8204144686529,36.820631035294,36.820815263331,36.8210229128836,36.8258408924433,36.8257886828209,36.8221714476044]}],[{"lng":[-120.140427511204,-120.13941528971,-120.139745062518,-120.140023245776,-120.140318378993,-120.141862963705,-120.141898097029,-120.142141493062,-120.143877540416,-120.14417232342,-120.144953682666,-120.145439446247,-120.145578715086,-120.145995399247,-120.146186425663,-120.146464122821,-120.147002501964,-120.147557818938,-120.149033753905,-120.149485333182,-120.149866612454,-120.150005832004,-120.150110000476,-120.150578724615,-120.150665465839,-120.152558259956,-120.153304844839,-120.153599739636,-120.154554764791,-120.154710873608,-120.15505837264,-120.15590906645,-120.156291075505,-120.156447073446,-120.156603324184,-120.156707294806,-120.156811425146,-120.156846303914,-120.156898672499,-120.157089099523,-120.157332522378,-120.15764503329,-120.157835548272,-120.158061324918,-120.158495874935,-120.15889476618,-120.159051087238,-120.159207714079,-120.159607108563,-120.159850144768,-120.16012804967,-120.160353109508,-120.160978286871,-120.161221431925,-120.161481916103,-120.162106780449,-120.162298023835,-120.162506512765,-120.162732078091,-120.162870746288,-120.163252864628,-120.163739153521,-120.163739149432,-120.163632460351,-120.163669903643,-120.16393002625,-120.164086527172,-120.164607133418,-120.165041314905,-120.165197662951,-120.165544482892,-120.165769949749,-120.166134940015,-120.166308498681,-120.166447229595,-120.166568813628,-120.16665548634,-120.166759892355,-120.166846839818,-120.166916164306,-120.167002943236,-120.167124664949,-120.16729801699,-120.167593360769,-120.167853758444,-120.168513884402,-120.16860038523,-120.168774112444,-120.168930030337,-120.168796824943,-120.168878312884,-120.168749217902,-120.168835157117,-120.177889277868,-120.177967074621,-120.175700817239,-120.175775901637,-120.18261705973,-120.182909309717,-120.186792910564,-120.183727828576,-120.183781286977,-120.184006961052,-120.183983943804,-120.18394358313,-120.18336703586,-120.201009978927,-120.201050031134,-120.228586332393,-120.228519764575,-120.226679588892,-120.226732998729,-120.219658240403,-120.221580765337,-120.221572010153,-120.221559252295,-120.221559234071,-120.164840285885,-120.164746619243,-120.160139764239,-120.146459684914,-120.146396286013,-120.132948928,-120.132921421042,-120.128570851785,-120.128556286894,-120.146490363427,-120.146560001198,-120.150951279853,-120.164847342824,-120.164578921129,-120.16886571493,-120.155642191754,-120.160135769054,-120.160073304011,-120.150837142538,-120.15068048557,-120.148832592913,-120.140427511204],"lat":[36.8076683658161,36.8076725834989,36.8073179354119,36.8067883268199,36.8066490850705,36.8061545125208,36.8060224673148,36.8055799130181,36.8046259528255,36.804477564194,36.8041652265439,36.8040011371874,36.804044966502,36.8040257563458,36.8039740684485,36.8038703982004,36.8038022529716,36.8036353972559,36.803366586299,36.802897606939,36.8025688714563,36.8024212279573,36.8022570396307,36.801779318079,36.8017093399142,36.8008850869772,36.8003375492384,36.8001643945712,36.7996442716658,36.7995309013301,36.7992259514855,36.7986268083806,36.7984106552871,36.7983581536249,36.7982626342132,36.7981773056382,36.797898257584,36.7975611027628,36.7973775769416,36.797265000815,36.7972731119647,36.7973075596214,36.7973437159398,36.7974301513449,36.7974991569629,36.7976214877415,36.7976725890188,36.7978114118685,36.7980733344013,36.7981670542662,36.7982276892565,36.7982983768686,36.7985498676972,36.7985849626052,36.7985844666508,36.7987323444954,36.7987323636077,36.7987756569711,36.7987742216377,36.798793431172,36.7988970735411,36.799478873984,36.7995734314846,36.7998708167258,36.8001981218459,36.8003980870021,36.8004671747203,36.8007634961361,36.800954078468,36.8010072807232,36.8012318628602,36.8013274215795,36.8014396546159,36.8015181350161,36.8016138145052,36.8017360879022,36.8017968364648,36.802022320174,36.8021527949882,36.8023437447053,36.8025169560674,36.8026911024665,36.802873328841,36.8031079588009,36.803150185133,36.8034453068084,36.8035847783369,36.8037758587957,36.8038787695938,36.8047835481093,36.807731784894,36.8077327939334,36.8221088570381,36.8220731719393,36.8293485622864,36.8293520597498,36.8366219516418,36.8366278233154,36.8656332408815,36.8662434668626,36.8676773477314,36.8680745836752,36.8683812515935,36.8684651214682,36.8685166481249,36.8686640775851,36.8685780790152,36.8799781901414,36.8799778430031,36.8821062792814,36.8821496580803,36.8870514389727,36.8870346293038,36.8824501203897,36.880006424141,36.880006488534,36.8800014025427,36.8802876771305,36.8728926979797,36.8802823786289,36.8801857293938,36.8728982483235,36.8729064953428,36.8692906307858,36.8693030154451,36.865718805942,36.8657155672599,36.8729229615636,36.865779873613,36.8657320380965,36.8366761124294,36.8329839650848,36.8329929928861,36.8294179115169,36.8221946357618,36.8222084193728,36.8076301558161,36.8076329117551,36.8076683658161]}],[{"lng":[-120.255374986484,-120.272988654483,-120.273226404984,-120.273184295419,-120.255438305805,-120.255374986484],"lat":[36.8652744037975,36.8652303719196,36.8652355976736,36.8802353575757,36.8802566301322,36.8652744037975]}],[{"lng":[-119.742539792087,-119.740856687446,-119.738820332998,-119.749329376998,-119.749101286687,-119.758419845864,-119.758540497904,-119.77106854804,-119.771152655804,-119.793779466123,-119.793999807545,-119.785162354159,-119.785248716955,-119.776241632953,-119.776236417668,-119.766861305688,-119.766834183414,-119.758577434205,-119.758567714719,-119.749467080168,-119.74933527923,-119.744781638906,-119.745088798226,-119.742561193414,-119.742539792087],"lat":[36.9526689698106,36.9530754242259,36.9524150109852,36.9523525934357,36.9448559828358,36.9447900773022,36.9484496976263,36.948371622169,36.9522176264363,36.9520548376235,36.9666253304946,36.9665003328241,36.9738486725782,36.9739025961889,36.9702671429808,36.9702790173866,36.9666183145573,36.9667279703695,36.9595586207611,36.9595652860435,36.9558978205021,36.9559312157797,36.9541765193615,36.9526638015851,36.9526689698106]}],[{"lng":[-119.81080903235,-119.802939283621,-119.802950159123,-119.812965268432,-119.812080397592,-119.812110228937,-119.81080903235],"lat":[36.9303218149713,36.9303025728055,36.9232451169687,36.9240363476994,36.9241354826665,36.9303249964714,36.9303218149713]}],[{"lng":[-119.947232781265,-119.947213394448,-119.961796644614,-119.96524311238,-119.947232781265],"lat":[36.8729707063193,36.8674538730229,36.867492935017,36.8729711116276,36.8729707063193]}],[{"lng":[-119.894599917463,-119.89416085305,-119.903124857548,-119.903185294765,-119.894599917463],"lat":[36.9229039734993,36.9092301999645,36.9094106580051,36.9228716582004,36.9229039734993]}],[{"lng":[-120.178893224724,-120.178734802076,-120.191081960295,-120.191212746571,-120.178893224724],"lat":[36.9327729161995,36.9237914425573,36.9237853352167,36.9305450363244,36.9327729161995]}],[{"lng":[-120.165576421547,-120.156116449985,-120.158273098573,-120.15611594993,-120.183393842218,-120.174577044631,-120.174213308739,-120.165576421547],"lat":[36.9454592240453,36.9438046841169,36.9436571916774,36.938374346427,36.93827311752,36.9417362945641,36.9454119096596,36.9454592240453]}],[{"lng":[-120.130905472842,-120.121661115676,-120.146960722577,-120.147117434422,-120.130905472842],"lat":[37.0979818997673,37.083791199347,37.0838225842487,37.0980842009252,37.0979818997673]}],[{"lng":[-120.166013364578,-120.166129612549,-120.155837274471,-120.155734590779,-120.146980079167,-120.14699392513,-120.12917719927,-120.129187594932,-120.138098338522,-120.138111398788,-120.147245836112,-120.14714290522,-120.174970684268,-120.174921348741,-120.166013364578],"lat":[37.0834937465701,37.0695193200761,37.0694387082298,37.077917806062,37.0779647380822,37.0834212774701,37.0833218576942,37.0761231980772,37.0761871157092,37.0763470527916,37.0762570228993,37.0618054035549,37.0619502474708,37.0835380157668,37.0834937465701]}],[{"lng":[-120.038437991727,-120.038406973733,-120.042876602516,-120.056546581033,-120.056691498414,-120.038437991727],"lat":[37.1486091565693,37.1302921519447,37.1267816485037,37.1268009283622,37.1485614143778,37.1486091565693]}],[{"lng":[-120.074123732897,-120.07433995275,-120.074524742639,-120.07903850623,-120.074573870248,-120.074538372138,-120.070702785581,-120.070264431244,-120.070235083518,-120.070486054635,-120.072894576936,-120.074123732897],"lat":[37.0449217340235,37.0449046828259,37.050919953535,37.0509273452423,37.0591685695375,37.054547896799,37.0545318089517,37.0544060596795,37.0494111213691,37.0491082458057,37.0456560898698,37.0449217340235]}],[{"lng":[-120.070702785581,-120.070710441856,-120.0707053365,-120.070702785581],"lat":[37.0545318089517,37.0545368366881,37.0545368219371,37.0545318089517]}],[{"lng":[-120.0707053365,-120.062409354428,-120.061766401652,-120.060008532935,-120.059740728811,-120.056325216236,-120.056481143304,-120.065461629096,-120.065439544068,-120.074520796243,-120.119524143157,-120.129266994376,-120.12606465839,-120.132650892243,-120.134538909382,-120.134983202102,-120.14064422585,-120.129034069067,-120.129085974338,-120.111312424529,-120.111046046238,-120.09273219322,-120.092819171973,-120.082285306278,-120.08293673182,-120.082878040817,-120.083016426682,-120.082693249495,-120.082486620251,-120.082141585156,-120.082129171694,-120.074699889719,-120.081560895509,-120.082260541711,-120.074743205955,-120.074776635089,-120.056559463426,-120.056520295079,-120.038308789538,-120.03940944025,-120.038307142273,-120.039605582957,-120.056469511842,-120.056503581395,-120.029331541072,-120.029469118368,-120.022783931353,-120.018248513715,-120.002069839689,-120.001808309828,-120.014671993612,-120.016189746254,-120.019761658933,-120.020209505642,-120.0241931519,-120.02594361823,-120.02839649659,-120.029032455061,-120.029317851113,-120.05646040608,-120.056428410073,-120.069020978093,-120.068584856764,-120.068123266736,-120.068822388996,-120.070271935553,-120.074093927219,-120.07428922116,-120.074137997648,-120.074123732897,-120.072894576936,-120.070486054635,-120.070235083518,-120.070264431244,-120.0707053365],"lat":[37.0545368219371,37.0624389105663,37.0620531233438,37.0620870004884,37.0619712553746,37.0626478600107,37.0832166062279,37.0832463996931,37.0868253863309,37.0832628685928,37.0834718338171,37.0968924049606,37.1025688461333,37.1023437218541,37.1049389277845,37.1047915378352,37.1126109814117,37.1126943161898,37.1197702270144,37.1197466306026,37.1266791301378,37.1267328951932,37.1210065101359,37.1223079884977,37.1223459219189,37.1263978149866,37.1264275492447,37.1266994198601,37.1266986915848,37.1266974754913,37.1237291423916,37.1237363444143,37.1223621824595,37.1151281414937,37.1150807963771,37.1123730690946,37.1122486199591,37.1092330310942,37.109287595699,37.1079877020027,37.1079191456793,37.1020245670443,37.1019877286029,37.0976581801831,37.0976928421885,37.0832130421061,37.0831784491587,37.079412677091,37.0794479233778,37.0764559165546,37.0682720920846,37.0699466970229,37.067635686775,37.0678655658442,37.0679576009754,37.0689781916506,37.0672066152378,37.0676950561228,37.0580511178884,37.0580718585748,37.0544393030469,37.0543931015242,37.0540857603815,37.0497255452331,37.0498222491952,37.0476847674764,37.0445256580117,37.0334304863924,37.0449145558664,37.0449217340235,37.0456560898698,37.0491082458057,37.0494111213691,37.0544060596795,37.0545368219371]},{"lng":[-120.115328529235,-120.110656949159,-120.101565876164,-120.097035824,-120.101578650121,-120.110669724367,-120.115328529235],"lat":[37.0364115552788,37.043667217668,37.0436201768298,37.047186946353,37.0436252217034,37.0436722619488,37.0364115552788]},{"lng":[-120.106416320777,-120.101804874881,-120.10855380887,-120.108679054146,-120.110895577515,-120.111622955528,-120.111253700669,-120.120567980828,-120.110950404307,-120.110905281052,-120.106394553459,-120.106416320777],"lat":[37.0908850484348,37.0978634494969,37.0979986752037,37.1016710516396,37.1016892942633,37.1052605283759,37.0985788228479,37.098080609033,37.0979066141141,37.0945857175004,37.0945344612748,37.0908850484348]}],[{"lng":[-120.029317851113,-120.029304954851,-120.029294819575,-120.02924905687,-120.001952575379,-120.00175095695,-120.026786544965,-120.02682383243,-120.029020776805,-120.029055312899,-120.035823494313,-120.056261635909,-120.056334866782,-120.073795243634,-120.070271935553,-120.068822388996,-120.068123266736,-120.068584856764,-120.069020978093,-120.056374466402,-120.056390929653,-120.029317851113],"lat":[37.0580511178884,37.0580511080339,37.0580460603305,37.0544060902488,37.0542320326927,37.0325961546782,37.0327047675459,37.0346221556373,37.0346226919102,37.0363235154353,37.0327043021818,37.032691903996,37.0399380209791,37.0399930173567,37.0476847674764,37.0498222491952,37.0497255452331,37.0540857603815,37.0543931015242,37.0543945625587,37.0579951235273,37.0580511178884]}],[{"lng":[-119.912854286948,-119.91286452632,-119.925459716785,-119.926142723177,-119.930193395784,-119.930748496024,-119.931644584781,-119.912854286948],"lat":[37.0644589538712,37.0606896013059,37.0482492695758,37.0493000682683,37.0496001675746,37.0504872347412,37.0501695878942,37.0644589538712]}],[{"lng":[-119.965605670521,-119.965573731627,-119.974502796023,-119.974712627286,-119.965605670521],"lat":[37.0610894315139,37.0537592315136,37.053901072677,37.0611900418869,37.0610894315139]}],[{"lng":[-120.111622955528,-120.110895577515,-120.108679054146,-120.10855380887,-120.101804874881,-120.106416320777,-120.106394553459,-120.110905281052,-120.110950404307,-120.120567980828,-120.111240919433,-120.111622955528],"lat":[37.1052605283759,37.1016892942633,37.1016710516396,37.0979986752037,37.0978634494969,37.0908850484348,37.0945344612748,37.0945857175004,37.0979066141141,37.098080609033,37.0985737729613,37.1052605283759]}]]],null,"critical priority GSAs",{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":1,"opacity":1,"fill":true,"fillColor":"#03F","fillOpacity":0.1,"smoothFactor":1,"noClip":false},null,null,"Madera Joint",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"13px","textOnly":false,"className":"","sticky":true},{"color":"black","weight":2,"bringToFront":true}]},{"method":"addControl","args":["","bottomright","imageValues","info legend"]}],"limits":{"lat":[34.4977008079021,41.0652008079021],"lng":[-123.077303607865,-118.138303607865]},"setView":[[37.1905613330082,-119.679747336801],8,[]]},"evals":["calls.5.args.0.onClick"],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\n      function(el, x, data) {\n      // get the leaflet map\n      var map = this; //HTMLWidgets.find('#' + el.id);\n      // we need a new div element because we have to handle\n      // the mouseover output separately\n      // debugger;\n      function addElement () {\n      // generate new div Element\n      var newDiv = $(document.createElement('div'));\n      // append at end of leaflet htmlwidget container\n      $(el).append(newDiv);\n      //provide ID and style\n      newDiv.addClass('lnlt');\n      newDiv.css({\n      'position': 'relative',\n      'bottomleft':  '0px',\n      'background-color': 'rgba(255, 255, 255, 0.7)',\n      'box-shadow': '0 0 2px #bbb',\n      'background-clip': 'padding-box',\n      'margin': '0',\n      'padding-left': '5px',\n      'color': '#333',\n      'font': '9px/1.5 \"Helvetica Neue\", Arial, Helvetica, sans-serif',\n      'z-index': '700',\n      });\n      return newDiv;\n      }\n\n\n      // check for already existing lnlt class to not duplicate\n      var lnlt = $(el).find('.lnlt');\n\n      if(!lnlt.length) {\n      lnlt = addElement();\n\n      // grab the special div we generated in the beginning\n      // and put the mousmove output there\n\n      map.on('mousemove', function (e) {\n      if (e.originalEvent.ctrlKey) {\n      if (document.querySelector('.lnlt') === null) lnlt = addElement();\n      lnlt.text(\n                           ' lon: ' + (e.latlng.lng).toFixed(5) +\n                           ' | lat: ' + (e.latlng.lat).toFixed(5) +\n                           ' | zoom: ' + map.getZoom() +\n                           ' | x: ' + L.CRS.EPSG3857.project(e.latlng).x.toFixed(0) +\n                           ' | y: ' + L.CRS.EPSG3857.project(e.latlng).y.toFixed(0) +\n                           ' | epsg: 3857 ' +\n                           ' | proj4: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs ');\n      } else {\n      if (document.querySelector('.lnlt') === null) lnlt = addElement();\n      lnlt.text(\n                      ' lon: ' + (e.latlng.lng).toFixed(5) +\n                      ' | lat: ' + (e.latlng.lat).toFixed(5) +\n                      ' | zoom: ' + map.getZoom() + ' ');\n      }\n      });\n\n      // remove the lnlt div when mouse leaves map\n      map.on('mouseout', function (e) {\n      var strip = document.querySelector('.lnlt');\n      strip.remove();\n      });\n\n      };\n\n      //$(el).keypress(67, function(e) {\n      map.on('preclick', function(e) {\n      if (e.originalEvent.ctrlKey) {\n      if (document.querySelector('.lnlt') === null) lnlt = addElement();\n      lnlt.text(\n                      ' lon: ' + (e.latlng.lng).toFixed(5) +\n                      ' | lat: ' + (e.latlng.lat).toFixed(5) +\n                      ' | zoom: ' + map.getZoom() + ' ');\n      var txt = document.querySelector('.lnlt').textContent;\n      console.log(txt);\n      //txt.innerText.focus();\n      //txt.select();\n      setClipboardText('\"' + txt + '\"');\n      }\n      });\n\n      //map.on('click', function (e) {\n      //  var txt = document.querySelector('.lnlt').textContent;\n      //  console.log(txt);\n      //  //txt.innerText.focus();\n      //  //txt.select();\n      //  setClipboardText(txt);\n      //});\n\n      function setClipboardText(text){\n      var id = 'mycustom-clipboard-textarea-hidden-id';\n      var existsTextarea = document.getElementById(id);\n\n      if(!existsTextarea){\n      console.log('Creating textarea');\n      var textarea = document.createElement('textarea');\n      textarea.id = id;\n      // Place in top-left corner of screen regardless of scroll position.\n      textarea.style.position = 'fixed';\n      textarea.style.top = 0;\n      textarea.style.left = 0;\n\n      // Ensure it has a small width and height. Setting to 1px / 1em\n      // doesn't work as this gives a negative w/h on some browsers.\n      textarea.style.width = '1px';\n      textarea.style.height = '1px';\n\n      // We don't need padding, reducing the size if it does flash render.\n      textarea.style.padding = 0;\n\n      // Clean up any borders.\n      textarea.style.border = 'none';\n      textarea.style.outline = 'none';\n      textarea.style.boxShadow = 'none';\n\n      // Avoid flash of white box if rendered for any reason.\n      textarea.style.background = 'transparent';\n      document.querySelector('body').appendChild(textarea);\n      console.log('The textarea now exists :)');\n      existsTextarea = document.getElementById(id);\n      }else{\n      console.log('The textarea already exists :3')\n      }\n\n      existsTextarea.value = text;\n      existsTextarea.select();\n\n      try {\n      var status = document.execCommand('copy');\n      if(!status){\n      console.error('Cannot copy text');\n      }else{\n      console.log('The text is now on the clipboard');\n      }\n      } catch (err) {\n      console.log('Unable to copy.');\n      }\n      }\n\n\n      }\n      ).call(this.getMap(), el, x, data);\n}","data":null},{"code":"function(el, x, data) {\n  return (function(el, x, data) {\n        var map = this;\n        map.on(\"mousemove\", function (e) {\n          rasterPicker.pick(e, x, 2, \" \");\n        });\n      }).call(this.getMap(), el, x, data);\n}","data":null},{"code":"function(el, x, data) {\n  return (function(el, x, data) {\n        var map = this;\n        map.on(\"mousemove\", function (e) {\n          rasterPicker.pick(e, x, 2, \" \");\n        });\n      }).call(this.getMap(), el, x, data);\n}","data":null},{"code":"function(el, x, data) {\n  return (function(el,x) {\n    this.on('popupopen', function() {HTMLWidgets.staticRender(); remove()})\n    }).call(this.getMap(), el, x, data);\n}","data":null}]}}</script>
+</div>
+<div id="forecasted-well-failure-rates-for-madera-joint" class="section level3">
+<h3>Forecasted well failure rates for Madera Joint</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-b878d89a3c6bffed31d5" style="width:576px;height:460.8px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b878d89a3c6bffed31d5">{"x":{"data":[{"x":[0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0,null,0,0,400,400,0],"y":[0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0],"text":"","type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"transparent","dash":"solid"},"fill":"toself","fillcolor":"rgba(255,0,0,0.15)","hoveron":"fills","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250,260,270,280,290,300,310,320,330,340,350,360,370,380,390,400,410,420,430,440,450,460,470,480,490,500],"y":[0.261648745519713,0.310198761811665,0.356467904855002,0.41723688497882,0.465786901270772,0.538774845226458,0.579341805148257,0.626751384815901,0.670413815575106,0.711469534050179,0.744053437601825,0.76930596285435,0.820299771912675,0.845063538611926,0.871130661453242,0.886608015640274,0.906484196806777,0.92554578038449,0.940371456500489,0.953242098403389,0.962528510915608,0.966601498859563,0.973607038123167,0.979146301726947,0.982404692082111,0.985011404366243,0.989247311827957,0.992179863147605,0.993483219289671,0.994786575431737,0.994949494949495,0.994949494949495,0.995601173020528,0.995764092538286,0.996089931573803,0.99723036819811,0.997393287715868,0.997719126751385,0.997719126751385,0.998044965786901,0.998370804822418,0.998370804822418,0.998370804822418,0.998533724340176,0.998696643857934,0.998696643857934,0.998696643857934,0.998696643857934,0.998696643857934,0.998696643857934],"text":["<em>groundwater decline:<\/em> 10 ft<br><em>failure rate:<\/em> 5.8 - 46.5 %<br><em>estimated cost:<\/em> $0.5 - 4.3M","<em>groundwater decline:<\/em> 20 ft<br><em>failure rate:<\/em> 8 - 54 %<br><em>estimated cost:<\/em> $0.7 - 5M","<em>groundwater decline:<\/em> 30 ft<br><em>failure rate:<\/em> 10.7 - 60.6 %<br><em>estimated cost:<\/em> $1 - 5.6M","<em>groundwater decline:<\/em> 40 ft<br><em>failure rate:<\/em> 16.4 - 67.1 %<br><em>estimated cost:<\/em> $1.5 - 6.2M","<em>groundwater decline:<\/em> 50 ft<br><em>failure rate:<\/em> 20.7 - 72.5 %<br><em>estimated cost:<\/em> $1.9 - 6.7M","<em>groundwater decline:<\/em> 60 ft<br><em>failure rate:<\/em> 29.6 - 78.2 %<br><em>estimated cost:<\/em> $2.7 - 7.2M","<em>groundwater decline:<\/em> 70 ft<br><em>failure rate:<\/em> 33.6 - 82.3 %<br><em>estimated cost:<\/em> $3.1 - 7.6M","<em>groundwater decline:<\/em> 80 ft<br><em>failure rate:<\/em> 39.4 - 85.9 %<br><em>estimated cost:<\/em> $3.6 - 7.9M","<em>groundwater decline:<\/em> 90 ft<br><em>failure rate:<\/em> 45.4 - 88.7 %<br><em>estimated cost:<\/em> $4.2 - 8.2M","<em>groundwater decline:<\/em> 100 ft<br><em>failure rate:<\/em> 51.4 - 90.9 %<br><em>estimated cost:<\/em> $4.7 - 8.4M","<em>groundwater decline:<\/em> 110 ft<br><em>failure rate:<\/em> 56.2 - 92.6 %<br><em>estimated cost:<\/em> $5.2 - 8.5M","<em>groundwater decline:<\/em> 120 ft<br><em>failure rate:<\/em> 59.6 - 94.2 %<br><em>estimated cost:<\/em> $5.5 - 8.7M","<em>groundwater decline:<\/em> 130 ft<br><em>failure rate:<\/em> 68.3 - 95.7 %<br><em>estimated cost:<\/em> $6.3 - 8.8M","<em>groundwater decline:<\/em> 140 ft<br><em>failure rate:<\/em> 72.4 - 96.6 %<br><em>estimated cost:<\/em> $6.7 - 8.9M","<em>groundwater decline:<\/em> 150 ft<br><em>failure rate:<\/em> 77 - 97.3 %<br><em>estimated cost:<\/em> $7.1 - 9M","<em>groundwater decline:<\/em> 160 ft<br><em>failure rate:<\/em> 79.6 - 97.7 %<br><em>estimated cost:<\/em> $7.3 - 9M","<em>groundwater decline:<\/em> 170 ft<br><em>failure rate:<\/em> 83.1 - 98.2 %<br><em>estimated cost:<\/em> $7.7 - 9M","<em>groundwater decline:<\/em> 180 ft<br><em>failure rate:<\/em> 86.5 - 98.6 %<br><em>estimated cost:<\/em> $8 - 9.1M","<em>groundwater decline:<\/em> 190 ft<br><em>failure rate:<\/em> 89.1 - 99 %<br><em>estimated cost:<\/em> $8.2 - 9.1M","<em>groundwater decline:<\/em> 200 ft<br><em>failure rate:<\/em> 91.5 - 99.2 %<br><em>estimated cost:<\/em> $8.4 - 9.1M","<em>groundwater decline:<\/em> 210 ft<br><em>failure rate:<\/em> 93.3 - 99.3 %<br><em>estimated cost:<\/em> $8.6 - 9.1M","<em>groundwater decline:<\/em> 220 ft<br><em>failure rate:<\/em> 94 - 99.3 %<br><em>estimated cost:<\/em> $8.7 - 9.1M","<em>groundwater decline:<\/em> 230 ft<br><em>failure rate:<\/em> 95.3 - 99.4 %<br><em>estimated cost:<\/em> $8.8 - 9.2M","<em>groundwater decline:<\/em> 240 ft<br><em>failure rate:<\/em> 96.4 - 99.5 %<br><em>estimated cost:<\/em> $8.9 - 9.2M","<em>groundwater decline:<\/em> 250 ft<br><em>failure rate:<\/em> 97 - 99.5 %<br><em>estimated cost:<\/em> $8.9 - 9.2M","<em>groundwater decline:<\/em> 260 ft<br><em>failure rate:<\/em> 97.5 - 99.5 %<br><em>estimated cost:<\/em> $9 - 9.2M","<em>groundwater decline:<\/em> 270 ft<br><em>failure rate:<\/em> 98.2 - 99.7 %<br><em>estimated cost:<\/em> $9 - 9.2M","<em>groundwater decline:<\/em> 280 ft<br><em>failure rate:<\/em> 98.7 - 99.7 %<br><em>estimated cost:<\/em> $9.1 - 9.2M","<em>groundwater decline:<\/em> 290 ft<br><em>failure rate:<\/em> 98.9 - 99.8 %<br><em>estimated cost:<\/em> $9.1 - 9.2M","<em>groundwater decline:<\/em> 300 ft<br><em>failure rate:<\/em> 99.1 - 99.9 %<br><em>estimated cost:<\/em> $9.1 - 9.2M","<em>groundwater decline:<\/em> 310 ft<br><em>failure rate:<\/em> 99.1 - 99.9 %<br><em>estimated cost:<\/em> $9.1 - 9.2M","<em>groundwater decline:<\/em> 320 ft<br><em>failure rate:<\/em> 99.1 - 99.9 %<br><em>estimated cost:<\/em> $9.1 - 9.2M","<em>groundwater decline:<\/em> 330 ft<br><em>failure rate:<\/em> 99.3 - 99.9 %<br><em>estimated cost:<\/em> $9.1 - 9.2M","<em>groundwater decline:<\/em> 340 ft<br><em>failure rate:<\/em> 99.3 - 99.9 %<br><em>estimated cost:<\/em> $9.1 - 9.2M","<em>groundwater decline:<\/em> 350 ft<br><em>failure rate:<\/em> 99.3 - 99.9 %<br><em>estimated cost:<\/em> $9.1 - 9.2M","<em>groundwater decline:<\/em> 360 ft<br><em>failure rate:<\/em> 99.6 - 99.9 %<br><em>estimated cost:<\/em> $9.2 - 9.2M","<em>groundwater decline:<\/em> 370 ft<br><em>failure rate:<\/em> 99.6 - 99.9 %<br><em>estimated cost:<\/em> $9.2 - 9.2M","<em>groundwater decline:<\/em> 380 ft<br><em>failure rate:<\/em> 99.7 - 99.9 %<br><em>estimated cost:<\/em> $9.2 - 9.2M","<em>groundwater decline:<\/em> 390 ft<br><em>failure rate:<\/em> 99.7 - 99.9 %<br><em>estimated cost:<\/em> $9.2 - 9.2M","<em>groundwater decline:<\/em> 400 ft<br><em>failure rate:<\/em> 99.7 - 99.9 %<br><em>estimated cost:<\/em> $9.2 - 9.2M","<em>groundwater decline:<\/em> 410 ft<br><em>failure rate:<\/em> 99.8 - 99.9 %<br><em>estimated cost:<\/em> $9.2 - 9.2M","<em>groundwater decline:<\/em> 420 ft<br><em>failure rate:<\/em> 99.8 - 99.9 %<br><em>estimated cost:<\/em> $9.2 - 9.2M","<em>groundwater decline:<\/em> 430 ft<br><em>failure rate:<\/em> 99.8 - 99.9 %<br><em>estimated cost:<\/em> $9.2 - 9.2M","<em>groundwater decline:<\/em> 440 ft<br><em>failure rate:<\/em> 99.8 - 99.9 %<br><em>estimated cost:<\/em> $9.2 - 9.2M","<em>groundwater decline:<\/em> 450 ft<br><em>failure rate:<\/em> 99.8 - 99.9 %<br><em>estimated cost:<\/em> $9.2 - 9.2M","<em>groundwater decline:<\/em> 460 ft<br><em>failure rate:<\/em> 99.8 - 99.9 %<br><em>estimated cost:<\/em> $9.2 - 9.2M","<em>groundwater decline:<\/em> 470 ft<br><em>failure rate:<\/em> 99.8 - 99.9 %<br><em>estimated cost:<\/em> $9.2 - 9.2M","<em>groundwater decline:<\/em> 480 ft<br><em>failure rate:<\/em> 99.8 - 99.9 %<br><em>estimated cost:<\/em> $9.2 - 9.2M","<em>groundwater decline:<\/em> 490 ft<br><em>failure rate:<\/em> 99.8 - 99.9 %<br><em>estimated cost:<\/em> $9.2 - 9.2M","<em>groundwater decline:<\/em> 500 ft<br><em>failure rate:<\/em> 99.8 - 99.9 %<br><em>estimated cost:<\/em> $9.2 - 9.2M"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":["rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(255,0,0,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)"],"opacity":0,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":["rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(0,0,0,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)"]}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[400],"y":[0.998044965786901],"text":"","type":"scatter","mode":"lines","opacity":1,"line":{"color":"transparent"},"error_y":{"array":[0.000651678071032946],"arrayminus":[0.000651678071032946],"type":"data","width":3.50842418235877,"symmetric":false,"color":"rgba(0,0,0,1)"},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250,260,270,280,290,300,310,320,330,340,350,360,370,380,390,410,420,430,440,450,460,470,480,490,500],"y":[0.261648745519713,0.310198761811665,0.356467904855002,0.41723688497882,0.465786901270772,0.538774845226458,0.579341805148257,0.626751384815901,0.670413815575106,0.711469534050179,0.744053437601825,0.76930596285435,0.820299771912675,0.845063538611926,0.871130661453242,0.886608015640274,0.906484196806777,0.92554578038449,0.940371456500489,0.953242098403389,0.962528510915608,0.966601498859563,0.973607038123167,0.979146301726947,0.982404692082111,0.985011404366243,0.989247311827957,0.992179863147605,0.993483219289671,0.994786575431737,0.994949494949495,0.994949494949495,0.995601173020528,0.995764092538286,0.996089931573803,0.99723036819811,0.997393287715868,0.997719126751385,0.997719126751385,0.998370804822418,0.998370804822418,0.998370804822418,0.998533724340176,0.998696643857934,0.998696643857934,0.998696643857934,0.998696643857934,0.998696643857934,0.998696643857934],"text":"","type":"scatter","mode":"lines","opacity":1,"line":{"color":"transparent"},"error_y":{"array":[0.203649397197784,0.229716520039101,0.249918540241121,0.25366568914956,0.25920495275334,0.243238840013034,0.243401759530792,0.232486151840991,0.216520039100684,0.197947214076246,0.182306940371457,0.173020527859238,0.137015314434669,0.120723362658847,0.101498859563376,0.0905832518735744,0.0752688172043011,0.0607689801238188,0.0495275333985011,0.0382860866731835,0.0299771912675139,0.0268817204301075,0.0202020202020202,0.0156402737047899,0.0123818833496253,0.00977517106549375,0.00749429781687849,0.00488758553274682,0.00423590746171387,0.00391006842619745,0.00374714890843919,0.00374714890843919,0.00309547083740636,0.00293255131964809,0.00260671228413167,0.00146627565982405,0.00130335614206578,0.000977517106549364,0.000977517106549364,0.000651678071032835,0.000651678071032835,0.000651678071032835,0.000488758553274682,0.000325839035516529,0.000325839035516529,0.000325839035516529,0.000325839035516529,0.000325839035516529,0.000325839035516529],"arrayminus":[0.203649397197784,0.229716520039101,0.249918540241121,0.25366568914956,0.25920495275334,0.243238840013034,0.243401759530792,0.232486151840991,0.216520039100684,0.197947214076246,0.182306940371456,0.173020527859237,0.137015314434669,0.120723362658847,0.101498859563376,0.0905832518735744,0.075268817204301,0.0607689801238188,0.0495275333985012,0.0382860866731835,0.0299771912675139,0.0268817204301075,0.0202020202020202,0.0156402737047898,0.0123818833496253,0.00977517106549364,0.00749429781687849,0.00488758553274682,0.00423590746171398,0.00391006842619745,0.0037471489084393,0.0037471489084393,0.00309547083740636,0.00293255131964809,0.00260671228413167,0.00146627565982405,0.00130335614206589,0.000977517106549364,0.000977517106549364,0.000651678071032946,0.000651678071032946,0.000651678071032946,0.000488758553274682,0.000325839035516418,0.000325839035516418,0.000325839035516418,0.000325839035516418,0.000325839035516418,0.000325839035516418],"type":"data","width":3.50842418235877,"symmetric":false,"color":"rgba(153,153,153,1)"},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":24.2605444449748,"r":7.30593607305936,"b":38.2148823445182,"l":48.9497716894977},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-25.225,529.725],"tickmode":"array","ticktext":["0","100","200","300","400","500"],"tickvals":[0,100,200,300,400,500],"categoryorder":"array","categoryarray":["0","100","200","300","400","500"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":{"text":"Groundwater level decline (ft)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.05,1.05],"tickmode":"array","ticktext":["0%","25%","50%","75%","100%"],"tickvals":[0,0.25,0.5,0.75,1],"categoryorder":"array","categoryarray":["0%","25%","50%","75%","100%"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":{"text":"Failure percentage","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895}},"hovermode":"x unified","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false,"modeBarButtonsToRemove":["zoom2d","select2d","lasso2d","autoscale","hoverClosestCartesian","hoverCompareCartesian","zoom3d","pan3d","resetCameraDefault3d","resetCameraLastSave3d","hoverClosest3d","orbitRotation","tableRotation","zoomInGeo","zoomOutGeo","resetGeo","hoverClosestGeo","sendDataToCloud","pan2d","hoverClosestGl2d","hoverClosestPie","toggleHover","toggleSpikelines","autoScale2d","zoomIn2d","zoomOut2d"],"displaylogo":false},"source":"A","attrs":{"2fe44f1108fe":{"xmin":{},"xmax":{},"ymin":{},"ymax":{},"x":{},"y":{},"ymin.1":{},"ymax.1":{},"type":"scatter"},"2fe46765843f":{"text":{},"x":{},"y":{},"ymin":{},"ymax":{}},"2fe439cd7921":{"x":{},"y":{},"ymin":{},"ymax":{}}},"cur_data":"2fe44f1108fe","visdat":{"2fe44f1108fe":["function (y) ","x"],"2fe46765843f":["function (y) ","x"],"2fe439cd7921":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+
+</div>
+
+<script>
+
+$(document).ready(function () {
+
+  // add bootstrap table styles to pandoc tables
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+
+  // initialize mathjax
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+  document.getElementsByTagName("head")[0].appendChild(script);
+
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+  FlexDashboard.init({
+    theme: "cosmo",
+    fillPage: true,
+    orientation: "rows",
+    storyboard: false,
+    defaultFigWidth: 576,
+    defaultFigHeight: 460,
+    defaultFigWidthMobile: 360,
+    defaultFigHeightMobile: 460
+  });
+});
+</script>
+
+</body>
+</html>

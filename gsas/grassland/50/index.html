@@ -1,0 +1,2936 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>GSA well failure</title>
+
+<meta property="og:title" content="GSA well failure" />
+
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+
+<link rel="icon" href="data:image/x-icon;" type="image/x-icon">
+
+
+<script type="text/javascript">
+window.FlexDashboardComponents = [];
+</script>
+
+<script id="flexdashboard-navbar" type="application/json">
+[{"title":"Instructions","align":"right"},{"title":"About","href":"https://www.gsawellfailure.com","align":"right"},{"icon":"fa-github","href":"https://www.github.com/richpauloo/aife","align":"right"}]
+</script>
+<script src="../../../index_files/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+<meta name="name" content="viewport" />
+<meta name="content" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<link href="../../../index_files/bootstrap-3.4.1/bootstrap-custom.min.css" rel="stylesheet" />
+<script src="../../../index_files/bootstrap-3.4.1/bootstrap.min.js"></script>
+<script src="../../../index_files/stickytableheaders-0.1.19/jquery.stickytableheaders.min.js"></script>
+<link href="../../../index_files/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="../../../index_files/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="../../../index_files/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+<script src="../../../index_files/htmlwidgets-1.3/htmlwidgets.js"></script>
+<link href="../../../index_files/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="../../../index_files/leaflet-1.3.1/leaflet.js"></script>
+<link href="../../../index_files/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="../../../index_files/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="../../../index_files/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="../../../index_files/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="../../../index_files/leaflet-binding-2.0.2/leaflet.js"></script>
+<script src="../../../index_files/leaflet-providers-1.1.17/leaflet-providers.js"></script>
+<script src="../../../index_files/leaflet-providers-plugin-2.0.2/leaflet-providers-plugin.js"></script>
+<link href="../../../index_files/leaflet-easybutton-1.3.1/easy-button.css" rel="stylesheet" />
+<script src="../../../index_files/leaflet-easybutton-1.3.1/easy-button.js"></script>
+<script src="../../../index_files/leaflet-easybutton-1.3.1/EasyButton-binding.js"></script>
+<link href="../../../index_files/fontawesome-4.7.0/font-awesome.min.css" rel="stylesheet" />
+<script src="../../../index_files/X2019groundwaterlevel-1/data_stars_X2019groundwaterlevelcd65e3.txt"></script>
+<script src="../../../index_files/joda-0.0.1/joda.js"></script>
+<script src="../../../index_files/X2040minthreshold-1/data_stars_X2040minthresholdd60f39.txt"></script>
+<script src="../../../index_files/plotly-binding-4.9.2/plotly.js"></script>
+<script src="../../../index_files/plotly-main-1.52.2/plotly-latest.min.js"></script>
+<link href="../../../index_files/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="../../../index_files/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<script src="../../../index_files/typedarray-0.1/typedarray.min.js"></script>
+<link href="../../../index_files/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<style type="text/css">
+
+/*
+ Dashboard CSS from Keen IO Dashboards
+ (https://github.com/keen/dashboards)
+*/
+
+body {
+  background: #f2f2f2;
+  padding: 60px 0 0 8px; /* padding-top overridden by theme */
+}
+
+body hr {
+  border-color: #d7d7d7;
+  margin: 10px 0;
+}
+
+.navbar-inverse .navbar-nav > li > a,
+.navbar .navbar-brand {
+  text-decoration: none;
+}
+
+.navbar-logo {
+  margin-top: 1px;
+}
+
+.navbar-logo img {
+  margin-right: 12px;
+}
+
+.navbar-author {
+  margin-left: 10px;
+  font-size: 15px;
+}
+
+.navbar .dropdown-menu .fa {
+  min-width: 20px;
+}
+
+.navbar .dropdown-menu {
+  min-width: 150px;
+  max-height: 500px;
+  overflow: auto;
+}
+
+.chart-wrapper,
+.nav-tabs-custom,
+.sbframe-commentary
+{
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  margin-bottom: 8px;
+  margin-right: 8px;
+}
+
+.chart-title {
+  border-bottom: 1px solid #d7d7d7;
+  color: #666;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 7px 10px 4px;
+}
+
+.chart-wrapper .chart-title:empty {
+  display: none;
+}
+
+.chart-wrapper .chart-stage {
+  overflow: hidden;
+  padding: 5px 10px;
+  position: relative;
+}
+
+.chart-wrapper .chart-notes {
+  background: #fbfbfb;
+  border-top: 1px solid #e2e2e2;
+  color: #808080;
+  font-size: 12px;
+  padding: 8px 10px 5px;
+}
+
+/*
+ CSS for handling flexbox layout
+*/
+
+#dashboard-container {
+  visibility: hidden;
+}
+
+.tab-content>.dashboard-page-wrapper.active {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.dashboard-page-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.dashboard-row-orientation {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.dashboard-row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.dashboard-row-flex {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.dashboard-column-orientation {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.dashboard-column {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.chart-wrapper-flex {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.chart-stage-flex {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  position: relative;
+}
+
+.chart-shim {
+  position: absolute;
+  left: 8px; top: 8px; right: 8px; bottom: 8px;
+}
+
+.no-padding .chart-shim {
+  left: 0; top: 0; right: 0; bottom: 0;
+}
+
+.flowing-content-shim {
+  overflow: auto;
+  left: 0; top: 0; right: 0; bottom: 0;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.flowing-content-container {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.chart-stage .table-bordered {
+  border: none;
+}
+
+.chart-stage .table-bordered > tbody > tr > th,
+.chart-stage .table-bordered > tfoot > tr > th,
+.chart-stage .table-bordered > tbody > tr > td,
+.chart-stage .table-bordered > tfoot > tr > td {
+  border: none;
+}
+
+.chart-stage .table-bordered > tbody > tr > td {
+  border-top: 1px solid #dddddd;
+}
+
+.chart-stage .table-bordered > thead > tr > th {
+  border: none;
+  border-bottom: 2px solid #dddddd;
+}
+
+.bootstrap-table table>thead {
+  background-color: #fff;
+}
+
+.bootstrap-table table.data,
+.bootstrap-table table.shiny-table {
+  width: inherit !important;
+}
+
+.bootstrap-table table.data>tbody>tr>th,
+.bootstrap-table table.shiny-table>tbody>tr>th {
+  border-top: none;
+  border-bottom: 2px solid #dddddd;
+  padding: 5px;
+}
+
+.bootstrap-table .data td[align=right] {
+  font-family: inherit;
+}
+
+.chart-wrapper form {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.shiny-input-container label {
+  font-weight: normal;
+}
+
+.chart-stage .html-widget {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.chart-stage .html-widget-static-bound {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.chart-stage .shiny-bound-output {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Omit display of empty paragraphs */
+
+.chart-shim>p:empty {
+  display: none;
+}
+
+.chart-stage>p:empty {
+  display: none;
+}
+
+/* Omit display of special knitr options div*/
+
+.chart-stage .knitr-options {
+  display: none;
+}
+
+/* Automatically resizing images */
+
+.image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+}
+
+.image-container img {
+  opacity: 0;
+  overflow: hidden;
+}
+
+/* Value box */
+
+.value-box {
+  border-radius: 2px;
+  position: relative;
+  display: block;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.value-box > .inner {
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.value-box .value {
+  font-size: 38px;
+  font-weight: bold;
+  margin: 0 0 3px 0;
+  white-space: nowrap;
+  padding: 0;
+}
+
+.value-box .caption {
+  font-size: 15px;
+}
+.value-box .caption > small {
+  display: block;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.value-box .icon i {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 80px;
+  color: rgba(0, 0, 0, 0.15);
+}
+
+.linked-value:hover {
+  cursor: pointer;
+}
+
+.value-box.linked-value:hover {
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* STORYBOARD */
+
+.storyboard-nav button {
+  background: transparent;
+  border: 0;
+  opacity: .3;
+  outline: none;
+  padding: 0;
+}
+
+.storyboard-nav button:hover,
+.storyboard-nav button:hover {
+  opacity: .5;
+}
+
+.storyboard-nav button:disabled,
+.storyboard-nav button:disabled {
+  opacity: .1;
+}
+
+.storyboard-nav .sbnext,
+.storyboard-nav .sbprev {
+  float: left;
+  width: 2%;
+  height: 120px;
+  font-size: 50px;
+}
+
+.storyboard-nav .sbprev {
+  text-align: left;
+  width: 2%;
+}
+
+.storyboard-nav .sbnext {
+  float: right;
+  text-align: right;
+  margin-right: 8px;
+}
+
+.storyboard-nav .sbframelist {
+  margin: 0 auto;
+  width: 94%;
+  height: 120px;
+  overflow: hidden;
+  text-shadow: none;
+  margin-bottom: 8px;
+}
+
+.storyboard-nav .sbframelist ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.storyboard-nav .sbframelist ul li {
+  float: left;
+  width: 270px;
+  height: 100%;
+  padding: 10px 10px 10px 10px;
+  margin-right: 8px;
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  color: #3a3c47;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.storyboard-nav .sbframelist ul li:last-child {
+  margin-right: 0px;
+}
+
+.storyboard-nav .sbframelist ul li.active {
+  color: #fff;
+  background: #B8B8B8;
+}
+
+.sbframe-commentary {
+  width: 300px;
+  background: #fbfbfb;
+  font-size: 14px;
+}
+
+.sbframe-commentary ul {
+  padding-left: 22px;
+}
+
+.sbframe.active {
+  display: flex;
+}
+
+.sbframe:not(.active) {
+  display: none;
+}
+
+/* NAV TABS */
+
+.nav-tabs-custom > .nav-tabs {
+  margin: 0;
+  border-bottom: 1px solid #d7d7d7;
+  color: #666;
+  font-size: 14px;
+  font-weight: 300;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+}
+.nav-tabs-custom > .nav-tabs > li {
+  border-top: 3px solid transparent;
+  margin-bottom: -1px;
+  margin-right: 5px;
+}
+.nav-tabs-custom > .nav-tabs > li > a,
+.nav-tabs-custom > .nav-tabs > li > a:active {
+  color: #666;
+  font-weight: 300;
+  font-size: 14px;
+  border-radius: 0;
+  padding: 3px 10px 5px;
+  text-transform: none;
+}
+
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a {
+  border-bottom-color: transparent;
+}
+
+.nav-tabs-custom > .nav-tabs > li > a.text-muted {
+  color: #999;
+}
+.nav-tabs-custom > .nav-tabs > li > a,
+.nav-tabs-custom > .nav-tabs > li > a:hover {
+  background: transparent;
+  margin: 0;
+}
+.nav-tabs-custom > .nav-tabs > li > a:hover {
+  color: #999;
+}
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a:hover,
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a:focus,
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a:active {
+  border-color: transparent;
+}
+.nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: #3c8dbc;
+}
+.nav-tabs-custom > .nav-tabs > li.active > a,
+.nav-tabs-custom > .nav-tabs > li.active:hover > a {
+  background-color: #fff;
+  color: #666;
+}
+.nav-tabs-custom > .nav-tabs > li.active > a {
+  border-top-color: transparent;
+  border-left-color: #d7d7d7;
+  border-right-color: #d7d7d7;
+}
+.nav-tabs-custom > .nav-tabs > li:first-of-type {
+  margin-left: 0;
+}
+.nav-tabs-custom > .nav-tabs > li:first-of-type.active > a {
+  border-left-color: transparent;
+}
+.nav-tabs-custom > .nav-tabs.pull-right {
+  float: none !important;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li {
+  float: right;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type {
+  margin-right: 0;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type > a {
+  border-left-width: 1px;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type.active > a {
+  border-left-color: #d7d7d7;
+  border-right-color: transparent;
+}
+.nav-tabs-custom > .nav-tabs > li.header {
+  line-height: 35px;
+  padding: 0 10px;
+  font-size: 20px;
+  color: #666;
+}
+.nav-tabs-custom > .nav-tabs > li.header > .fa,
+.nav-tabs-custom > .nav-tabs > li.header > .glyphicon,
+.nav-tabs-custom > .nav-tabs > li.header > .ion {
+  margin-right: 5px;
+}
+.nav-tabs-custom > .tab-content {
+  background: #fff;
+  padding: 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.nav-tabs-custom > .tab-content > .chart-wrapper {
+  background: #fff;
+  border: none;
+  margin: 0;
+}
+
+
+.nav-tabs-custom > .tab-content > .active {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.nav-tabs-custom .dropdown.open > a:active,
+.nav-tabs-custom .dropdown.open > a:focus {
+  background: transparent;
+  color: #999;
+}
+
+
+@media (max-width: 767px) {
+  .value-box {
+    text-align: center;
+    margin-right: 8px;
+  }
+  .value-box .icon {
+    display: none;
+  }
+}
+
+/* Fixed position sidebar */
+
+.section.sidebar {
+  position: fixed;
+  top: 51px; /* overridden by theme */
+  left: 0;
+  bottom: 0;
+  border-right: 1px solid #e2e2e2;
+  background-color: white; /* overridden by theme */
+  padding-left: 10px;
+  padding-right: 10px;
+  visibility: hidden;
+  overflow: auto;
+}
+
+.section.sidebar form p:first-child {
+  margin-top: 10px;
+}
+
+/* Embedded source code */
+
+#flexdashboard-source-code {
+  display: none;
+}
+
+.featherlight-content #flexdashboard-source-code {
+  display: inline-block;
+}
+
+.featherlight-content {
+  width: 80%;
+  max-width: 800px;
+  padding: 0 !important;
+  border-bottom: none !important;
+}
+
+.featherlight:last-of-type {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.featherlight-inner {
+  width: 100%;
+}
+
+.featherlight-content pre {
+  margin: 0;
+  border: 0;
+  background: #fff;
+  font-size: 12px;
+}
+
+.unselectable {
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: -moz-none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+#flexdashboard-source-code code {
+  -ms-user-select: text;
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -o-user-select: text;
+  user-select: text;
+}
+
+/* DataTables Tweaks */
+
+.dataTables_filter input[type="search"] {
+  -webkit-appearance: searchfield;
+  outline: none;
+}
+
+.dataTables_wrapper.no-footer
+.dataTables_info {
+  padding-top: 0;
+}
+
+
+table.dataTable thead th {
+  border-bottom: 1px solid #d7d7d7;
+}
+
+.dataTables_wrapper.no-footer .dataTables_scrollBody {
+  border-bottom: 1px solid #d7d7d7;
+}
+
+/* Mobile phone only CSS */
+
+.desktop-layout div.section.mobile {
+  display: none;
+}
+
+.mobile-layout div.section.no-mobile {
+  display: none;
+}
+
+.mobile-figure {
+  display: none;
+}
+
+
+
+body {
+  padding-top: 60px;
+}
+
+.section.sidebar {
+  top: 51px;
+  background-color: rgba(39, 128, 227, 0.1);
+}
+
+.value-box {
+  color: #f9f9f9;
+}
+
+.bg-primary {
+  background-color: rgba(39, 128, 227, 0.7);
+}
+
+.storyboard-nav .sbframelist ul li.active {
+  background-color: rgba(39, 128, 227, 0.7);
+}
+
+.nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: rgba(39, 128, 227, 0.7);
+}
+
+.bg-info {
+  background-color: rgba(153, 84, 187, 0.7);
+}
+
+.bg-warning {
+  background-color: rgba(255, 117, 24, 0.7);
+}
+
+.bg-danger {
+  background-color: rgba(255, 0, 57, 0.7);
+}
+
+.bg-success {
+  background-color: rgba(63, 182, 24, 0.7);
+}
+
+.chart-title {
+  font-weight: 500;
+}
+
+.nav-tabs-custom > .nav-tabs > li > a,
+.nav-tabs-custom > .nav-tabs > li > a:active {
+  font-weight: 500;
+}
+
+@media only screen and (min-width: 768px) {
+html, body {
+  height: 100%;
+}
+
+#dashboard-container {
+  height: 100%;
+}
+}
+</style>
+
+
+<link rel="stylesheet" href="../../../etc/w3.css" type="text/css" />
+
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+
+<button id="navbar-button" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+
+<span class="navbar-logo pull-left">
+  
+</span>
+<span class="navbar-brand">
+  GSA well failure
+  <span class="navbar-author">
+        </span>
+</span>
+
+</div>
+<div id="navbar" class="navbar-collapse collapse">
+<ul class="nav navbar-nav navbar-left">
+</ul>
+<ul class="nav navbar-nav navbar-right">
+</ul>
+</div><!--/.nav-collapse-->
+</div><!--/.container-->
+</div><!--/.navbar-->
+
+<script type="text/javascript">
+
+
+var FlexDashboard = (function () {
+
+  // initialize options
+  var _options = {};
+
+  var FlexDashboard = function() {
+
+    // default options
+    _options = $.extend(_options, {
+      theme: "cosmo",
+      fillPage: false,
+      orientation: 'columns',
+      storyboard: false,
+      defaultFigWidth: 576,
+      defaultFigHeight: 461,
+      defaultFigWidthMobile: 360,
+      defaultFigHeightMobile: 461,
+      isMobile: false,
+      isPortrait: false
+    });
+  };
+
+  function init(options) {
+
+    // extend default options
+    $.extend(true, _options, options);
+
+    // add ids to sections that don't have them (pandoc won't assign ids
+    // to e.g. sections with titles consisting of only chinese characters)
+    var nextId = 1;
+    $('.level1:not([id]),.level2:not([id]),.level3:not([id])').each(function() {
+      $(this).attr('id', 'dashboard-' + nextId++);
+    });
+
+    // find navbar items
+    var navbarItems = $('#flexdashboard-navbar');
+    if (navbarItems.length)
+      navbarItems = JSON.parse(navbarItems.html());
+    addNavbarItems(navbarItems);
+
+    // find the main dashboard container
+    var dashboardContainer = $('#dashboard-container');
+
+    // resolve mobile classes
+    resolveMobileClasses(dashboardContainer);
+
+    // one time global initialization for components
+    componentsInit(dashboardContainer);
+
+    // look for a global sidebar
+    var globalSidebar = dashboardContainer.find(".section.level1.sidebar");
+    if (globalSidebar.length > 0) {
+
+      // global layout for fullscreen displays
+      if (!isMobilePhone()) {
+
+         // hoist it up to the top level
+         globalSidebar.insertBefore(dashboardContainer);
+
+         // lay it out (set width/positions)
+         layoutSidebar(globalSidebar, dashboardContainer);
+
+      // tuck sidebar into first page for mobile phones
+      } else {
+
+        // convert it into a level3 section
+        globalSidebar.removeClass('sidebar');
+        globalSidebar.removeClass('level1');
+        globalSidebar.addClass('level3');
+        var h1 = globalSidebar.children('h1');
+        var h3 = $('<h3></h3>');
+        h3.html(h1.html());
+        h3.insertBefore(h1);
+        h1.remove();
+
+        // move it into the first page
+        var page = dashboardContainer.find('.section.level1').first();
+        if (page.length > 0)
+          page.prepend(globalSidebar);
+      }
+    }
+
+    // look for pages to layout
+    var pages = $('div.section.level1');
+    if (pages.length > 0) {
+
+        // find the navbar and collapse on clicked
+        var navbar = $('#navbar');
+        navbar.on("click", "a[data-toggle!=dropdown]", null, function () {
+           navbar.collapse('hide');
+        });
+
+        // envelop the dashboard container in a tab content div
+        dashboardContainer.wrapInner('<div class="tab-content"></div>');
+
+        pages.each(function(index) {
+
+          // lay it out
+          layoutDashboardPage($(this));
+
+          // add it to the navbar
+          addToNavbar($(this), index === 0);
+
+        });
+
+    } else {
+
+      // remove the navbar and navbar button if we don't
+      // have any navbuttons
+      if (navbarItems.length === 0) {
+        $('#navbar').remove();
+        $('#navbar-button').remove();
+      }
+
+      // add the storyboard class if requested
+      if (_options.storyboard)
+        dashboardContainer.addClass('storyboard');
+
+      // layout the entire page
+      layoutDashboardPage(dashboardContainer);
+    }
+
+    // if we are in shiny we need to trigger a window resize event to
+    // force correct layout of shiny-bound-output elements
+    if (isShinyDoc())
+      $(window).trigger('resize');
+
+    // make main components visible
+    $('.section.sidebar').css('visibility', 'visible');
+    dashboardContainer.css('visibility', 'visible');
+
+    // handle location hash
+    handleLocationHash();
+
+    // intialize prism highlighting
+    initPrismHighlighting();
+
+    // record mobile and orientation state then register a handler
+    // to refresh if it changes
+    _options.isMobile = isMobilePhone();
+    _options.isPortrait = isPortrait();
+    $(window).on('resize', function() {
+      if (_options.isMobile !== isMobilePhone() ||
+          _options.isPortrait !== isPortrait()) {
+        window.location.reload();
+      }
+    });
+
+    // trigger layoutcomplete event
+    dashboardContainer.trigger('flexdashboard:layoutcomplete');
+  }
+
+  function resolveMobileClasses(dashboardContainer) {
+     // add top level layout class
+    dashboardContainer.addClass(isMobilePhone() ? 'mobile-layout' :
+                                                  'desktop-layout');
+
+    // look for .mobile sections and add .no-mobile to their peers
+    var mobileSections = $('.section.mobile');
+    mobileSections.each(function() {
+       var id = $(this).attr('id');
+       var nomobileId = id.replace(/-\d+$/, '');
+       $('#' + nomobileId).addClass('no-mobile');
+    });
+  }
+
+  function addNavbarItems(navbarItems) {
+
+    var navbarLeft = $('ul.navbar-left');
+    var navbarRight = $('ul.navbar-right');
+
+    for (var i = 0; i<navbarItems.length; i++) {
+
+      // get the item
+      var item = navbarItems[i];
+
+      // determine the container
+      var container = null;
+      if (item.align === "left")
+        container = navbarLeft;
+      else
+        container = navbarRight;
+
+      // navbar menu if we have multiple items
+      if (item.items) {
+        var menu = navbarMenu(null, item.icon, item.title, container);
+        for (var j = 0; j<item.items.length; j++) {
+          var subItem = item.items[j];
+          var li = $('<li></li>');
+          li.append(navbarLink(subItem.icon, subItem.title, subItem.href, subItem.target));
+          menu.append(li);
+        }
+      } else {
+        var li = $('<li></li>');
+        li.append(navbarLink(item.icon, item.title, item.href, item.target));
+        container.append(li);
+      }
+    }
+  }
+
+  // create or get a reference to an existing dropdown menu
+  function navbarMenu(id, icon, title, container) {
+    var existingMenu = [];
+    if (id)
+      existingMenu = container.children('#' + id);
+    if (existingMenu.length > 0) {
+      return existingMenu.children('ul');
+    } else {
+      var li = $('<li></li>');
+      if (id)
+        li.attr('id', id);
+      li.addClass('dropdown');
+      // auto add "Share" title on mobile if necessary
+      if (!title && icon && (icon === "fa-share-alt") && isMobilePhone())
+        title = "Share";
+      if (title) {
+        title = title + ' <span class="caret"></span>';
+      }
+      var a = navbarLink(icon, title, "#");
+      a.addClass('dropdown-toggle');
+      a.attr('data-toggle', 'dropdown');
+      a.attr('role', 'button');
+      a.attr('aria-expanded', 'false');
+      li.append(a);
+      var ul = $('<ul class="dropdown-menu"></ul>');
+      ul.attr('role', 'menu');
+      li.append(ul);
+      container.append(li);
+      return ul;
+    }
+  }
+
+  function addToNavbar(page, active) {
+
+    // capture the id and data-icon attribute (if any)
+    var id = page.attr('id');
+    var icon = page.attr('data-icon');
+    var navmenu = page.attr('data-navmenu');
+
+    // get hidden state (transfer this to navbar)
+    var hidden = page.hasClass('hidden');
+    page.removeClass('hidden');
+
+    // sanitize the id for use with bootstrap tabs
+    id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
+    page.attr('id', id);
+
+    // get the wrapper
+    var wrapper = page.closest('.dashboard-page-wrapper');
+
+    // move the id to the wrapper
+    page.removeAttr('id');
+    wrapper.attr('id', id);
+
+    // add the tab-pane class to the wrapper
+    wrapper.addClass('tab-pane');
+    if (active)
+      wrapper.addClass('active');
+
+    // get a reference to the h1, discover it's id and title, then remove it
+    var h1 = wrapper.find('h1').first();
+    var title = h1.html();
+    h1.remove();
+
+    // create a navbar item
+    var li = $('<li></li>');
+    var a = navbarLink(icon, title, '#' + id);
+    a.attr('data-toggle', 'tab');
+    li.append(a);
+
+    // add it to the navbar (or navbar menu if specified)
+    var container = $('ul.navbar-left');
+    if (navmenu) {
+      var menuId = navmenu.replace(/\s+/g, '');
+      var menu = navbarMenu(menuId, null, navmenu, container);
+      menu.append(li);
+    } else {
+      container.append(li);
+    }
+
+    // hide it if requested
+    if (hidden)
+      li.addClass('hidden');
+  }
+
+  function navbarLink(icon, title, href, target) {
+
+    var a = $('<a></a>');
+    if (icon) {
+
+      // get the name of the icon set and icon
+      var dashPos = icon.indexOf("-");
+      var iconSet = icon.substring(0, dashPos);
+      var iconName = icon.substring(dashPos + 1);
+
+      // create the icon
+      var iconElement = $('<span class="' + iconSet + ' ' + icon + '"></span>');
+      if (title)
+        iconElement.css('margin-right', '7px');
+      a.append(iconElement);
+      // if href is null see if we can auto-generate based on icon (e.g. social)
+      if (!href)
+        maybeGenerateLinkFromIcon(iconName, a);
+    }
+    if (title)
+      a.append(title);
+
+    // add the href.
+    if (href) {
+      if (href === "source_embed") {
+        a.attr('href', '#');
+        a.attr('data-featherlight', "#flexdashboard-source-code");
+        a.featherlight({
+            beforeOpen: function(event){
+              $('body').addClass('unselectable');
+            },
+            afterClose: function(event){
+              $('body').removeClass('unselectable');
+            }
+        });
+      } else {
+        a.attr('href', href);
+      }
+    }
+
+    // add the arget
+    if (target)
+      a.attr('target', target);
+
+    return a;
+  }
+
+  // auto generate a link from an icon name (e.g. twitter) when possible
+  function maybeGenerateLinkFromIcon(iconName, a) {
+
+     var serviceLinks = {
+      "twitter": "https://twitter.com/share?text=" + encodeURIComponent(document.title) + "&url="+encodeURIComponent(location.href),
+      "facebook": "https://www.facebook.com/sharer/sharer.php?s=100&p[url]="+encodeURIComponent(location.href),
+      "google-plus": "https://plus.google.com/share?url="+encodeURIComponent(location.href),
+      "linkedin": "https://www.linkedin.com/shareArticle?mini=true&url="+encodeURIComponent(location.href) + "&title=" + encodeURIComponent(document.title),
+      "pinterest": "https://pinterest.com/pin/create/link/?url="+encodeURIComponent(location.href) + "&description=" + encodeURIComponent(document.title)
+    };
+
+    var makeSocialLink = function(a, href) {
+      a.attr('href', '#');
+      a.on('click', function(e) {
+        e.preventDefault();
+        window.open(href);
+      });
+    };
+
+    $.each(serviceLinks, function(key, value) {
+      if (iconName.indexOf(key) !== -1)
+        makeSocialLink(a, value);
+    });
+  }
+
+  // layout a dashboard page
+  function layoutDashboardPage(page) {
+
+    // use a page wrapper so that free form content above the
+    // dashboard appears at the top rather than the side (as it
+    // would without the wrapper in a column orientation)
+    var wrapper = $('<div class="dashboard-page-wrapper"></div>');
+    page.wrap(wrapper);
+
+    // if there are no level2 or level3 headers synthesize a level3
+    // header to contain the (e.g. frame it, scroll container, etc.)
+    var headers = page.find('h2,h3');
+    if (headers.length === 0)
+      page.wrapInner('<div class="section level3"></div>');
+
+    // hoist up any content before level 2 or level 3 headers
+    var children = page.children();
+    children.each(function(index) {
+      if ($(this).hasClass('level2') || $(this).hasClass('level3'))
+        return false;
+      $(this).insertBefore(page);
+    });
+
+    // determine orientation and fillPage behavior for distinct media
+    var orientation, fillPage, storyboard;
+
+    // media: mobile phone
+    if (isMobilePhone()) {
+
+      // if there is a sidebar we need to ensure it's content
+      // is properly framed as an h3
+      var sidebar = page.find('.section.sidebar');
+      sidebar.removeClass('sidebar');
+      sidebar.wrapInner('<div class="section level3"></div>');
+      var h2 = sidebar.find('h2');
+      var h3 = $('<h3></h3>');
+      h3.html(h2.html());
+      h3.insertBefore(h2);
+      h2.remove();
+
+      // wipeout h2 elements then enclose them in a single h2
+      var level2 = page.find('div.section.level2');
+      level2.each(function() {
+        level2.children('h2').remove();
+        level2.children().unwrap();
+      });
+      page.wrapInner('<div class="section level2"></div>');
+
+      // substitute mobile images
+      if (isPortrait()) {
+        var mobileFigures = $('img.mobile-figure');
+        mobileFigures.each(function() {
+          // get the src (might be base64 encoded)
+          var src = $(this).attr('src');
+
+          // find it's peer
+          var id = $(this).attr('data-mobile-figure-id');
+          var img = $('img[data-figure-id=' + id + "]");
+          img.attr('src', src)
+             .attr('width', _options.defaultFigWidthMobile)
+             .attr('height', _options.defaultFigHeightMobile);
+        });
+      }
+
+      // hoist storyboard commentary into it's own section
+      if (page.hasClass('storyboard')) {
+        var commentaryHR = page.find('div.section.level3 hr');
+        commentaryHR.each(function() {
+          var commentary = $(this).nextAll().detach();
+          var commentarySection = $('<div class="section level3"></div>');
+          commentarySection.append(commentary);
+          commentarySection.insertAfter($(this).closest('div.section.level3'));
+          $(this).remove();
+        });
+      }
+
+      // force a non full screen layout by columns
+      orientation = _options.orientation = 'columns';
+      fillPage = _options.fillPage = false;
+      storyboard = _options.storyboard = false;
+
+    // media: desktop
+    } else {
+
+      // determine orientation
+      orientation = page.attr('data-orientation');
+      if (orientation !== 'rows' && orientation != 'columns')
+        orientation = _options.orientation;
+
+      // determine storyboard mode
+      storyboard = page.hasClass('storyboard');
+
+      // fillPage based on options (force for storyboard)
+      fillPage = _options.fillPage || storyboard;
+
+      // handle sidebar
+      var sidebar = page.find('.section.level2.sidebar');
+      if (sidebar.length > 0)
+        layoutSidebar(sidebar, page);
+    }
+
+    // give it and it's parent divs height: 100% if we are in fillPage mode
+    if (fillPage) {
+      page.addClass('vertical-layout-fill');
+      page.css('height', '100%');
+      page.parents('div').css('height', '100%');
+    } else {
+      page.addClass('vertical-layout-scroll');
+    }
+
+    // perform the layout
+    if (storyboard)
+      layoutPageAsStoryboard(page);
+    else if (orientation === 'rows')
+      layoutPageByRows(page, fillPage);
+    else if (orientation === 'columns')
+      layoutPageByColumns(page, fillPage);
+  }
+
+  function layoutSidebar(sidebar, content) {
+
+    // get it out of the header hierarchy
+    sidebar = sidebar.first();
+    if (sidebar.hasClass('level1')) {
+      sidebar.removeClass('level1');
+      sidebar.children('h1').remove();
+    } else if (sidebar.hasClass('level2')) {
+      sidebar.removeClass('level2');
+      sidebar.children('h2').remove();
+    }
+
+    // determine width
+    var sidebarWidth = isTablet() ? 220 : 250;
+    var dataWidth = parseInt(sidebar.attr('data-width'));
+    if (dataWidth)
+      sidebarWidth = dataWidth;
+
+    // set the width and shift the page right to accomodate the sidebar
+    sidebar.css('width', sidebarWidth + 'px');
+    content.css('padding-left', sidebarWidth + 'px');
+
+    // wrap it's contents in a form
+    sidebar.wrapInner($('<form></form>'));
+  }
+
+  function layoutPageAsStoryboard(page) {
+
+    // create storyboard navigation
+    var nav = $('<div class="storyboard-nav"></div>');
+
+    // add navigation buttons
+    var prev = $('<button class="sbprev"><i class="fa fa-angle-left"></i></button>');
+    nav.append(prev);
+    var next= $('<button class="sbnext"><i class="fa fa-angle-right"></i></button>');
+    nav.append(next);
+
+    // add navigation frame
+    var frameList = $('<div class="sbframelist"></div>');
+    nav.append(frameList);
+    var ul = $('<ul></ul>');
+    frameList.append(ul);
+
+     // find all the level3 sections (those are the storyboard frames)
+    var frames = page.find('div.section.level3');
+    frames.each(function() {
+
+      // mark it
+      $(this).addClass('sbframe');
+
+      // divide it into chart content and (optional) commentary
+      $(this).addClass('dashboard-column-orientation');
+
+      // stuff the chart into it's own div w/ flex
+      $(this).wrapInner('<div class="sbframe-component"></div>');
+      setFlex($(this), 1);
+      var frame = $(this).children('.sbframe-component');
+
+      // extract the title from the h3
+      var li = $('<li></li>');
+      var h3 = frame.children('h3');
+      li.html(h3.html());
+      h3.remove();
+      ul.append(li);
+
+      // extract commentary
+      var hr = frame.children('hr');
+      if (hr.length) {
+        var commentary = hr.nextAll().detach();
+        hr.remove();
+        var commentaryFrame = $('<div class="sbframe-commentary"></div>');
+        commentaryFrame.addClass('flowing-content-shim');
+        commentaryFrame.addClass('flowing-content-container');
+        commentaryFrame.append(commentary);
+        $(this).append(commentaryFrame);
+
+        // look for a data-commentary-width attribute
+        var commentaryWidth = $(this).attr('data-commentary-width');
+        if (commentaryWidth)
+          commentaryFrame.css('width', commentaryWidth + 'px');
+      }
+
+      // layout the chart (force flex)
+      var result = layoutChart(frame, true);
+
+      // ice the notes if there are none
+      if (!result.notes)
+        frame.find('.chart-notes').remove();
+
+      // set flex on chart
+      setFlex(frame, 1);
+    });
+
+    // create a div to hold all the frames
+    var frameContent = $('<div class="sbframe-content"></div>');
+    frameContent.addClass('dashboard-row-orientation');
+    frameContent.append(frames.detach());
+
+    // row orientation to stack nav and frame content
+    page.addClass('dashboard-row-orientation');
+    page.append(nav);
+    page.append(frameContent);
+    setFlex(frameContent, 1);
+
+    // initialize sly
+    var sly = new Sly(frameList, {
+    		horizontal: true,
+    		itemNav: 'basic',
+    		smart: true,
+    		activateOn: 'click',
+    		startAt: 0,
+    		scrollBy: 1,
+    		activatePageOn: 'click',
+    		speed: 200,
+    		moveBy: 600,
+    		dragHandle: true,
+    		dynamicHandle: true,
+    		clickBar: true,
+    		keyboardNavBy: 'items',
+    		next: next,
+    		prev: prev
+    	}).init();
+
+    // make first frame active
+    frames.removeClass('active');
+    frames.first().addClass('active');
+
+    // subscribe to frame changed events
+    sly.on('active', function (eventName, itemIndex) {
+      frames.removeClass('active');
+      frames.eq(itemIndex).addClass('active')
+                          .trigger('shown');
+    });
+  }
+
+  function layoutPageByRows(page, fillPage) {
+
+    // row orientation
+    page.addClass('dashboard-row-orientation');
+
+    // find all the level2 sections (those are the rows)
+    var rows = page.find('div.section.level2');
+
+    // if there are no level2 sections then treat the
+    // entire page as if it's a level 2 section
+    if (rows.length === 0) {
+      page.wrapInner('<div class="section level2"></div>');
+      rows = page.find('div.section.level2');
+    }
+
+    rows.each(function () {
+
+      // flags
+      var haveNotes = false;
+      var haveFlexHeight = true;
+
+      // remove the h2
+      $(this).children('h2').remove();
+
+      // check for a tabset
+      var isTabset = $(this).hasClass('tabset');
+      if (isTabset)
+        layoutTabset($(this));
+
+      // give it row layout semantics if it's not a tabset
+      if (!isTabset)
+        $(this).addClass('dashboard-row');
+
+      // find all of the level 3 subheads
+      var columns = $(this).find('div.section.level3');
+
+      // determine figureSizes sizes
+      var figureSizes = chartFigureSizes(columns);
+
+      // fixup the columns
+      columns.each(function(index) {
+
+        // layout the chart (force flex if we are in a tabset)
+        var result = layoutChart($(this), isTabset);
+
+        // update flexHeight state
+        if (!result.flex)
+          haveFlexHeight = false;
+
+        // update state
+        if (result.notes)
+          haveNotes = true;
+
+        // set the column flex based on the figure width
+        // (value boxes will just get the default figure width)
+        var chartWidth = figureSizes[index].width;
+        setFlex($(this), chartWidth + ' ' + chartWidth + ' 0px');
+
+      });
+
+      // remove empty chart note divs
+      if (isTabset)
+        $(this).find('.chart-notes').filter(function() {
+            return $(this).html() === "&nbsp;";
+        }).remove();
+      if (!haveNotes)
+        $(this).find('.chart-notes').remove();
+
+       // make it a flexbox row
+      if (haveFlexHeight)
+        $(this).addClass('dashboard-row-flex');
+
+      // now we can set the height on all the wrappers (based on maximum
+      // figure height + room for title and notes, or data-height on the
+      // container if specified). However, don't do this if there is
+      // no flex on any of the constituent columns
+      var flexHeight = null;
+      var dataHeight = parseInt($(this).attr('data-height'));
+      if (dataHeight)
+        flexHeight = adjustedHeight(dataHeight, columns.first());
+      else if (haveFlexHeight)
+        flexHeight = maxChartHeight(figureSizes, columns);
+      if (flexHeight) {
+        if (fillPage)
+          setFlex($(this), flexHeight + ' ' + flexHeight + ' 0px');
+        else {
+          $(this).css('height', flexHeight + 'px');
+          setFlex($(this), '0 0 ' + flexHeight + 'px');
+        }
+      }
+
+    });
+  }
+
+  function layoutPageByColumns(page, fillPage) {
+
+    // column orientation
+    page.addClass('dashboard-column-orientation');
+
+    // find all the level2 sections (those are the columns)
+    var columns = page.find('div.section.level2');
+
+    // if there are no level2 sections then treat the
+    // entire page as if it's a level 2 section
+    if (columns.length === 0) {
+      page.wrapInner('<div class="section level2"></div>');
+      columns = page.find('div.section.level2');
+    }
+
+    // layout each column
+    columns.each(function (index) {
+
+      // remove the h2
+      $(this).children('h2').remove();
+
+      // make it a flexbox column
+      $(this).addClass('dashboard-column');
+
+      // check for a tabset
+      var isTabset = $(this).hasClass('tabset');
+      if (isTabset)
+        layoutTabset($(this));
+
+      // find all the h3 elements
+      var rows = $(this).find('div.section.level3');
+
+      // get the figure sizes for the rows
+      var figureSizes = chartFigureSizes(rows);
+
+      // column flex is the max row width (or data-width if specified)
+      var flexWidth;
+      var dataWidth = parseInt($(this).attr('data-width'));
+      if (dataWidth)
+        flexWidth = dataWidth;
+      else
+        flexWidth = maxChartWidth(figureSizes);
+      setFlex($(this), flexWidth + ' ' + flexWidth + ' 0px');
+
+      // layout each chart
+      rows.each(function(index) {
+
+        // perform the layout
+        var result = layoutChart($(this), false);
+
+        // ice the notes if there are none
+        if (!result.notes)
+          $(this).find('.chart-notes').remove();
+
+        // set flex height based on figHeight, then adjust
+        if (result.flex) {
+          var chartHeight = figureSizes[index].height;
+          chartHeight = adjustedHeight(chartHeight, $(this));
+          if (fillPage)
+            setFlex($(this), chartHeight + ' ' + chartHeight + ' 0px');
+          else {
+            $(this).css('height', chartHeight + 'px');
+            setFlex($(this), chartHeight + ' ' + chartHeight + ' ' + chartHeight + 'px');
+          }
+        }
+      });
+    });
+  }
+
+  function chartFigureSizes(charts) {
+
+    // sizes
+    var figureSizes = new Array(charts.length);
+
+    // check each chart
+    charts.each(function(index) {
+
+      // start with default
+      figureSizes[index] = {
+        width: _options.defaultFigWidth,
+        height: _options.defaultFigHeight
+      };
+
+      // look for data-height or data-width then knit options
+      var dataWidth = parseInt($(this).attr('data-width'));
+      var dataHeight = parseInt($(this).attr('data-height'));
+      var knitrOptions = $(this).find('.knitr-options:first');
+      var knitrWidth, knitrHeight;
+      if (knitrOptions) {
+        knitrWidth = parseInt(knitrOptions.attr('data-fig-width'));
+        knitrHeight =  parseInt(knitrOptions.attr('data-fig-height'));
+      }
+
+      // width
+      if (dataWidth)
+        figureSizes[index].width = dataWidth;
+      else if (knitrWidth)
+        figureSizes[index].width = knitrWidth;
+
+      // height
+      if (dataHeight)
+        figureSizes[index].height = dataHeight;
+      else if (knitrHeight)
+        figureSizes[index].height = knitrHeight;
+    });
+
+    // return sizes
+    return figureSizes;
+  }
+
+  function maxChartHeight(figureSizes, charts) {
+
+    // first compute the maximum height
+    var maxHeight = _options.defaultFigHeight;
+    for (var i = 0; i<figureSizes.length; i++)
+      if (figureSizes[i].height > maxHeight)
+        maxHeight = figureSizes[i].height;
+
+    // now add offests for chart title and chart notes
+    if (charts.length)
+      maxHeight = adjustedHeight(maxHeight, charts.first());
+
+    return maxHeight;
+  }
+
+  function adjustedHeight(height, chart) {
+    if (chart.length > 0) {
+      var chartTitle = chart.find('.chart-title');
+      if (chartTitle.length)
+        height += chartTitle.first().outerHeight();
+      var chartNotes = chart.find('.chart-notes');
+      if (chartNotes.length)
+        height += chartNotes.first().outerHeight();
+    }
+    return height;
+  }
+
+  function maxChartWidth(figureSizes) {
+    var maxWidth = _options.defaultFigWidth;
+    for (var i = 0; i<figureSizes.length; i++)
+      if (figureSizes[i].width > maxWidth)
+        maxWidth = figureSizes[i].width;
+    return maxWidth;
+  }
+
+  // layout a chart
+  function layoutChart(chart, forceFlex) {
+
+    // state to return
+    var result = {
+      notes: false,
+      flex: false
+    };
+
+    // extract the title
+    var title = extractTitle(chart);
+
+    // find components that apply to this container
+    var components = componentsFind(chart);
+
+    // if it's a custom component then call it and return
+    var customComponents = componentsCustom(components);
+    if (customComponents.length) {
+      componentsLayout(customComponents, title, chart);
+      result.notes = false;
+      result.flex = forceFlex || componentsFlex(customComponents);
+      return result;
+    }
+
+    // put all the content in a chart wrapper div
+    chart.addClass('chart-wrapper');
+    chart.wrapInner('<div class="chart-stage"></div>');
+    var chartContent = chart.children('.chart-stage');
+
+    // flex the content if appropriate
+    result.flex = forceFlex || componentsFlex(components);
+    if (result.flex) {
+      // add flex classes
+      chart.addClass('chart-wrapper-flex');
+      chartContent.addClass('chart-stage-flex');
+
+      // additional shim to break out of flexbox sizing
+      chartContent.wrapInner('<div class="chart-shim"></div>');
+      chartContent = chartContent.children('.chart-shim');
+    }
+
+    // set custom data-padding attribute
+    var pad = chart.attr('data-padding');
+    if (pad) {
+      if (pad === "0")
+        chart.addClass('no-padding');
+      else {
+        pad = pad + 'px';
+        chartContent.css('left', pad)
+                    .css('top', pad)
+                    .css('right', pad)
+                    .css('bottom', pad)
+      }
+    }
+
+    // call compoents
+    componentsLayout(components, title, chartContent);
+
+    // also activate components on shiny output
+    findShinyOutput(chartContent).on('shiny:value',
+      function(event) {
+        var element = $(event.target);
+        setTimeout(function() {
+
+          // see if we opted out of flex based on our output (for shiny
+          // we can't tell what type of output we have until after the
+          // value is bound)
+          var components = componentsFind(element);
+          var flex = forceFlex || componentsFlex(components);
+          if (!flex) {
+            chart.css('height', "");
+            setFlex(chart, "");
+            chart.removeClass('chart-wrapper-flex');
+            chartContent.removeClass('chart-stage-flex');
+            chartContent.children().unwrap();
+          }
+
+          // perform layout
+          componentsLayout(components, title, element.parent());
+        }, 10);
+      });
+
+    // add the title
+    var chartTitle = $('<div class="chart-title"></div>');
+    chartTitle.html(title);
+    chart.prepend(chartTitle);
+
+    // add the notes section
+    var chartNotes = $('<div class="chart-notes"></div>');
+    chartNotes.html('&nbsp;');
+    chart.append(chartNotes);
+
+    // attempt to extract notes if we have a component
+    if (components.length)
+      result.notes = extractChartNotes(chartContent, chartNotes);
+
+    // return result
+    return result;
+  }
+
+  // build a tabset from a section div with the .tabset class
+  function layoutTabset(tabset) {
+
+    // check for fade option
+    var fade = tabset.hasClass("tabset-fade");
+    var navClass = "nav-tabs";
+
+    // determine the heading level of the tabset and tabs
+    var match = tabset.attr('class').match(/level(\d) /);
+    if (match === null)
+      return;
+    var tabsetLevel = Number(match[1]);
+    var tabLevel = tabsetLevel + 1;
+
+    // find all subheadings immediately below
+    var tabs = tabset.find("div.section.level" + tabLevel);
+    if (!tabs.length)
+      return;
+
+    // create tablist and tab-content elements
+    var tabList = $('<ul class="nav ' + navClass + '" role="tablist"></ul>');
+    $(tabs[0]).before(tabList);
+    var tabContent = $('<div class="tab-content"></div>');
+    $(tabs[0]).before(tabContent);
+
+    // build the tabset
+    tabs.each(function(i) {
+
+      // get the tab div
+      var tab = $(tabs[i]);
+
+      // get the id then sanitize it for use with bootstrap tabs
+      var id = tab.attr('id');
+
+      // sanitize the id for use with bootstrap tabs
+      id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
+      tab.attr('id', id);
+
+      // get the heading element within it and grab it's text
+      var heading = tab.find('h' + tabLevel + ':first');
+      var headingText = heading.html();
+
+      // build and append the tab list item
+      var a = $('<a role="tab" data-toggle="tab">' + headingText + '</a>');
+      a.attr('href', '#' + id);
+      a.attr('aria-controls', id);
+      var li = $('<li role="presentation"></li>');
+      li.append(a);
+      if (i === 0)
+        li.attr('class', 'active');
+      tabList.append(li);
+
+      // set it's attributes
+      tab.attr('role', 'tabpanel');
+      tab.addClass('tab-pane');
+      tab.addClass('tabbed-pane');
+      tab.addClass('no-title');
+      if (fade)
+        tab.addClass('fade');
+      if (i === 0) {
+        tab.addClass('active');
+        if (fade)
+          tab.addClass('in');
+      }
+
+      // move it into the tab content div
+      tab.detach().appendTo(tabContent);
+    });
+
+    // add nav-tabs-custom
+    tabset.addClass('nav-tabs-custom');
+
+    // internal layout is dashboard-column with tab-content flexing
+    tabset.addClass('dashboard-column');
+    setFlex(tabContent, 1);
+  }
+
+  // one time global initialization for components
+  function componentsInit(dashboardContainer) {
+    for (var i=0; i<window.FlexDashboardComponents.length; i++) {
+      var component = window.FlexDashboardComponents[i];
+      if (component.init)
+        component.init(dashboardContainer);
+    }
+  }
+
+  // find components that apply within a container
+  function componentsFind(container) {
+
+    // look for components
+    var components = [];
+    for (var i=0; i<window.FlexDashboardComponents.length; i++) {
+      var component = window.FlexDashboardComponents[i];
+      if (component.find(container).length)
+        components.push(component);
+    }
+
+    // if there were none then use a special flowing content component
+    // that just adds a scrollbar in fillPage mode
+    if (components.length == 0) {
+      components.push({
+        find: function(container) {
+          return container;
+        },
+
+        flex: function(fillPage) {
+          return fillPage;
+        },
+
+        layout: function(title, container, element, fillPage) {
+          if (fillPage) {
+            container.addClass('flowing-content-shim');
+            container.addClass('flowing-content-container');
+          }
+        }
+      });
+    }
+
+    return components;
+  }
+
+  // if there is a custom component then pick it out
+  function componentsCustom(components) {
+    var customComponent = [];
+    for (var i=0; i<components.length; i++)
+      if (components[i].type === "custom") {
+        customComponent.push(components[i]);
+        break;
+      }
+    return customComponent;
+  }
+
+  // query all components for flex
+  function componentsFlex(components) {
+
+    // no components at all means no flex
+    if (components.length === 0)
+      return false;
+
+    // otherwise query components (assume true unless we see false)
+    var isMobile = isMobilePhone();
+    for (var i=0; i<components.length; i++)
+      if (components[i].flex && !components[i].flex(_options.fillPage))
+        return false;
+    return true;
+  }
+
+  // layout all components
+  function componentsLayout(components, title, container) {
+    var isMobile = isMobilePhone();
+    for (var i=0; i<components.length; i++) {
+      var element = components[i].find(container);
+      if (components[i].layout) {
+        // call layout (don't call other components if it returns false)
+        var result = components[i].layout(title, container, element, _options.fillPage);
+        if (result === false)
+          return;
+      }
+    }
+  }
+
+  // get a reference to the h3, discover it's inner html, and remove it
+  function extractTitle(container) {
+    var h3 = container.children('h3').first();
+    var title = '';
+    if (!container.hasClass('no-title'))
+      title = h3.html();
+    h3.remove();
+    return title;
+  }
+
+  // extract chart notes
+  function extractChartNotes(chartContent, chartNotes) {
+    // look for a terminating blockquote or image caption
+    var blockquote = chartContent.children('blockquote:last-child');
+    var caption = chartContent.children('div.image-container')
+                              .children('p.caption');
+    if (blockquote.length) {
+      chartNotes.html(blockquote.children('p:first-child').html());
+      blockquote.remove();
+      return true;
+    } else if (caption.length) {
+      chartNotes.html(caption.html());
+      caption.remove();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function findShinyOutput(chartContent) {
+    return chartContent.find('.shiny-text-output, .shiny-html-output');
+  }
+
+  // safely detect rendering on a mobile phone
+  function isMobilePhone() {
+    try
+    {
+      return ! window.matchMedia("only screen and (min-width: 768px)").matches;
+    }
+    catch(e) {
+      return false;
+    }
+  }
+
+  function isFillPage() {
+    return _options.fillPage;
+  }
+
+  // detect portrait mode
+  function isPortrait() {
+    return ($(window).width() < $(window).height());
+  }
+
+  // safely detect rendering on a tablet
+  function isTablet() {
+    try
+    {
+      return window.matchMedia("only screen and (min-width: 769px) and (max-width: 992px)").matches;
+    }
+    catch(e) {
+      return false;
+    }
+  }
+
+  // test whether this is a shiny doc
+  function isShinyDoc() {
+    return (typeof(window.Shiny) !== "undefined" && !!window.Shiny.outputBindings);
+  }
+
+  // set flex using vendor specific prefixes
+  function setFlex(el, flex) {
+    el.css('-webkit-box-flex', flex)
+      .css('-webkit-flex', flex)
+      .css('-ms-flex', flex)
+      .css('flex', flex);
+  }
+
+  // support bookmarking of pages
+  function handleLocationHash() {
+
+    // restore tab/page from bookmark
+    var hash = window.location.hash;
+    if (hash.length > 0)
+      $('ul.nav a[href="' + hash + '"]').tab('show');
+    FlexDashboardUtils.manageActiveNavbarMenu();
+
+    // navigate to a tab when the history changes
+    window.addEventListener("popstate", function(e) {
+      var hash = window.location.hash;
+      var activeTab = $('ul.nav a[href="' + hash + '"]');
+      if (activeTab.length) {
+        activeTab.tab('show');
+      } else {
+        $('ul.nav a:first').tab('show');
+      }
+      FlexDashboardUtils.manageActiveNavbarMenu();
+    });
+
+    // add a hash to the URL when the user clicks on a tab/page
+    $('.navbar-nav a[data-toggle="tab"]').on('click', function(e) {
+      var baseUrl = FlexDashboardUtils.urlWithoutHash(window.location.href);
+      var hash = FlexDashboardUtils.urlHash($(this).attr('href'));
+      var href = baseUrl + hash;
+      FlexDashboardUtils.setLocation(href);
+    });
+
+    // handle clicks of other links that should activate pages
+    var navPages = $('ul.navbar-nav li a[data-toggle=tab]');
+    navPages.each(function() {
+      var href =  $(this).attr('href');
+      var links = $('a[href="' + href + '"][data-toggle!=tab]');
+      links.each(function() {
+        $(this).on('click', function(e) {
+          window.FlexDashboardUtils.showPage(href);
+        });
+      });
+    });
+  }
+
+  // tweak Prism highlighting
+  function initPrismHighlighting() {
+
+    if (window.Prism) {
+      Prism.languages.insertBefore('r', 'comment', {
+        'heading': [
+          {
+            // title 1
+        	  // =======
+
+        	  // title 2
+        	  // -------
+        	  pattern: /\w+.*(?:\r?\n|\r)(?:====+|----+)/,
+            alias: 'operator'
+          },
+          {
+            // ### title 3
+            pattern: /(^\s*)###[^#].+/m,
+            lookbehind: true,
+            alias: 'operator'
+          }
+        ]
+      });
+
+      // prism highlight
+      Prism.highlightAll();
+    }
+  }
+
+
+  // get theme color
+  var themeColors = {
+    bootstrap: {
+      primary: "rgba(51, 122, 183, 0.4)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    cerulean: {
+      primary: "rgb(47, 164, 231)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    journal: {
+      primary: "rgba(235, 104, 100, 0.70)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    flatly: {
+      primary: "rgba(44, 62, 80, 0.70)",
+      info: "rgba(52, 152, 219, 0.70)",
+      success: "rgba(24, 188, 156, 0.70)",
+      warning: "rgba(243, 156, 18, 0.70)",
+      danger: "rgba(231, 76, 60, 0.70)"
+    },
+    readable: {
+      primary: "rgba(69, 130, 236, 0.4)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    spacelab: {
+      primary: "rgba(68, 110, 155, 0.25)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    united: {
+      primary: "rgba(221, 72, 20, 0.30)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    cosmo: {
+      primary: "rgba(39, 128, 227, 0.7)",
+      info: "rgba(153, 84, 187, 0.7)",
+      success: "rgba(63, 182, 24, 0.7)",
+      warning: "rgba(255, 117, 24, 0.7)",
+      danger: "rgba(255, 0, 57, 0.7)"
+    },
+    lumen: {
+      primary: "rgba(21, 140, 186, 0.70)",
+      info: "rgba(117, 202, 235, 0.90)",
+      success: "rgba(40, 182, 44, 0.70)",
+      warning: "rgba(255, 133, 27, 0.70)",
+      danger: "rgba(255, 65, 54, 0.70)"
+    },
+    paper: {
+      primary: "rgba(33, 150, 243, 0.35)",
+      info: "rgb(225, 190, 231)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(255, 224, 178)",
+      danger: "rgb(249, 189, 187)"
+    },
+    sandstone: {
+      primary: "rgba(50, 93, 136, 0.3)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    simplex: {
+      primary: "rgba(217, 35, 15, 0.25)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    yeti: {
+      primary: "rgba(0, 140, 186, 0.298039)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    }
+  }
+  function themeColor(color) {
+    return themeColors[_options.theme][color];
+  }
+
+  FlexDashboard.prototype = {
+    constructor: FlexDashboard,
+    init: init,
+    isMobilePhone: isMobilePhone,
+    isFillPage: isFillPage,
+    themeColor: themeColor
+  };
+
+  return FlexDashboard;
+
+})();
+
+// utils
+window.FlexDashboardUtils = {
+  resizableImage: function(img) {
+    var src = img.attr('src');
+    var url = 'url("' + src + '")';
+    img.parent().css('background', url)
+                .css('background-size', 'contain')
+                .css('background-repeat', 'no-repeat')
+                .css('background-position', 'center')
+                .addClass('image-container');
+  },
+  setLocation: function(href) {
+    if (history && history.pushState) {
+      history.pushState(null, null, href);
+    } else {
+      window.location.replace(href);
+    }
+    setTimeout(function() {
+        window.scrollTo(0, 0);
+    }, 10);
+    this.manageActiveNavbarMenu();
+  },
+  showPage: function(href) {
+    $('ul.navbar-nav li a[href="' + href + '"]').tab('show');
+    var baseUrl = this.urlWithoutHash(window.location.href);
+    var loc = baseUrl + href;
+    this.setLocation(loc);
+  },
+  showLinkedValue: function(href) {
+    // check for a page link
+    if ($('ul.navbar-nav li a[data-toggle=tab][href="' + href + '"]').length > 0)
+      this.showPage(href);
+    else
+      window.open(href);
+  },
+  urlWithoutHash: function(url) {
+    var hashLoc = url.indexOf('#');
+    if (hashLoc != -1)
+      return url.substring(0, hashLoc);
+    else
+      return url;
+  },
+  urlHash: function(url) {
+    var hashLoc = url.indexOf('#');
+    if (hashLoc != -1)
+      return url.substring(hashLoc);
+    else
+      return "";
+  },
+  manageActiveNavbarMenu: function () {
+    // remove active from anyone currently active
+    $('.navbar ul.nav').find('li').removeClass('active');
+    // find the active tab
+    var activeTab = $('.dashboard-page-wrapper.tab-pane.active');
+    if (activeTab.length > 0) {
+      var tabId = activeTab.attr('id');
+      if (tabId)
+        $(".navbar ul.nav a[href='#" + tabId + "']").parents('li').addClass('active');
+    }
+  }
+};
+
+window.FlexDashboard = new FlexDashboard();
+
+// empty content
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    if (container.find('p').length == 0)
+      return container;
+    else
+      return $();
+  }
+})
+
+// plot image
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('p')
+                    .children('img:only-child');
+  },
+
+  layout: function(title, container, element, fillPage) {
+    FlexDashboardUtils.resizableImage(element);
+  }
+});
+
+// plot image (figure style)
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('div.figure').children('img');
+  },
+
+  layout: function(title, container, element, fillPage) {
+    FlexDashboardUtils.resizableImage(element);
+  }
+});
+
+// htmlwidget
+window.FlexDashboardComponents.push({
+
+  init: function(dashboardContainer) {
+    // trigger "shown" after initial layout to force static htmlwidgets
+    // in runtime: shiny to be resized after the dom has been transformed
+    dashboardContainer.on('flexdashboard:layoutcomplete', function(event) {
+      setTimeout(function() {
+        dashboardContainer.trigger('shown');
+      }, 200);
+    });
+  },
+
+  find: function(container) {
+    return container.children('div[id^="htmlwidget-"],div.html-widget');
+  }
+});
+
+// gauge
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('div.html-widget.gauge');
+  },
+
+  flex: function(fillPage) {
+    return false;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+
+  }
+
+});
+
+// shiny output
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    return container.children('div[class^="shiny-"]');
+  }
+});
+
+// datatables
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    return container.find('.datatables');
+  },
+  flex: function(fillPage) {
+    return fillPage;
+  }
+});
+
+// bootstrap table
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    var bsTable = container.find('table.table');
+    if (bsTable.length !== 0)
+      return bsTable;
+    else
+      return container.find('tr.header').parent('thead').parent('table');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+    // alias variables
+    var bsTable = element;
+
+    // fixup xtable generated tables with a proper thead
+    var headerRow = bsTable.find('tbody > tr:first-child > th').parent();
+    if (headerRow.length > 0) {
+      var thead = $('<thead></thead>');
+      bsTable.prepend(thead);
+      headerRow.detach().appendTo(thead);
+    }
+
+    // improve appearance
+    container.addClass('bootstrap-table');
+
+    // for fill page provide scrolling w/ sticky headers
+    if (fillPage) {
+      // force scrollbar on overflow
+      container.addClass('flowing-content-shim');
+
+      // stable table headers when scrolling
+      bsTable.stickyTableHeaders({
+        scrollableArea: container
+      });
+    }
+  }
+});
+
+// embedded shiny app
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.find('iframe.shiny-frame');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+    if (fillPage) {
+      element.attr('height', '100%');
+    } else {
+      // provide default height if necessary
+      var height = element.get(0).style.height;
+      if (!height)
+        height = element.attr('height');
+      if (!height)
+        element.attr('height', 500);
+    }
+  }
+});
+
+// shiny fillRow or fillCol
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.find('.flexfill-container');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+    if (fillPage)
+      element.css('height', '100%');
+    else {
+      // provide default height if necessary
+      var height = element.get(0).style.height;
+      if (height === "100%" || height === "auto" || height === "initial" ||
+          height === "inherit" || !height) {
+        element.css('height', 500);
+      }
+    }
+  }
+});
+
+// valueBox
+window.FlexDashboardComponents.push({
+
+  type: "custom",
+
+  find: function(container) {
+    if (container.find('span.value-output, .shiny-valuebox-output').length)
+      return container;
+    else
+      return $();
+  },
+
+  flex: function(fillPage) {
+    return false;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+    // alias variables
+    var chartTitle = title;
+    var valueBox = element;
+
+    // add value-box class to container
+    container.addClass('value-box');
+
+    // value paragraph
+    var value = $('<p class="value"></p>');
+
+    // if we have shiny-text-output then just move it in
+    var valueOutputSpan = [];
+    var shinyOutput = valueBox.find('.shiny-valuebox-output').detach();
+    if (shinyOutput.length) {
+      valueBox.children().remove();
+      shinyOutput.html("&mdash;");
+      value.append(shinyOutput);
+    } else {
+      // extract the value (remove leading vector index)
+      var chartValue = valueBox.text().trim();
+      chartValue = chartValue.replace("[1] ", "");
+      valueOutputSpan = valueBox.find('span.value-output').detach();
+      valueBox.children().remove();
+      value.text(chartValue);
+    }
+
+    // caption
+    var caption = $('<p class="caption"></p>');
+    caption.html(chartTitle);
+
+    // build inner div for value box and add it
+    var inner = $('<div class="inner"></div>');
+    inner.append(value);
+    inner.append(caption);
+    valueBox.append(inner);
+
+    // add icon if specified
+    var icon = $('<div class="icon"><i></i></div>');
+    valueBox.append(icon);
+    function setIcon(chartIcon) {
+      var iconLib = "";
+      var components = chartIcon.split("-");
+      if (components.length > 1)
+        iconLib = components[0];
+      icon.children('i').attr('class', iconLib + ' ' + chartIcon);
+    }
+    var chartIcon = valueBox.attr('data-icon');
+    if (chartIcon)
+      setIcon(chartIcon);
+
+    // set color based on data-background if necessary
+    var dataBackground = valueBox.attr('data-background');
+    if (dataBackground)
+      valueBox.css('background-color', bgColor);
+    else {
+      // default to bg-primary if no other background is specified
+      if (!valueBox.hasClass('bg-primary') &&
+          !valueBox.hasClass('bg-info') &&
+          !valueBox.hasClass('bg-warning') &&
+          !valueBox.hasClass('bg-success') &&
+          !valueBox.hasClass('bg-danger')) {
+        valueBox.addClass('bg-primary');
+      }
+    }
+
+    // handle data attributes in valueOutputSpan
+    function handleValueOutput(valueOutput) {
+
+      // caption
+      var dataCaption = valueOutput.attr('data-caption');
+      if (dataCaption)
+        caption.html(dataCaption);
+
+      // icon
+      var dataIcon = valueOutput.attr('data-icon');
+      if (dataIcon)
+        setIcon(dataIcon);
+
+      // color
+      var dataColor = valueOutput.attr('data-color');
+      if (dataColor) {
+        if (dataColor.indexOf('bg-') === 0) {
+          valueBox.css('background-color', '');
+          if (!valueBox.hasClass(dataColor)) {
+             valueBox.removeClass('bg-primary bg-info bg-warning bg-danger bg-success');
+             valueBox.addClass(dataColor);
+          }
+        } else {
+          valueBox.removeClass('bg-primary bg-info bg-warning bg-danger bg-success');
+          valueBox.css('background-color', dataColor);
+        }
+      }
+
+      // url
+      var dataHref = valueOutput.attr('data-href');
+      if (dataHref) {
+        valueBox.addClass('linked-value');
+        valueBox.off('click.value-box');
+        valueBox.on('click.value-box', function(e) {
+          window.FlexDashboardUtils.showLinkedValue(dataHref);
+        });
+      }
+    }
+
+    // check for a valueOutputSpan
+    if (valueOutputSpan.length > 0) {
+      handleValueOutput(valueOutputSpan);
+    }
+
+    // if we have a shinyOutput then bind a listener to handle
+    // new valueOutputSpan values
+    shinyOutput.on('shiny:value',
+      function(event) {
+        var element = $(event.target);
+        setTimeout(function() {
+          var valueOutputSpan = element.find('span.value-output');
+          if (valueOutputSpan.length > 0)
+            handleValueOutput(valueOutputSpan);
+        }, 10);
+      }
+    );
+  }
+});
+
+
+</script>
+
+<div id="dashboard-container">
+
+<!-- a wee bit of JS that allows a modal popup when the first -->
+<!-- list element of the navbar (Instructions) is clicked -->
+<!-- adapted from: https://github.com/rstudio/flexdashboard/issues/208 -->
+<script>
+  $('.navbar-brand').wrap('<a href="http://www.gsawellfailure.com">');
+  
+  <!-- modal popup when valueboxes are clicked -->
+  $(document).ready(function() {
+    $('#dashboard-container').on('flexdashboard:layoutcomplete', 
+      function() {
+        $('#navbar li:nth-child(1)').click(function() {
+          $('#md-instructions').modal(); });
+    })
+  })
+  
+  $(document).ready(function() {
+    $('#dashboard-container').on('flexdashboard:layoutcomplete', 
+      function() {
+        $('#groundwater-level-decline').click(function() {
+          $('#md-groundwater-level-decline').modal(); });
+    })
+  })
+  
+  $(document).ready(function() {
+    $('#dashboard-container').on('flexdashboard:layoutcomplete', 
+      function() {
+        $('#well-failures').click(function() {
+          $('#md-well-failures').modal(); });
+    })
+  })
+  
+  $(document).ready(function() {
+    $('#dashboard-container').on('flexdashboard:layoutcomplete', 
+      function() {
+        $('#percent-of-failing-wells').click(function() {
+          $('#md-percent-of-failing-wells').modal(); });
+    })
+  })
+  
+  $(document).ready(function() {
+    $('#dashboard-container').on('flexdashboard:layoutcomplete', 
+      function() {
+        $('#cost').click(function() {
+          $('#md-cost').modal(); });
+    })
+  })
+</script>
+<div id="row" class="section level2 sidebar" data-width="150" data-padding="10">
+<h2>Row</h2>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<p><div class="dropdown">
+<button class="dropbtn">GSA</button>
+<div class="dropdown-content">
+<a href="https://www.gsawellfailure.com/gsas/ALL/50">ALL</a>
+<a href="https://www.gsawellfailure.com/gsas/northern-central/50">Northern Central (DM)</a>
+<a href="https://www.gsawellfailure.com/gsas/farmers/50">Farmers (DM)</a>
+<a href="https://www.gsawellfailure.com/gsas/east-kaweah/50">East Kaweah</a>
+<a href="https://www.gsawellfailure.com/gsas/chowchilla/50">Chowchilla</a>
+<a href="https://www.gsawellfailure.com/gsas/madera-joint/50">Madera Joint</a>
+<a href="https://www.gsawellfailure.com/gsas/central-kings/50">Central Kings</a>
+<a href="https://www.gsawellfailure.com/gsas/north-fork-kings/50">North Fork Kings</a>
+<a href="https://www.gsawellfailure.com/gsas/south-kings/50">South Kings</a>
+<a href="https://www.gsawellfailure.com/gsas/mc-mullin/50">Mc Mullin</a>
+<a href="https://www.gsawellfailure.com/gsas/gravelly-ford-madera/50">Gravelly Ford (Madera)</a>
+<a href="https://www.gsawellfailure.com/gsas/pixley-tule/50">Pixley (Tule)</a>
+<a href="https://www.gsawellfailure.com/gsas/westside/50">Westside</a>
+<a href="https://www.gsawellfailure.com/gsas/greater-kaweah/50">Greater Kaweah</a>
+<a href="https://www.gsawellfailure.com/gsas/new-stone-madera/50">New Stone (Madera)</a>
+<a href="https://www.gsawellfailure.com/gsas/mid-kaweah/50">Mid Kaweah</a>
+<a href="https://www.gsawellfailure.com/gsas/aliso/50">Aliso (DM)</a>
+<a href="https://www.gsawellfailure.com/gsas/merced/50">Merced</a>
+<a href="https://www.gsawellfailure.com/gsas/kings-river-east/50">Kings River East</a>
+<a href="https://www.gsawellfailure.com/gsas/north-kings/50">North Kings</a>
+<a href="https://www.gsawellfailure.com/gsas/henry-miller-kern/50">Henry Miller (Kern)</a>
+<a href="https://www.gsawellfailure.com/gsas/grassland/50">Grassland (DM)</a>
+<a href="https://www.gsawellfailure.com/gsas/tulare-lake/50">Tulare Lake</a>
+<a href="https://www.gsawellfailure.com/gsas/east-tule/50">East Tule</a>
+<a href="https://www.gsawellfailure.com/gsas/olcese-kern/50">Olcese (Kern)</a>
+<a href="https://www.gsawellfailure.com/gsas/root-creek-madera/50">Root Creek (Madera)</a>
+<a href="https://www.gsawellfailure.com/gsas/buena-vista-kern/50">Buena Vista (Kern)</a>
+<a href="https://www.gsawellfailure.com/gsas/kern-river/50">Kern River</a>
+<a href="https://www.gsawellfailure.com/gsas/delano-earlimart-tule/50">Delano-Earlimart (Tule)</a>
+<a href="https://www.gsawellfailure.com/gsas/sjrec/50">SJREC (DM)</a>
+<a href="https://www.gsawellfailure.com/gsas/fresno-county/50">Fresno County (DM)</a>
+<a href="https://www.gsawellfailure.com/gsas/james-kings/50">James (Kings)</a>
+<a href="https://www.gsawellfailure.com/gsas/kern-groundwater-authority/50">Kern Groundwater Authority</a>
+<a href="https://www.gsawellfailure.com/gsas/eastern-san-joaquin/50">Eastern San Joaquin</a>
+<a href="https://www.gsawellfailure.com/gsas/alpaugh-tule/50">Alpaugh (Tule)</a>
+<a href="https://www.gsawellfailure.com/gsas/lower-tule-river/50">Lower Tule River</a>
+<a href="https://www.gsawellfailure.com/gsas/tri-county-tule/50">Tri-County (Tule)</a>
+</div>
+</div><br/><br/><div class="dropdown">
+<button class="dropbtn">Groundwater scenario</button>
+<div class="dropdown-content">
+<a href="https://www.gsawellfailure.com/gsas/grassland/mt">Minimum Threshold</a>
+<a href="https://www.gsawellfailure.com/gsas/grassland/0">0 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/grassland/10">10 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/grassland/20">20 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/grassland/30">30 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/grassland/40">40 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/grassland/50">50 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/grassland/100">100 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/grassland/150">150 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/grassland/200">200 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/grassland/250">250 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/grassland/300">300 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/grassland/400">400 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/grassland/500">500 ft decline</a>
+</div>
+</div></p>
+<!-- Row {data-width=100} -->
+</div>
+<div id="row-1" class="section level2">
+<h2>Row</h2>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<p><div class="modal fade" id="md-instructions" tabindex="-1" role="dialog" aria-labelledby="md-instructions-title">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="md-instructions-title">Using Markdown</h4>
+</div>
+<div class="modal-body"><h4>4th-level headers work well</h4>
+
+<p>We can do our regular Markdown stuff in modal windows.</p>
+
+<ul>
+<li>\(F = ma\)</li>
+<li>\(E = mc^2\)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div><div class="modal fade" id="md-groundwater-level-decline" tabindex="-1" role="dialog" aria-labelledby="md-groundwater-level-decline-title">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="md-groundwater-level-decline-title">Using Markdown</h4>
+</div>
+<div class="modal-body"><h4>4th-level headers work well</h4>
+
+<p>We can do our regular Markdown stuff in modal windows.</p>
+
+<ul>
+<li>\(F = ma\)</li>
+<li>\(E = mc^2\)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div><div class="modal fade" id="md-well-failures" tabindex="-1" role="dialog" aria-labelledby="md-well-failures-title">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="md-well-failures-title">Using Markdown</h4>
+</div>
+<div class="modal-body"><h4>4th-level headers work well</h4>
+
+<p>We can do our regular Markdown stuff in modal windows.</p>
+
+<ul>
+<li>\(F = ma\)</li>
+<li>\(E = mc^2\)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div><div class="modal fade" id="md-percent-of-failing-wells" tabindex="-1" role="dialog" aria-labelledby="md-percent-of-failing-wells-title">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="md-percent-of-failing-wells-title">Using Markdown</h4>
+</div>
+<div class="modal-body"><h4>4th-level headers work well</h4>
+
+<p>We can do our regular Markdown stuff in modal windows.</p>
+
+<ul>
+<li>\(F = ma\)</li>
+<li>\(E = mc^2\)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div><div class="modal fade" id="md-cost" tabindex="-1" role="dialog" aria-labelledby="md-cost-title">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="md-cost-title">Using Markdown</h4>
+</div>
+<div class="modal-body"><h4>4th-level headers work well</h4>
+
+<p>We can do our regular Markdown stuff in modal windows.</p>
+
+<ul>
+<li>\(F = ma\)</li>
+<li>\(E = mc^2\)</li>
+</ul>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div></p>
+<div id="groundwater-level-decline" class="section level3">
+<h3>Groundwater level decline</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<span class="value-output" data-icon="ion-arrow-down-a" data-color="bg-primary">50 ft.</span>
+</div>
+<div id="well-failures" class="section level3">
+<h3>Well failures</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<span class="value-output" data-icon="fa-times-circle" data-color="bg-danger">5000-10000</span>
+</div>
+<div id="percent-of-failing-wells" class="section level3">
+<h3>Percent of failing wells</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<span class="value-output" data-icon="fa-percent" data-color="bg-warning">15-60</span>
+</div>
+<div id="cost" class="section level3">
+<h3>Cost</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<span class="value-output" data-icon="ion-cash" data-color="bg-success">$1.2-1.3M</span>
+</div>
+</div>
+<div id="row-2" class="section level2">
+<h2>Row</h2>
+<div id="grassland-dm-gsa-and-groundwater-levels" class="section level3">
+<h3>Grassland (DM) GSA and groundwater levels</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-c8c08c50a494e46b6f1a" style="width:100%;height:400px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c8c08c50a494e46b6f1a">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["CartoDB",null,"Light",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addRasterImage","args":["data:image/png;base64,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",[[41.0652008079021,-123.077303607865],[34.4977008079021,-118.138303607865]],0.8,null,"2019","2019 groundwater level"]},{"method":"addRasterImage","args":["data:image/png;base64,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",[[38.4344017153556,-121.639295994648],[34.7984017153556,-118.496295994648]],0.8,null,"2040","2040 min threshold"]},{"method":"addLegend","args":[{"colors":["#FCFDBF , #FED79B 7.7793377040786%, #FC9B6E 20.6843780459319%, #EB6063 33.5894183877852%, #C23D74 46.4944587296385%, #8C2980 59.3994990714917%, #59167D 72.304539413345%, #25104C 85.2095797551983%, #040210 98.1146200970516%, #000004 "],"labels":["100","200","300","400","500","600","700","800"],"na_color":null,"na_label":"NA","opacity":0.5,"position":"bottomright","type":"numeric","title":"Groundwater <br>level (ft. BLS)","extra":{"p_1":0.077793377040786,"p_n":0.981146200970516},"layerId":null,"className":"info legend","group":null}]},{"method":"addLayersControl","args":[["2019 groundwater level","2040 min threshold"],"critical priority GSAs",{"collapsed":true,"autoZIndex":true,"position":"bottomleft","position.1":"topright"}]},{"method":"addEasyButton","args":[{"icon":"fa-globe","title":"Zoom to center","onClick":"function(btn, map){ map.setView([37.3361026027499,-120.436581793238],8); }","position":"topleft"}]},{"method":"addPolygons","args":[[[[{"lng":[-120.792422963739,-120.792425638015,-120.800287289954,-120.800437375767,-120.809342509639,-120.810251253119,-120.815236658251,-120.814406196605,-120.806824499064,-120.806737158031,-120.811666419544,-120.811565391505,-120.81140701238,-120.810936132944,-120.80010557317,-120.801073839661,-120.793664418574,-120.794507759196,-120.791044206152,-120.791148276853,-120.795509020159,-120.798155618768,-120.797828415406,-120.800675375647,-120.800528684405,-120.791706049666,-120.790689339575,-120.774462045872,-120.780182075175,-120.781251998653,-120.781252186246,-120.78128260065,-120.805036328507,-120.811582831101,-120.803794797953,-120.798587641643,-120.793049586823,-120.79210770236,-120.781411089045,-120.770949479491,-120.770596155893,-120.773589766372,-120.764271528644,-120.763327724359,-120.74429228873,-120.744428748308,-120.73177434766,-120.738680044583,-120.715100917495,-120.71056205134,-120.708863397309,-120.708053718076,-120.707889591683,-120.707928106832,-120.706178814435,-120.690836290382,-120.68981244134,-120.704414363703,-120.704233029574,-120.699934066059,-120.699278943219,-120.6968548314,-120.69617058552,-120.694991306448,-120.693226423362,-120.693015295781,-120.685105329103,-120.681914253462,-120.682024766402,-120.690777220112,-120.690608752669,-120.691461866667,-120.706342361429,-120.706700534818,-120.707012783002,-120.709196096605,-120.710671741219,-120.712206435943,-120.713631155241,-120.718415745324,-120.725745224077,-120.729429648459,-120.745776885224,-120.75264386207,-120.756236988769,-120.757213251556,-120.758415872214,-120.75760776582,-120.756862515281,-120.755670364399,-120.753957875314,-120.75283982906,-120.755695762552,-120.765425356966,-120.765794672726,-120.774421952817,-120.783526967226,-120.783460688729,-120.79140032181,-120.79159792128,-120.791520336795,-120.792422963739],"lat":[36.9833407602993,36.983311005417,36.9835078975416,36.9837269638484,36.9837646990487,36.9837606151184,36.9910690202997,36.9910560827081,36.9888375509965,36.9978951950016,36.9983620694018,37.0001141520856,37.0053031006969,37.0052966495018,37.0051477530563,36.9980923647701,36.9981378988575,37.0053654428227,37.0053128628891,37.0123992906524,37.0123744499349,37.0198482743047,37.0225930042893,37.0222644032215,37.0260691230454,37.0260484981077,37.0269744653483,37.0267539986411,37.0297119431385,37.0300831132633,37.0301542534325,37.0416873448967,37.0424402251214,37.04605972432,37.0490465644772,37.055533134566,37.0449187342912,37.0555765637259,37.0497917286986,37.0493602775479,37.0410074078567,37.0409879274415,37.0313856922309,37.0372564429042,37.0372101058662,37.0301882986253,37.0300395252953,37.0366002348019,37.0345995201006,37.0361014438622,37.0345636190599,37.0314239382933,37.0277658620134,37.0163481945251,37.011403606623,37.0112660431116,37.0037581673904,37.0037841418444,36.9963850107584,36.9949941839369,36.9940057301251,36.9919817996466,36.9916255581573,36.9913168917148,36.9923097026657,36.9963090676402,36.9964663627094,36.9964813930054,36.9922257437121,36.9921322348766,36.9677714837838,36.9335538025331,36.9348422130305,36.934935281326,36.9350716761288,36.9359988918827,36.9368205190787,36.9378922185319,36.9386848493864,36.9390563917264,36.9393838048194,36.939141676314,36.941913220747,36.9410336327038,36.9401442140925,36.9404508201356,36.9403576690506,36.9410628275099,36.9417746376625,36.9432075812306,36.9443560187088,36.9466402368002,36.9539794721605,36.9539527517984,36.9684117181627,36.9651777523545,36.9650465095693,36.9759018711818,36.976242988225,36.9825791885132,36.9833836179993,36.9833407602993]}],[{"lng":[-120.731609505608,-120.731566445185,-120.738639866308,-120.738150625558,-120.731609505608],"lat":[37.0469726127039,37.0368716232791,37.0396891137223,37.0460254001964,37.0469726127039]}],[{"lng":[-120.943702682963,-120.944052773667,-120.947674834608,-120.950014131756,-120.952493063111,-120.954890422498,-120.95590930339,-120.957322420288,-120.958087080439,-120.960475030629,-120.961114856482,-120.96195071771,-120.961624051438,-120.943702682963],"lat":[37.0854923448865,37.0710504657855,37.0720626599527,37.0729693683092,37.0737890617973,37.074467558985,37.0749368087307,37.0754847918497,37.0764455831209,37.0787216401924,37.079638882308,37.0845929163997,37.0856007450541,37.0854923448865]}],[{"lng":[-120.795509020159,-120.795506752274,-120.795502475148,-120.800053034681,-120.799926862233,-120.79816639865,-120.798164366059,-120.798155618768,-120.795509020159],"lat":[37.0123744499349,37.0112188515272,37.0090387552253,37.0090506593497,37.0175338412935,37.017532808866,37.0197323450485,37.0198482743047,37.0123744499349]}],[{"lng":[-120.797828415406,-120.798793424526,-120.799712243397,-120.802908770908,-120.8132572671,-120.808837769362,-120.808787341444,-120.800675375647,-120.797828415406],"lat":[37.0225930042893,37.0222818228903,37.0221911923257,37.0216877920777,37.024618800266,37.0245255099642,37.0261191368672,37.0222644032215,37.0225930042893]}],[{"lng":[-120.781252186246,-120.78696732114,-120.78697308704,-120.786459144941,-120.790271506837,-120.790268152118,-120.790272067899,-120.792890963399,-120.798463136382,-120.808324298286,-120.818181243878,-120.822071360601,-120.822152402401,-120.824594662601,-120.827101504684,-120.828795072725,-120.830021324746,-120.829973937658,-120.827030420783,-120.82695186298,-120.826565559599,-120.821158542601,-120.818124804188,-120.818018619114,-120.816066628658,-120.816331972437,-120.812958024554,-120.811827553098,-120.811582831101,-120.805036328507,-120.78128260065,-120.781252186246],"lat":[37.0301542534325,37.0331009914379,37.0331039643245,37.0333238176056,37.0352099333976,37.0343428306088,37.0342330005114,37.0342562817603,37.034305620562,37.0345200564177,37.0382589661435,37.038290846395,37.0349090171402,37.0349448752296,37.0349659948442,37.0349802325663,37.0350241220038,37.0377560943365,37.0377614147172,37.0421725928577,37.0422284046012,37.0422220568333,37.0421874493046,37.0458332377789,37.046187941807,37.0456712261395,37.0445075995223,37.0460653156203,37.04605972432,37.0424402251214,37.0416873448967,37.0301542534325]}],[{"lng":[-120.798587641643,-120.796136377542,-120.793049586823,-120.798587641643],"lat":[37.055533134566,37.0555599437997,37.0449187342912,37.055533134566]}],[{"lng":[-120.758415872214,-120.758725809948,-120.759841174545,-120.760926727207,-120.764259013887,-120.767402678478,-120.769095068353,-120.769897617208,-120.771138165884,-120.77498779945,-120.777834098855,-120.778763756705,-120.782678276752,-120.784105377004,-120.791922833152,-120.792093686965,-120.790889438849,-120.795214862232,-120.795467529722,-120.791180471526,-120.7915485608,-120.79163428691,-120.79140032181,-120.783460688729,-120.783526967226,-120.774421952817,-120.765794672726,-120.765425356966,-120.755695762552,-120.75283982906,-120.753957875314,-120.755670364399,-120.756862515281,-120.75760776582,-120.758415872214],"lat":[36.9403576690506,36.9400657538181,36.9406544792899,36.9410871379725,36.9418443110063,36.9429521702328,36.9444663650311,36.9451274946694,36.9455596998034,36.9461940231537,36.9484030582722,36.9485044309265,36.9485008048645,36.9542759696369,36.9544147582218,36.954538506088,36.9545243365644,36.9673200800324,36.9689775732088,36.9689133750213,36.971748837586,36.9724091740588,36.976242988225,36.9759018711818,36.9650465095693,36.9651777523545,36.9684117181627,36.9539527517984,36.9539794721605,36.9466402368002,36.9443560187088,36.9432075812306,36.9417746376625,36.9410628275099,36.9403576690506]}],[{"lng":[-120.796962811606,-120.797566098868,-120.805016747954,-120.821595315433,-120.822531380623,-120.823065324495,-120.815464954883,-120.803101002074,-120.798423294833,-120.79842298041,-120.797320535661,-120.796962811606],"lat":[37.0598892068161,37.0598645846056,37.0605804807673,37.0812793313629,37.082422446838,37.0830897559636,37.084577722371,37.0720869280654,37.0719820008625,37.0707452789071,37.0705335474758,37.0598892068161]}],[{"lng":[-120.797320535661,-120.793198567055,-120.789634848586,-120.789964132048,-120.793211723677,-120.797128010601,-120.797130613447,-120.797290395271,-120.797610968025,-120.791289620131,-120.789491280463,-120.789439440855,-120.785249183607,-120.780836505128,-120.78033095835,-120.780378739336,-120.780379929822,-120.78039691708,-120.777953333341,-120.777015262556,-120.771716087152,-120.767823138696,-120.766256428433,-120.764140221105,-120.763885440841,-120.762034812337,-120.761766979081,-120.760795654532,-120.759114494083,-120.754010712753,-120.753699225237,-120.752212250241,-120.749890527106,-120.749219836028,-120.749154702573,-120.750936913155,-120.762008637685,-120.766595182048,-120.766720099052,-120.771202741616,-120.780249245847,-120.780229133946,-120.775787999116,-120.77581095829,-120.78703682276,-120.796962811606,-120.797320535661],"lat":[37.0705335474758,37.0704050168454,37.0702768480398,37.0849926118753,37.0849137065539,37.0848184358497,37.0849712269363,37.0943500791469,37.099183028269,37.0988506179237,37.0987560515874,37.0919679054265,37.091914624444,37.0919789550709,37.0919436633524,37.0916833535361,37.0851515758048,37.0845252837656,37.0844913069952,37.0836723040469,37.0723773310981,37.0676567752154,37.0674843625129,37.0666530537013,37.0645631479919,37.063374695844,37.0631569325084,37.0620248225179,37.0618425536483,37.0615776805245,37.0614961598197,37.0601861701992,37.0587748453844,37.0576697359721,37.0572740275414,37.0551804660284,37.0554192360932,37.0554996583765,37.0628076552592,37.0666158672628,37.0667315773091,37.0629862427603,37.0628523759013,37.0555684201363,37.0559174897615,37.0598892068161,37.0705335474758]}],[{"lng":[-120.793198567055,-120.793204573015,-120.793211723677,-120.789964132048,-120.789634848586,-120.793198567055],"lat":[37.0704050168454,37.0706432848813,37.0849137065539,37.0849926118753,37.0702768480398,37.0704050168454]}],[{"lng":[-120.797130613447,-120.79836995747,-120.802895056412,-120.805835134633,-120.812337439211,-120.816165956471,-120.823525658471,-120.834791225849,-120.834773430799,-120.836509759508,-120.836483773138,-120.840784701146,-120.846376518228,-120.846366462414,-120.845250618606,-120.845192983777,-120.848518185157,-120.848537591926,-120.848523132196,-120.848439818522,-120.853053958393,-120.852662867263,-120.852688759649,-120.861375796899,-120.861288412135,-120.861235652018,-120.861129148675,-120.84369313466,-120.835329325831,-120.835132171305,-120.823098962793,-120.81734161594,-120.79756910947,-120.797535355455,-120.796644030562,-120.791238238145,-120.791278778396,-120.791287660695,-120.791289620131,-120.797610968025,-120.797290395271,-120.797130613447],"lat":[37.0849712269363,37.0849849421323,37.0850596161168,37.0851098343225,37.0852206343292,37.0852857521832,37.0898361360806,37.0898266047803,37.0846847504526,37.0846731996572,37.0852704103265,37.0852756391957,37.0853509937571,37.0924798748961,37.0925848854288,37.0997037783452,37.0996823015053,37.0996821760262,37.0999844132876,37.1033823659202,37.1033980690015,37.112135411704,37.1143253074184,37.1143736618632,37.1180284281623,37.1196435723638,37.1200769340795,37.1220716647172,37.1254255657521,37.1046408004016,37.0923793207127,37.0997742958193,37.099622719913,37.1029299853413,37.1029148931083,37.1028232190872,37.0997815079777,37.0990918794456,37.0988506179237,37.099183028269,37.0943500791469,37.0849712269363]}],[{"lng":[-120.861129148675,-120.860819958338,-120.859544940322,-120.86642386991,-120.869928282665,-120.870155307526,-120.879230579354,-120.87902027475,-120.897295724033,-120.900821603432,-120.905666463941,-120.907588491195,-120.933854453489,-120.934156092532,-120.942238858824,-120.942795667624,-120.937170924877,-120.91359270297,-120.905494174319,-120.905248944797,-120.968383685321,-120.968008979356,-120.962871377813,-120.967232374492,-120.966893486417,-120.957727276018,-120.958126911549,-120.958492171991,-120.960760466601,-120.963742091472,-120.962165248567,-120.962324093588,-120.946736571848,-120.930815969992,-120.93073165697,-120.930710106916,-120.930695332416,-120.930249999302,-120.929973290919,-120.929954748265,-120.930793880941,-120.927761420204,-120.928232843216,-120.923866332145,-120.924172699238,-120.9239034633,-120.923780721038,-120.923761625379,-120.923735916818,-120.92257436334,-120.919965077612,-120.917473630889,-120.913061143243,-120.912052348338,-120.908195993418,-120.905795087818,-120.904382396553,-120.902850814155,-120.901273231837,-120.89925039611,-120.900037811099,-120.900116333722,-120.899623785268,-120.899138374482,-120.897596484254,-120.896712814245,-120.896542262997,-120.896692696223,-120.897198698605,-120.897239724664,-120.896774749664,-120.89569436641,-120.895639663002,-120.895044769077,-120.893390731846,-120.892166295779,-120.890049933047,-120.889890503185,-120.889039666961,-120.888400727261,-120.888382448677,-120.888163094419,-120.886636760953,-120.884614869003,-120.882500998649,-120.881047025302,-120.880999558255,-120.880998113227,-120.872133755488,-120.872392907763,-120.865425504553,-120.865913030934,-120.852155156191,-120.851916785092,-120.833617618909,-120.833001282206,-120.846426254296,-120.835475551432,-120.828155188298,-120.823909780934,-120.81569693801,-120.81641111112,-120.81284683408,-120.804757926116,-120.803216258354,-120.7792026267,-120.779940427834,-120.780238250507,-120.79815240073,-120.798434636456,-120.797535355455,-120.79756910947,-120.81734161594,-120.823098962793,-120.835132171305,-120.835329325831,-120.84369313466,-120.861129148675],"lat":[37.1200769340795,37.1290505272999,37.129103479103,37.1362072204666,37.1362445836538,37.1291629156185,37.1289734373795,37.1362257362378,37.1363034375836,37.1436860495106,37.1437194431561,37.1074186702874,37.1077037789307,37.1148167394912,37.1149717395128,37.1371942084687,37.1385511760481,37.1442057985162,37.1510564254351,37.1582922293108,37.1586027330329,37.172683507634,37.1836095589968,37.1874499458231,37.2027015637229,37.2026421544889,37.2273657923193,37.2499485656858,37.2499096721341,37.2607902677679,37.2607662243336,37.2676678476411,37.2888082313364,37.3103823283874,37.3102206822679,37.3101990830225,37.3101707565664,37.3097672234756,37.3096042881046,37.3095909043689,37.3091358250097,37.3074410970367,37.3005847091485,37.2986904169032,37.2977896260807,37.2971587266946,37.296871101559,37.2968263539963,37.2966610825623,37.2956510366575,37.2959877191739,37.294506317885,37.2977721100577,37.2971299903892,37.2970767016584,37.2948389572097,37.2918878281573,37.2928481267643,37.2918464857558,37.294231981431,37.2945746341264,37.2950671817166,37.2954883471404,37.2955740069985,37.2945460792539,37.2945142873832,37.294627868834,37.295482602449,37.2959886049798,37.2961869036261,37.2964809314515,37.2959339012289,37.2955920090436,37.2948603571149,37.2956324235423,37.2953089813848,37.2959567914697,37.2970912287399,37.2973974955358,37.2967256399035,37.2963143512899,37.2961772554321,37.2963783294545,37.2968961260742,37.2975026233368,37.2977280244108,37.2832908479736,37.2828512966951,37.2825563576413,37.2774191136089,37.2659478064724,37.2628928382573,37.247371793973,37.2471980529767,37.2177118887204,37.2076557146023,37.2078066718332,37.1809615923691,37.1535920755679,37.1472780884687,37.1554875242305,37.1398914930863,37.1361239762231,37.1360647268433,37.1437835757389,37.1428689464766,37.1279593354261,37.1133904806812,37.1143259151078,37.1063961408038,37.1029299853413,37.099622719913,37.0997742958193,37.0923793207127,37.1046408004016,37.1254255657521,37.1220716647172,37.1200769340795]}],[{"lng":[-120.937170924877,-120.937255090922,-120.937221526524,-120.923580785361,-120.922853408771,-120.905248944797,-120.905494174319,-120.91359270297,-120.937170924877],"lat":[37.1385511760481,37.1421995027805,37.1438325941591,37.1438918929451,37.1583788100357,37.1582922293108,37.1510564254351,37.1442057985162,37.1385511760481]}],[{"lng":[-120.946736571848,-120.949748400808,-120.957686282724,-120.95791471098,-120.958200246301,-120.969331153142,-120.978449916268,-120.979212139086,-120.96871963461,-120.978537392414,-120.97635362916,-120.970884917357,-120.976494968108,-120.980005039551,-120.983866362409,-120.984848787676,-120.985861337409,-120.987926203318,-120.991249333013,-120.985467242769,-120.980303812386,-120.97637344983,-120.979812943334,-120.979314690605,-120.972798378711,-120.972772798416,-120.972561332154,-120.972329531836,-120.971733532561,-120.971282331796,-120.971125998728,-120.970566731761,-120.962183132613,-120.953108199071,-120.954053732063,-120.949837998809,-120.941284598405,-120.938115405112,-120.931467599061,-120.930710106916,-120.93073165697,-120.930815969992,-120.946736571848],"lat":[37.2888082313364,37.2889218852594,37.2869802450786,37.2836109282944,37.2745309050961,37.2747211126419,37.2796103003761,37.2813967326391,37.2814087001528,37.2903230103124,37.2912794166762,37.2922351138845,37.3038292187719,37.3037745209921,37.3038024904437,37.3074912241326,37.3080780751595,37.30737954877,37.3103065437993,37.31868224654,37.3226083571996,37.3311838750375,37.3332626897927,37.3336455511241,37.3386514029667,37.3382639564197,37.3378988236243,37.3378024236545,37.3377828234463,37.3378571562736,37.3379419566453,37.3382412236394,37.3344310237753,37.3344683566437,37.3287760231045,37.3219545565476,37.3175443567596,37.3105969555179,37.3116513564178,37.3101990830225,37.3102206822679,37.3103823283874,37.2888082313364]}],[{"lng":[-120.929973290919,-120.929632399344,-120.921689399406,-120.922385356187,-120.923702248132,-120.923853754921,-120.923761625379,-120.923780721038,-120.9239034633,-120.924172699238,-120.923866332145,-120.928232843216,-120.927761420204,-120.930793880941,-120.929954748265,-120.929973290919],"lat":[37.3096042881046,37.3094035570963,37.3014230236788,37.2985454028693,37.2981593182891,37.297418616965,37.2968263539963,37.296871101559,37.2971587266946,37.2977896260807,37.2986904169032,37.3005847091485,37.3074410970367,37.3091358250097,37.3095909043689,37.3096042881046]}],[{"lng":[-120.881047025302,-120.88103413201,-120.872532598449,-120.866313798877,-120.853176332669,-120.851381197954,-120.851434048579,-120.852155156191,-120.865913030934,-120.865425504553,-120.872392907763,-120.872133755488,-120.880998113227,-120.880999558255,-120.881047025302],"lat":[37.2977280244108,37.2977300230987,37.285544756552,37.2867938236111,37.2957018235588,37.2951710138346,37.2563935203745,37.247371793973,37.2628928382573,37.2659478064724,37.2774191136089,37.2825563576413,37.2828512966951,37.2832908479736,37.2977280244108]}],[{"lng":[-120.851916785092,-120.851172307868,-120.85089153279,-120.842107747378,-120.842603305432,-120.832707048468,-120.827087399552,-120.830931599146,-120.824356598782,-120.817162199448,-120.819730598644,-120.815867799304,-120.807862532847,-120.799469332431,-120.784419732248,-120.782537532446,-120.775103598757,-120.767778399667,-120.763727932404,-120.765556399567,-120.758213199433,-120.759363199532,-120.761261500473,-120.761536708341,-120.772921663818,-120.775967400815,-120.776737249273,-120.778195120707,-120.792183999895,-120.796316265982,-120.79889299692,-120.802905254733,-120.803267627784,-120.814056653855,-120.817504514632,-120.816391607438,-120.81451471084,-120.811712657992,-120.81145131425,-120.810899752374,-120.809683272463,-120.807356041889,-120.807332052849,-120.805765502392,-120.805288235659,-120.805265887289,-120.804823444037,-120.804217518118,-120.803998279163,-120.804366467917,-120.803861903267,-120.803522029678,-120.802979930155,-120.802505252475,-120.800196921836,-120.79908112472,-120.798868818065,-120.798790048208,-120.797552410627,-120.796663665755,-120.795672813389,-120.794439551705,-120.793023325588,-120.792268131264,-120.79455123932,-120.793903190772,-120.79338946408,-120.792638478222,-120.792341358112,-120.791550022279,-120.789814011457,-120.789441054186,-120.786702622949,-120.784976485386,-120.784498322653,-120.783517654211,-120.78305307354,-120.782277235326,-120.780955725567,-120.780053629743,-120.779517199297,-120.777633492266,-120.775901282691,-120.774986011083,-120.774957705709,-120.77389340386,-120.77293553049,-120.771954213648,-120.77171634557,-120.770909142697,-120.77034399759,-120.769231832115,-120.769220533663,-120.769265948133,-120.770120850573,-120.770349867396,-120.768083835557,-120.766364604906,-120.762904722876,-120.761815546284,-120.760634089474,-120.760613792988,-120.760262136665,-120.760215736427,-120.760867318967,-120.761928946993,-120.770906699609,-120.770859609663,-120.770811977344,-120.775338840134,-120.7792026267,-120.803216258354,-120.804757926116,-120.81284683408,-120.81641111112,-120.81569693801,-120.823909780934,-120.828155188298,-120.835475551432,-120.846426254296,-120.833001282206,-120.833617618909,-120.851916785092],"lat":[37.2471980529767,37.2564196944456,37.2950262230125,37.2949541577369,37.2854092640692,37.2819703982678,37.2707903569152,37.2620953567373,37.2545882234032,37.2517763569708,37.2422507565257,37.2359153563867,37.2342547566845,37.2233954235756,37.2232856238991,37.2143165570852,37.2151998234835,37.2044322233717,37.1883323564549,37.1816059569899,37.1774414231536,37.1721717571713,37.1719808348699,37.1719832311269,37.1720817782402,37.1721079534371,37.1721145575254,37.1721270485886,37.172244357604,37.1722786908723,37.1723000247517,37.1723331325113,37.1723361157677,37.1724244252407,37.1668882605077,37.1663532252659,37.1659936477217,37.1565875063746,37.1564298567197,37.156452473322,37.157016719827,37.1577412512734,37.1577496583227,37.1575668366185,37.1580504493481,37.1586181397152,37.1592039293691,37.1592572113335,37.1597138022953,37.1603271055149,37.1611854007004,37.1612926145671,37.1612788064351,37.1612928604803,37.1612983166054,37.1612358152346,37.1614571566361,37.1625019101534,37.1620166543396,37.1621367303838,37.1625932098427,37.1618375864445,37.1610783649011,37.1611353818746,37.1550838799461,37.1544008576858,37.1547484512238,37.1546550542666,37.1516400705216,37.1508837159983,37.1500314805674,37.1497974843349,37.1490081696685,37.1492961458357,37.1488843579364,37.1484692815082,37.1491014233137,37.1491442612436,37.1460085576456,37.1449589972769,37.1454183657828,37.1456317243949,37.1459438687309,37.1478185571688,37.1488638453942,37.148737411099,37.1438553908157,37.1424555718289,37.1422738062698,37.1417087647995,37.1413991598468,37.140652018179,37.1405084980124,37.1404185929051,37.1400321829494,37.1394353247635,37.1386776506221,37.137443362577,37.1368478669881,37.1364175745531,37.1369225375878,37.1369440627234,37.128750401651,37.1276958174052,37.127704532663,37.1277187273293,37.1278383759616,37.1314337631784,37.1350702833565,37.1351524980247,37.1428689464766,37.1437835757389,37.1360647268433,37.1361239762231,37.1398914930863,37.1554875242305,37.1472780884687,37.1535920755679,37.1809615923691,37.2078066718332,37.2076557146023,37.2177118887204,37.2471980529767]}]]],null,"critical priority GSAs",{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":1,"opacity":1,"fill":true,"fillColor":"#03F","fillOpacity":0.1,"smoothFactor":1,"noClip":false},null,null,"Grassland (DM)",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"13px","textOnly":false,"className":"","sticky":true},{"color":"black","weight":2,"bringToFront":true}]},{"method":"addControl","args":["","bottomright","imageValues","info legend"]}],"limits":{"lat":[34.4977008079021,41.0652008079021],"lng":[-123.077303607865,-118.138303607865]},"setView":[[37.3361026027499,-120.436581793238],8,[]]},"evals":["calls.5.args.0.onClick"],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\n      function(el, x, data) {\n      // get the leaflet map\n      var map = this; //HTMLWidgets.find('#' + el.id);\n      // we need a new div element because we have to handle\n      // the mouseover output separately\n      // debugger;\n      function addElement () {\n      // generate new div Element\n      var newDiv = $(document.createElement('div'));\n      // append at end of leaflet htmlwidget container\n      $(el).append(newDiv);\n      //provide ID and style\n      newDiv.addClass('lnlt');\n      newDiv.css({\n      'position': 'relative',\n      'bottomleft':  '0px',\n      'background-color': 'rgba(255, 255, 255, 0.7)',\n      'box-shadow': '0 0 2px #bbb',\n      'background-clip': 'padding-box',\n      'margin': '0',\n      'padding-left': '5px',\n      'color': '#333',\n      'font': '9px/1.5 \"Helvetica Neue\", Arial, Helvetica, sans-serif',\n      'z-index': '700',\n      });\n      return newDiv;\n      }\n\n\n      // check for already existing lnlt class to not duplicate\n      var lnlt = $(el).find('.lnlt');\n\n      if(!lnlt.length) {\n      lnlt = addElement();\n\n      // grab the special div we generated in the beginning\n      // and put the mousmove output there\n\n      map.on('mousemove', function (e) {\n      if (e.originalEvent.ctrlKey) {\n      if (document.querySelector('.lnlt') === null) lnlt = addElement();\n      lnlt.text(\n                           ' lon: ' + (e.latlng.lng).toFixed(5) +\n                           ' | lat: ' + (e.latlng.lat).toFixed(5) +\n                           ' | zoom: ' + map.getZoom() +\n                           ' | x: ' + L.CRS.EPSG3857.project(e.latlng).x.toFixed(0) +\n                           ' | y: ' + L.CRS.EPSG3857.project(e.latlng).y.toFixed(0) +\n                           ' | epsg: 3857 ' +\n                           ' | proj4: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs ');\n      } else {\n      if (document.querySelector('.lnlt') === null) lnlt = addElement();\n      lnlt.text(\n                      ' lon: ' + (e.latlng.lng).toFixed(5) +\n                      ' | lat: ' + (e.latlng.lat).toFixed(5) +\n                      ' | zoom: ' + map.getZoom() + ' ');\n      }\n      });\n\n      // remove the lnlt div when mouse leaves map\n      map.on('mouseout', function (e) {\n      var strip = document.querySelector('.lnlt');\n      strip.remove();\n      });\n\n      };\n\n      //$(el).keypress(67, function(e) {\n      map.on('preclick', function(e) {\n      if (e.originalEvent.ctrlKey) {\n      if (document.querySelector('.lnlt') === null) lnlt = addElement();\n      lnlt.text(\n                      ' lon: ' + (e.latlng.lng).toFixed(5) +\n                      ' | lat: ' + (e.latlng.lat).toFixed(5) +\n                      ' | zoom: ' + map.getZoom() + ' ');\n      var txt = document.querySelector('.lnlt').textContent;\n      console.log(txt);\n      //txt.innerText.focus();\n      //txt.select();\n      setClipboardText('\"' + txt + '\"');\n      }\n      });\n\n      //map.on('click', function (e) {\n      //  var txt = document.querySelector('.lnlt').textContent;\n      //  console.log(txt);\n      //  //txt.innerText.focus();\n      //  //txt.select();\n      //  setClipboardText(txt);\n      //});\n\n      function setClipboardText(text){\n      var id = 'mycustom-clipboard-textarea-hidden-id';\n      var existsTextarea = document.getElementById(id);\n\n      if(!existsTextarea){\n      console.log('Creating textarea');\n      var textarea = document.createElement('textarea');\n      textarea.id = id;\n      // Place in top-left corner of screen regardless of scroll position.\n      textarea.style.position = 'fixed';\n      textarea.style.top = 0;\n      textarea.style.left = 0;\n\n      // Ensure it has a small width and height. Setting to 1px / 1em\n      // doesn't work as this gives a negative w/h on some browsers.\n      textarea.style.width = '1px';\n      textarea.style.height = '1px';\n\n      // We don't need padding, reducing the size if it does flash render.\n      textarea.style.padding = 0;\n\n      // Clean up any borders.\n      textarea.style.border = 'none';\n      textarea.style.outline = 'none';\n      textarea.style.boxShadow = 'none';\n\n      // Avoid flash of white box if rendered for any reason.\n      textarea.style.background = 'transparent';\n      document.querySelector('body').appendChild(textarea);\n      console.log('The textarea now exists :)');\n      existsTextarea = document.getElementById(id);\n      }else{\n      console.log('The textarea already exists :3')\n      }\n\n      existsTextarea.value = text;\n      existsTextarea.select();\n\n      try {\n      var status = document.execCommand('copy');\n      if(!status){\n      console.error('Cannot copy text');\n      }else{\n      console.log('The text is now on the clipboard');\n      }\n      } catch (err) {\n      console.log('Unable to copy.');\n      }\n      }\n\n\n      }\n      ).call(this.getMap(), el, x, data);\n}","data":null},{"code":"function(el, x, data) {\n  return (function(el, x, data) {\n        var map = this;\n        map.on(\"mousemove\", function (e) {\n          rasterPicker.pick(e, x, 2, \" \");\n        });\n      }).call(this.getMap(), el, x, data);\n}","data":null},{"code":"function(el, x, data) {\n  return (function(el, x, data) {\n        var map = this;\n        map.on(\"mousemove\", function (e) {\n          rasterPicker.pick(e, x, 2, \" \");\n        });\n      }).call(this.getMap(), el, x, data);\n}","data":null},{"code":"function(el, x, data) {\n  return (function(el,x) {\n    this.on('popupopen', function() {HTMLWidgets.staticRender(); remove()})\n    }).call(this.getMap(), el, x, data);\n}","data":null}]}}</script>
+</div>
+<div id="forecasted-well-failure-rates-for-grassland-dm" class="section level3">
+<h3>Forecasted well failure rates for Grassland (DM)</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-50e321f2c74941be2b73" style="width:576px;height:460.8px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-50e321f2c74941be2b73">{"x":{"data":[{"x":[0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0,null,0,0,50,50,0],"y":[0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0],"text":"","type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"transparent","dash":"solid"},"fill":"toself","fillcolor":"rgba(255,0,0,0.15)","hoveron":"fills","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250,260,270,280,290,300,310,320,330,340,350,360,370,380,390,400,410,420,430,440,450,460,470,480,490,500],"y":[0.0238095238095238,0.0238095238095238,0.0476190476190476,0.0833333333333333,0.130952380952381,0.202380952380952,0.273809523809524,0.333333333333333,0.369047619047619,0.392857142857143,0.416666666666667,0.488095238095238,0.523809523809524,0.571428571428571,0.595238095238095,0.607142857142857,0.642857142857143,0.666666666666667,0.69047619047619,0.761904761904762,0.773809523809524,0.833333333333333,0.869047619047619,0.869047619047619,0.869047619047619,0.869047619047619,0.869047619047619,0.869047619047619,0.869047619047619,0.869047619047619,0.869047619047619,0.869047619047619,0.869047619047619,0.869047619047619,0.869047619047619,0.869047619047619,0.880952380952381,0.892857142857143,0.892857142857143,0.904761904761905,0.928571428571429,0.928571428571429,0.94047619047619,0.952380952380952,0.952380952380952,0.952380952380952,0.976190476190476,1,1,1],"text":["<em>groundwater decline:<\/em> 10 ft<br><em>failure rate:<\/em> 0 - 4.8 %<br><em>estimated cost:<\/em> $0 - 0M","<em>groundwater decline:<\/em> 20 ft<br><em>failure rate:<\/em> 0 - 4.8 %<br><em>estimated cost:<\/em> $0 - 0M","<em>groundwater decline:<\/em> 30 ft<br><em>failure rate:<\/em> 0 - 9.5 %<br><em>estimated cost:<\/em> $0 - 0M","<em>groundwater decline:<\/em> 40 ft<br><em>failure rate:<\/em> 0 - 16.7 %<br><em>estimated cost:<\/em> $0 - 0M","<em>groundwater decline:<\/em> 50 ft<br><em>failure rate:<\/em> 2.4 - 23.8 %<br><em>estimated cost:<\/em> $0 - 0M","<em>groundwater decline:<\/em> 60 ft<br><em>failure rate:<\/em> 4.8 - 35.7 %<br><em>estimated cost:<\/em> $0 - 0M","<em>groundwater decline:<\/em> 70 ft<br><em>failure rate:<\/em> 4.8 - 50 %<br><em>estimated cost:<\/em> $0 - 0.1M","<em>groundwater decline:<\/em> 80 ft<br><em>failure rate:<\/em> 4.8 - 61.9 %<br><em>estimated cost:<\/em> $0 - 0.1M","<em>groundwater decline:<\/em> 90 ft<br><em>failure rate:<\/em> 9.5 - 64.3 %<br><em>estimated cost:<\/em> $0 - 0.1M","<em>groundwater decline:<\/em> 100 ft<br><em>failure rate:<\/em> 11.9 - 66.7 %<br><em>estimated cost:<\/em> $0 - 0.1M","<em>groundwater decline:<\/em> 110 ft<br><em>failure rate:<\/em> 14.3 - 69 %<br><em>estimated cost:<\/em> $0 - 0.1M","<em>groundwater decline:<\/em> 120 ft<br><em>failure rate:<\/em> 23.8 - 73.8 %<br><em>estimated cost:<\/em> $0 - 0.1M","<em>groundwater decline:<\/em> 130 ft<br><em>failure rate:<\/em> 31 - 73.8 %<br><em>estimated cost:<\/em> $0 - 0.1M","<em>groundwater decline:<\/em> 140 ft<br><em>failure rate:<\/em> 40.5 - 73.8 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 150 ft<br><em>failure rate:<\/em> 45.2 - 73.8 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 160 ft<br><em>failure rate:<\/em> 47.6 - 73.8 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 170 ft<br><em>failure rate:<\/em> 54.8 - 73.8 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 180 ft<br><em>failure rate:<\/em> 57.1 - 76.2 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 190 ft<br><em>failure rate:<\/em> 59.5 - 78.6 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 200 ft<br><em>failure rate:<\/em> 66.7 - 85.7 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 210 ft<br><em>failure rate:<\/em> 66.7 - 88.1 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 220 ft<br><em>failure rate:<\/em> 69 - 97.6 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 230 ft<br><em>failure rate:<\/em> 73.8 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 240 ft<br><em>failure rate:<\/em> 73.8 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 250 ft<br><em>failure rate:<\/em> 73.8 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 260 ft<br><em>failure rate:<\/em> 73.8 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 270 ft<br><em>failure rate:<\/em> 73.8 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 280 ft<br><em>failure rate:<\/em> 73.8 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 290 ft<br><em>failure rate:<\/em> 73.8 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 300 ft<br><em>failure rate:<\/em> 73.8 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 310 ft<br><em>failure rate:<\/em> 73.8 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 320 ft<br><em>failure rate:<\/em> 73.8 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 330 ft<br><em>failure rate:<\/em> 73.8 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 340 ft<br><em>failure rate:<\/em> 73.8 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 350 ft<br><em>failure rate:<\/em> 73.8 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 360 ft<br><em>failure rate:<\/em> 73.8 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 370 ft<br><em>failure rate:<\/em> 76.2 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 380 ft<br><em>failure rate:<\/em> 78.6 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 390 ft<br><em>failure rate:<\/em> 78.6 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 400 ft<br><em>failure rate:<\/em> 81 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 410 ft<br><em>failure rate:<\/em> 85.7 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 420 ft<br><em>failure rate:<\/em> 85.7 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 430 ft<br><em>failure rate:<\/em> 88.1 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 440 ft<br><em>failure rate:<\/em> 90.5 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 450 ft<br><em>failure rate:<\/em> 90.5 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 460 ft<br><em>failure rate:<\/em> 90.5 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 470 ft<br><em>failure rate:<\/em> 95.2 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 480 ft<br><em>failure rate:<\/em> 100 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 490 ft<br><em>failure rate:<\/em> 100 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M","<em>groundwater decline:<\/em> 500 ft<br><em>failure rate:<\/em> 100 - 100 %<br><em>estimated cost:<\/em> $0.1 - 0.1M"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":["rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(255,0,0,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)"],"opacity":0,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":["rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(0,0,0,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)"]}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[50],"y":[0.130952380952381],"text":"","type":"scatter","mode":"lines","opacity":1,"line":{"color":"transparent"},"error_y":{"array":[0.107142857142857],"arrayminus":[0.107142857142857],"type":"data","width":3.50842418235877,"symmetric":false,"color":"rgba(0,0,0,1)"},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[10,20,30,40,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250,260,270,280,290,300,310,320,330,340,350,360,370,380,390,400,410,420,430,440,450,460,470,480,490,500],"y":[0.0238095238095238,0.0238095238095238,0.0476190476190476,0.0833333333333333,0.202380952380952,0.273809523809524,0.333333333333333,0.369047619047619,0.392857142857143,0.416666666666667,0.488095238095238,0.523809523809524,0.571428571428571,0.595238095238095,0.607142857142857,0.642857142857143,0.666666666666667,0.69047619047619,0.761904761904762,0.773809523809524,0.833333333333333,0.869047619047619,0.869047619047619,0.869047619047619,0.869047619047619,0.869047619047619,0.869047619047619,0.869047619047619,0.869047619047619,0.869047619047619,0.869047619047619,0.869047619047619,0.869047619047619,0.869047619047619,0.869047619047619,0.880952380952381,0.892857142857143,0.892857142857143,0.904761904761905,0.928571428571429,0.928571428571429,0.94047619047619,0.952380952380952,0.952380952380952,0.952380952380952,0.976190476190476,1,1,1],"text":"","type":"scatter","mode":"lines","opacity":1,"line":{"color":"transparent"},"error_y":{"array":[0.0238095238095238,0.0238095238095238,0.0476190476190476,0.0833333333333333,0.154761904761905,0.226190476190476,0.285714285714286,0.273809523809524,0.273809523809524,0.273809523809524,0.25,0.214285714285714,0.166666666666667,0.142857142857143,0.130952380952381,0.0952380952380952,0.0952380952380952,0.0952380952380952,0.0952380952380952,0.107142857142857,0.142857142857143,0.130952380952381,0.130952380952381,0.130952380952381,0.130952380952381,0.130952380952381,0.130952380952381,0.130952380952381,0.130952380952381,0.130952380952381,0.130952380952381,0.130952380952381,0.130952380952381,0.130952380952381,0.130952380952381,0.119047619047619,0.107142857142857,0.107142857142857,0.0952380952380952,0.0714285714285714,0.0714285714285714,0.0595238095238095,0.0476190476190477,0.0476190476190477,0.0476190476190477,0.0238095238095238,0,0,0],"arrayminus":[0.0238095238095238,0.0238095238095238,0.0476190476190476,0.0833333333333333,0.154761904761905,0.226190476190476,0.285714285714286,0.273809523809524,0.273809523809524,0.273809523809524,0.25,0.214285714285714,0.166666666666667,0.142857142857143,0.130952380952381,0.0952380952380952,0.0952380952380952,0.0952380952380952,0.0952380952380952,0.107142857142857,0.142857142857143,0.130952380952381,0.130952380952381,0.130952380952381,0.130952380952381,0.130952380952381,0.130952380952381,0.130952380952381,0.130952380952381,0.130952380952381,0.130952380952381,0.130952380952381,0.130952380952381,0.130952380952381,0.130952380952381,0.119047619047619,0.107142857142857,0.107142857142857,0.0952380952380952,0.0714285714285715,0.0714285714285715,0.0595238095238095,0.0476190476190476,0.0476190476190476,0.0476190476190476,0.0238095238095238,0,0,0],"type":"data","width":3.50842418235877,"symmetric":false,"color":"rgba(153,153,153,1)"},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":24.2605444449748,"r":7.30593607305936,"b":38.2148823445182,"l":48.9497716894977},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-25.225,529.725],"tickmode":"array","ticktext":["0","100","200","300","400","500"],"tickvals":[0,100,200,300,400,500],"categoryorder":"array","categoryarray":["0","100","200","300","400","500"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":{"text":"Groundwater level decline (ft)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.05,1.05],"tickmode":"array","ticktext":["0%","25%","50%","75%","100%"],"tickvals":[0,0.25,0.5,0.75,1],"categoryorder":"array","categoryarray":["0%","25%","50%","75%","100%"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":{"text":"Failure percentage","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895}},"hovermode":"x unified","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false,"modeBarButtonsToRemove":["zoom2d","select2d","lasso2d","autoscale","hoverClosestCartesian","hoverCompareCartesian","zoom3d","pan3d","resetCameraDefault3d","resetCameraLastSave3d","hoverClosest3d","orbitRotation","tableRotation","zoomInGeo","zoomOutGeo","resetGeo","hoverClosestGeo","sendDataToCloud","pan2d","hoverClosestGl2d","hoverClosestPie","toggleHover","toggleSpikelines","autoScale2d","zoomIn2d","zoomOut2d"],"displaylogo":false},"source":"A","attrs":{"2fe456f48f5a":{"xmin":{},"xmax":{},"ymin":{},"ymax":{},"x":{},"y":{},"ymin.1":{},"ymax.1":{},"type":"scatter"},"2fe451ef8a4f":{"text":{},"x":{},"y":{},"ymin":{},"ymax":{}},"2fe44561728f":{"x":{},"y":{},"ymin":{},"ymax":{}}},"cur_data":"2fe456f48f5a","visdat":{"2fe456f48f5a":["function (y) ","x"],"2fe451ef8a4f":["function (y) ","x"],"2fe44561728f":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+
+</div>
+
+<script>
+
+$(document).ready(function () {
+
+  // add bootstrap table styles to pandoc tables
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+
+  // initialize mathjax
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+  document.getElementsByTagName("head")[0].appendChild(script);
+
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+  FlexDashboard.init({
+    theme: "cosmo",
+    fillPage: true,
+    orientation: "rows",
+    storyboard: false,
+    defaultFigWidth: 576,
+    defaultFigHeight: 460,
+    defaultFigWidthMobile: 360,
+    defaultFigHeightMobile: 460
+  });
+});
+</script>
+
+</body>
+</html>
