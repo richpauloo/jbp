@@ -45,10 +45,10 @@ author: richpauloo # jekyll-seo-tag > default author
 social: # jekyll-seo-tag > social overrides
   name: richpauloo # jekyll-seo-tag > real name
   links:  # jekyll-seo-tag > social aliases (sameAs)
-    - https://twitter.com/richpauloo
-    #- https://www.facebook.com/daviddarnes
-    #- https://www.linkedin.com/in/daviddarnes
-    - https://github.com/richpauloo
+    # - https://twitter.com/richpauloo
+    # - https://www.facebook.com/daviddarnes
+    # - https://www.linkedin.com/in/daviddarnes
+    # - https://github.com/richpauloo
 # markdown: CommonMark # Markdown parse settings, CommonMark performs slightly better an others in build time
 # commonmark:
   # options: ["SMART", "FOOTNOTES"]
@@ -82,7 +82,7 @@ defaults:
 # 7. Site settings
 encoding: utf-8 # Make sure the encoding is right
 lang: en-GB # Set the site language
-title: "Alembic" # Site name or title, also used in jekyll-seo-tag
+title: "GSA well failure" # Site name or title, also used in jekyll-seo-tag
 logo: "/assets/logos/logo.svg" # Site logo, also used in jekyll-seo-tag
 description: "Alembic is a starting point for Jekyll projects. Rather than starting from scratch, this boilerplate is designed to get the ball rolling immediately" # Site description and default description, also used in jekyll-seo-tag
 url: "https://gsawellfailure.com" # Site url, also used in jekyll-seo-tag
