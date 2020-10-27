@@ -1,14 +1,6 @@
-# [gsawellfailure.com](gsawellfailure.com)
+# LWA static sites
 
-Github page for the project detailed at [github.com/richpauloo/aife](github.com/richpauloo/aife).
-
-## Contents
-
-`index.html`: landing page  
-`/libs`: JS assets for pages  
-`/etc`: additional CSS files for pages  
-`/gsas`: directories for each GSA, which each contain an `index.html` and additional directories for the various groundwater level scenarios   
-
+This is the Github repo for various open static sites created by [Larry Walker Associates](lwa.com).  
 
 ## Static site engine and template
 
@@ -17,8 +9,3 @@ Github page for the project detailed at [github.com/richpauloo/aife](github.com/
 Developed using [Alembic](https://alembic.darn.es/) [Jekyll](https://jekyllrb.com/), described as: 
 
 > ⚗ A Jekyll boilerplate theme designed to be a starting point for any Jekyll website.  
-
-
-
-
-
