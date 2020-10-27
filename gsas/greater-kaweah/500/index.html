@@ -1,0 +1,3153 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>GSA well failure / Greater Kaweah / 500 ft.</title>
+
+<meta property="og:title" content="GSA well failure / Greater Kaweah / 500 ft." />
+
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+
+<link rel="icon" href="data:image/x-icon;" type="image/x-icon">
+
+
+<script type="text/javascript">
+window.FlexDashboardComponents = [];
+</script>
+
+<script id="flexdashboard-navbar" type="application/json">
+[{"title":"Instructions","align":"right"},{"title":"About","align":"right"},{"icon":"fa-github","href":"https://www.github.com/richpauloo/aife","align":"right"}]
+</script>
+<script src="../../../index_files/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+<meta name="name" content="viewport" />
+<meta name="content" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<link href="../../../index_files/bootstrap-3.4.1/bootstrap-custom.min.css" rel="stylesheet" />
+<script src="../../../index_files/bootstrap-3.4.1/bootstrap.min.js"></script>
+<script src="../../../index_files/stickytableheaders-0.1.19/jquery.stickytableheaders.min.js"></script>
+<link href="../../../index_files/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="../../../index_files/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="../../../index_files/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
+<script src="../../../index_files/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="../../../index_files/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="../../../index_files/leaflet-1.3.1/leaflet.js"></script>
+<link href="../../../index_files/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="../../../index_files/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="../../../index_files/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="../../../index_files/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="../../../index_files/leaflet-binding-2.0.3/leaflet.js"></script>
+<script src="../../../index_files/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="../../../index_files/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
+<link href="../../../index_files/leaflet-easybutton-1.3.1/easy-button.css" rel="stylesheet" />
+<script src="../../../index_files/leaflet-easybutton-1.3.1/easy-button.js"></script>
+<script src="../../../index_files/leaflet-easybutton-1.3.1/EasyButton-binding.js"></script>
+<link href="../../../index_files/fontawesome-4.7.0/font-awesome.min.css" rel="stylesheet" />
+<link href="../../../index_files/lfx-fullscreen-1.0.2/lfx-fullscreen-prod.css" rel="stylesheet" />
+<script src="../../../index_files/lfx-fullscreen-1.0.2/lfx-fullscreen-prod.js"></script>
+<script src="../../../index_files/clipboard-0.0.1/setClipboardText.js"></script>
+<script src="../../../index_files/plotly-binding-4.9.2/plotly.js"></script>
+<script src="../../../index_files/plotly-main-1.52.2/plotly-latest.min.js"></script>
+<link href="../../../index_files/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="../../../index_files/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<script src="../../../index_files/typedarray-0.1/typedarray.min.js"></script>
+<link href="../../../index_files/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<style type="text/css">
+
+/*
+ Dashboard CSS from Keen IO Dashboards
+ (https://github.com/keen/dashboards)
+*/
+
+body {
+  background: #f2f2f2;
+  padding: 60px 0 0 8px; /* padding-top overridden by theme */
+}
+
+body hr {
+  border-color: #d7d7d7;
+  margin: 10px 0;
+}
+
+.navbar-inverse .navbar-nav > li > a,
+.navbar .navbar-brand {
+  text-decoration: none;
+}
+
+.navbar-logo {
+  margin-top: 1px;
+}
+
+.navbar-logo img {
+  margin-right: 12px;
+}
+
+.navbar-author {
+  margin-left: 10px;
+  font-size: 15px;
+}
+
+.navbar .dropdown-menu .fa {
+  min-width: 20px;
+}
+
+.navbar .dropdown-menu {
+  min-width: 150px;
+  max-height: 500px;
+  overflow: auto;
+}
+
+.chart-wrapper,
+.nav-tabs-custom,
+.sbframe-commentary
+{
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  margin-bottom: 8px;
+  margin-right: 8px;
+}
+
+.chart-title {
+  border-bottom: 1px solid #d7d7d7;
+  color: #666;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 7px 10px 4px;
+}
+
+.chart-wrapper .chart-title:empty {
+  display: none;
+}
+
+.chart-wrapper .chart-stage {
+  overflow: hidden;
+  padding: 5px 10px;
+  position: relative;
+}
+
+.chart-wrapper .chart-notes {
+  background: #fbfbfb;
+  border-top: 1px solid #e2e2e2;
+  color: #808080;
+  font-size: 12px;
+  padding: 8px 10px 5px;
+}
+
+/*
+ CSS for handling flexbox layout
+*/
+
+#dashboard-container {
+  visibility: hidden;
+}
+
+.tab-content>.dashboard-page-wrapper.active {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.dashboard-page-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.dashboard-row-orientation {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.dashboard-row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.dashboard-row-flex {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.dashboard-column-orientation {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.dashboard-column {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.chart-wrapper-flex {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.chart-stage-flex {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  position: relative;
+}
+
+.chart-shim {
+  position: absolute;
+  left: 8px; top: 8px; right: 8px; bottom: 8px;
+}
+
+.no-padding .chart-shim {
+  left: 0; top: 0; right: 0; bottom: 0;
+}
+
+.flowing-content-shim {
+  overflow: auto;
+  left: 0; top: 0; right: 0; bottom: 0;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.flowing-content-container {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.chart-stage .table-bordered {
+  border: none;
+}
+
+.chart-stage .table-bordered > tbody > tr > th,
+.chart-stage .table-bordered > tfoot > tr > th,
+.chart-stage .table-bordered > tbody > tr > td,
+.chart-stage .table-bordered > tfoot > tr > td {
+  border: none;
+}
+
+.chart-stage .table-bordered > tbody > tr > td {
+  border-top: 1px solid #dddddd;
+}
+
+.chart-stage .table-bordered > thead > tr > th {
+  border: none;
+  border-bottom: 2px solid #dddddd;
+}
+
+.bootstrap-table table>thead {
+  background-color: #fff;
+}
+
+.bootstrap-table table.data,
+.bootstrap-table table.shiny-table {
+  width: inherit !important;
+}
+
+.bootstrap-table table.data>tbody>tr>th,
+.bootstrap-table table.shiny-table>tbody>tr>th {
+  border-top: none;
+  border-bottom: 2px solid #dddddd;
+  padding: 5px;
+}
+
+.bootstrap-table .data td[align=right] {
+  font-family: inherit;
+}
+
+.chart-wrapper form {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.shiny-input-container label {
+  font-weight: normal;
+}
+
+.chart-stage .html-widget {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.chart-stage .html-widget-static-bound {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.chart-stage .shiny-bound-output {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Omit display of empty paragraphs */
+
+.chart-shim>p:empty {
+  display: none;
+}
+
+.chart-stage>p:empty {
+  display: none;
+}
+
+/* Omit display of special knitr options div*/
+
+.chart-stage .knitr-options {
+  display: none;
+}
+
+/* Automatically resizing images */
+
+.image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+}
+
+.image-container img {
+  opacity: 0;
+  overflow: hidden;
+}
+
+/* Value box */
+
+.value-box {
+  border-radius: 2px;
+  position: relative;
+  display: block;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.value-box > .inner {
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.value-box .value {
+  font-size: 38px;
+  font-weight: bold;
+  margin: 0 0 3px 0;
+  white-space: nowrap;
+  padding: 0;
+}
+
+.value-box .caption {
+  font-size: 15px;
+}
+.value-box .caption > small {
+  display: block;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.value-box .icon i {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 80px;
+  color: rgba(0, 0, 0, 0.15);
+}
+
+.linked-value:hover {
+  cursor: pointer;
+}
+
+.value-box.linked-value:hover {
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* STORYBOARD */
+
+.storyboard-nav button {
+  background: transparent;
+  border: 0;
+  opacity: .3;
+  outline: none;
+  padding: 0;
+}
+
+.storyboard-nav button:hover,
+.storyboard-nav button:hover {
+  opacity: .5;
+}
+
+.storyboard-nav button:disabled,
+.storyboard-nav button:disabled {
+  opacity: .1;
+}
+
+.storyboard-nav .sbnext,
+.storyboard-nav .sbprev {
+  float: left;
+  width: 2%;
+  height: 120px;
+  font-size: 50px;
+}
+
+.storyboard-nav .sbprev {
+  text-align: left;
+  width: 2%;
+}
+
+.storyboard-nav .sbnext {
+  float: right;
+  text-align: right;
+  margin-right: 8px;
+}
+
+.storyboard-nav .sbframelist {
+  margin: 0 auto;
+  width: 94%;
+  height: 120px;
+  overflow: hidden;
+  text-shadow: none;
+  margin-bottom: 8px;
+}
+
+.storyboard-nav .sbframelist ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.storyboard-nav .sbframelist ul li {
+  float: left;
+  width: 270px;
+  height: 100%;
+  padding: 10px 10px 10px 10px;
+  margin-right: 8px;
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  color: #3a3c47;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.storyboard-nav .sbframelist ul li:last-child {
+  margin-right: 0px;
+}
+
+.storyboard-nav .sbframelist ul li.active {
+  color: #fff;
+  background: #B8B8B8;
+}
+
+.sbframe-commentary {
+  width: 300px;
+  background: #fbfbfb;
+  font-size: 14px;
+}
+
+.sbframe-commentary ul {
+  padding-left: 22px;
+}
+
+.sbframe.active {
+  display: flex;
+}
+
+.sbframe:not(.active) {
+  display: none;
+}
+
+/* NAV TABS */
+
+.nav-tabs-custom > .nav-tabs {
+  margin: 0;
+  border-bottom: 1px solid #d7d7d7;
+  color: #666;
+  font-size: 14px;
+  font-weight: 300;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+}
+.nav-tabs-custom > .nav-tabs > li {
+  border-top: 3px solid transparent;
+  margin-bottom: -1px;
+  margin-right: 5px;
+}
+.nav-tabs-custom > .nav-tabs > li > a,
+.nav-tabs-custom > .nav-tabs > li > a:active {
+  color: #666;
+  font-weight: 300;
+  font-size: 14px;
+  border-radius: 0;
+  padding: 3px 10px 5px;
+  text-transform: none;
+}
+
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a {
+  border-bottom-color: transparent;
+}
+
+.nav-tabs-custom > .nav-tabs > li > a.text-muted {
+  color: #999;
+}
+.nav-tabs-custom > .nav-tabs > li > a,
+.nav-tabs-custom > .nav-tabs > li > a:hover {
+  background: transparent;
+  margin: 0;
+}
+.nav-tabs-custom > .nav-tabs > li > a:hover {
+  color: #999;
+}
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a:hover,
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a:focus,
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a:active {
+  border-color: transparent;
+}
+.nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: #3c8dbc;
+}
+.nav-tabs-custom > .nav-tabs > li.active > a,
+.nav-tabs-custom > .nav-tabs > li.active:hover > a {
+  background-color: #fff;
+  color: #666;
+}
+.nav-tabs-custom > .nav-tabs > li.active > a {
+  border-top-color: transparent;
+  border-left-color: #d7d7d7;
+  border-right-color: #d7d7d7;
+}
+.nav-tabs-custom > .nav-tabs > li:first-of-type {
+  margin-left: 0;
+}
+.nav-tabs-custom > .nav-tabs > li:first-of-type.active > a {
+  border-left-color: transparent;
+}
+.nav-tabs-custom > .nav-tabs.pull-right {
+  float: none !important;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li {
+  float: right;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type {
+  margin-right: 0;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type > a {
+  border-left-width: 1px;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type.active > a {
+  border-left-color: #d7d7d7;
+  border-right-color: transparent;
+}
+.nav-tabs-custom > .nav-tabs > li.header {
+  line-height: 35px;
+  padding: 0 10px;
+  font-size: 20px;
+  color: #666;
+}
+.nav-tabs-custom > .nav-tabs > li.header > .fa,
+.nav-tabs-custom > .nav-tabs > li.header > .glyphicon,
+.nav-tabs-custom > .nav-tabs > li.header > .ion {
+  margin-right: 5px;
+}
+.nav-tabs-custom > .tab-content {
+  background: #fff;
+  padding: 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.nav-tabs-custom > .tab-content > .chart-wrapper {
+  background: #fff;
+  border: none;
+  margin: 0;
+}
+
+
+.nav-tabs-custom > .tab-content > .active {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.nav-tabs-custom .dropdown.open > a:active,
+.nav-tabs-custom .dropdown.open > a:focus {
+  background: transparent;
+  color: #999;
+}
+
+
+@media (max-width: 767px) {
+  .value-box {
+    text-align: center;
+    margin-right: 8px;
+  }
+  .value-box .icon {
+    display: none;
+  }
+}
+
+/* Fixed position sidebar */
+
+.section.sidebar {
+  position: fixed;
+  top: 51px; /* overridden by theme */
+  left: 0;
+  bottom: 0;
+  border-right: 1px solid #e2e2e2;
+  background-color: white; /* overridden by theme */
+  padding-left: 10px;
+  padding-right: 10px;
+  visibility: hidden;
+  overflow: auto;
+}
+
+.section.sidebar form p:first-child {
+  margin-top: 10px;
+}
+
+/* Embedded source code */
+
+#flexdashboard-source-code {
+  display: none;
+}
+
+.featherlight-content #flexdashboard-source-code {
+  display: inline-block;
+}
+
+.featherlight-content {
+  width: 80%;
+  max-width: 800px;
+  padding: 0 !important;
+  border-bottom: none !important;
+}
+
+.featherlight:last-of-type {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.featherlight-inner {
+  width: 100%;
+}
+
+.featherlight-content pre {
+  margin: 0;
+  border: 0;
+  background: #fff;
+  font-size: 12px;
+}
+
+.unselectable {
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: -moz-none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+#flexdashboard-source-code code {
+  -ms-user-select: text;
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -o-user-select: text;
+  user-select: text;
+}
+
+/* DataTables Tweaks */
+
+.dataTables_filter input[type="search"] {
+  -webkit-appearance: searchfield;
+  outline: none;
+}
+
+.dataTables_wrapper.no-footer
+.dataTables_info {
+  padding-top: 0;
+}
+
+
+table.dataTable thead th {
+  border-bottom: 1px solid #d7d7d7;
+}
+
+.dataTables_wrapper.no-footer .dataTables_scrollBody {
+  border-bottom: 1px solid #d7d7d7;
+}
+
+/* Mobile phone only CSS */
+
+.desktop-layout div.section.mobile {
+  display: none;
+}
+
+.mobile-layout div.section.no-mobile {
+  display: none;
+}
+
+.mobile-figure {
+  display: none;
+}
+
+
+
+body {
+  padding-top: 60px;
+}
+
+.section.sidebar {
+  top: 51px;
+  background-color: rgba(39, 128, 227, 0.1);
+}
+
+.value-box {
+  color: #f9f9f9;
+}
+
+.bg-primary {
+  background-color: rgba(39, 128, 227, 0.7);
+}
+
+.storyboard-nav .sbframelist ul li.active {
+  background-color: rgba(39, 128, 227, 0.7);
+}
+
+.nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: rgba(39, 128, 227, 0.7);
+}
+
+.bg-info {
+  background-color: rgba(153, 84, 187, 0.7);
+}
+
+.bg-warning {
+  background-color: rgba(255, 117, 24, 0.7);
+}
+
+.bg-danger {
+  background-color: rgba(255, 0, 57, 0.7);
+}
+
+.bg-success {
+  background-color: rgba(63, 182, 24, 0.7);
+}
+
+.chart-title {
+  font-weight: 500;
+}
+
+.nav-tabs-custom > .nav-tabs > li > a,
+.nav-tabs-custom > .nav-tabs > li > a:active {
+  font-weight: 500;
+}
+
+@media only screen and (min-width: 768px) {
+html, body {
+  height: 100%;
+}
+
+#dashboard-container {
+  height: 100%;
+}
+}
+</style>
+
+
+<link rel="stylesheet" href="../../../etc/w3.css" type="text/css" />
+
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+
+<button id="navbar-button" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+
+<span class="navbar-logo pull-left">
+  
+</span>
+<span class="navbar-brand">
+  GSA well failure / Greater Kaweah / 500 ft.
+  <span class="navbar-author">
+        </span>
+</span>
+
+</div>
+<div id="navbar" class="navbar-collapse collapse">
+<ul class="nav navbar-nav navbar-left">
+</ul>
+<ul class="nav navbar-nav navbar-right">
+</ul>
+</div><!--/.nav-collapse-->
+</div><!--/.container-->
+</div><!--/.navbar-->
+
+<script type="text/javascript">
+
+
+var FlexDashboard = (function () {
+
+  // initialize options
+  var _options = {};
+
+  var FlexDashboard = function() {
+
+    // default options
+    _options = $.extend(_options, {
+      theme: "cosmo",
+      fillPage: false,
+      orientation: 'columns',
+      storyboard: false,
+      defaultFigWidth: 576,
+      defaultFigHeight: 461,
+      defaultFigWidthMobile: 360,
+      defaultFigHeightMobile: 461,
+      isMobile: false,
+      isPortrait: false
+    });
+  };
+
+  function init(options) {
+
+    // extend default options
+    $.extend(true, _options, options);
+
+    // add ids to sections that don't have them (pandoc won't assign ids
+    // to e.g. sections with titles consisting of only chinese characters)
+    var nextId = 1;
+    $('.level1:not([id]),.level2:not([id]),.level3:not([id])').each(function() {
+      $(this).attr('id', 'dashboard-' + nextId++);
+    });
+
+    // find navbar items
+    var navbarItems = $('#flexdashboard-navbar');
+    if (navbarItems.length)
+      navbarItems = JSON.parse(navbarItems.html());
+    addNavbarItems(navbarItems);
+
+    // find the main dashboard container
+    var dashboardContainer = $('#dashboard-container');
+
+    // resolve mobile classes
+    resolveMobileClasses(dashboardContainer);
+
+    // one time global initialization for components
+    componentsInit(dashboardContainer);
+
+    // look for a global sidebar
+    var globalSidebar = dashboardContainer.find(".section.level1.sidebar");
+    if (globalSidebar.length > 0) {
+
+      // global layout for fullscreen displays
+      if (!isMobilePhone()) {
+
+         // hoist it up to the top level
+         globalSidebar.insertBefore(dashboardContainer);
+
+         // lay it out (set width/positions)
+         layoutSidebar(globalSidebar, dashboardContainer);
+
+      // tuck sidebar into first page for mobile phones
+      } else {
+
+        // convert it into a level3 section
+        globalSidebar.removeClass('sidebar');
+        globalSidebar.removeClass('level1');
+        globalSidebar.addClass('level3');
+        var h1 = globalSidebar.children('h1');
+        var h3 = $('<h3></h3>');
+        h3.html(h1.html());
+        h3.insertBefore(h1);
+        h1.remove();
+
+        // move it into the first page
+        var page = dashboardContainer.find('.section.level1').first();
+        if (page.length > 0)
+          page.prepend(globalSidebar);
+      }
+    }
+
+    // look for pages to layout
+    var pages = $('div.section.level1');
+    if (pages.length > 0) {
+
+        // find the navbar and collapse on clicked
+        var navbar = $('#navbar');
+        navbar.on("click", "a[data-toggle!=dropdown]", null, function () {
+           navbar.collapse('hide');
+        });
+
+        // envelop the dashboard container in a tab content div
+        dashboardContainer.wrapInner('<div class="tab-content"></div>');
+
+        pages.each(function(index) {
+
+          // lay it out
+          layoutDashboardPage($(this));
+
+          // add it to the navbar
+          addToNavbar($(this), index === 0);
+
+        });
+
+    } else {
+
+      // remove the navbar and navbar button if we don't
+      // have any navbuttons
+      if (navbarItems.length === 0) {
+        $('#navbar').remove();
+        $('#navbar-button').remove();
+      }
+
+      // add the storyboard class if requested
+      if (_options.storyboard)
+        dashboardContainer.addClass('storyboard');
+
+      // layout the entire page
+      layoutDashboardPage(dashboardContainer);
+    }
+
+    // if we are in shiny we need to trigger a window resize event to
+    // force correct layout of shiny-bound-output elements
+    if (isShinyDoc())
+      $(window).trigger('resize');
+
+    // make main components visible
+    $('.section.sidebar').css('visibility', 'visible');
+    dashboardContainer.css('visibility', 'visible');
+
+    // handle location hash
+    handleLocationHash();
+
+    // intialize prism highlighting
+    initPrismHighlighting();
+
+    // record mobile and orientation state then register a handler
+    // to refresh if it changes
+    _options.isMobile = isMobilePhone();
+    _options.isPortrait = isPortrait();
+    $(window).on('resize', function() {
+      if (_options.isMobile !== isMobilePhone() ||
+          _options.isPortrait !== isPortrait()) {
+        window.location.reload();
+      }
+    });
+
+    // trigger layoutcomplete event
+    dashboardContainer.trigger('flexdashboard:layoutcomplete');
+  }
+
+  function resolveMobileClasses(dashboardContainer) {
+     // add top level layout class
+    dashboardContainer.addClass(isMobilePhone() ? 'mobile-layout' :
+                                                  'desktop-layout');
+
+    // look for .mobile sections and add .no-mobile to their peers
+    var mobileSections = $('.section.mobile');
+    mobileSections.each(function() {
+       var id = $(this).attr('id');
+       var nomobileId = id.replace(/-\d+$/, '');
+       $('#' + nomobileId).addClass('no-mobile');
+    });
+  }
+
+  function addNavbarItems(navbarItems) {
+
+    var navbarLeft = $('ul.navbar-left');
+    var navbarRight = $('ul.navbar-right');
+
+    for (var i = 0; i<navbarItems.length; i++) {
+
+      // get the item
+      var item = navbarItems[i];
+
+      // determine the container
+      var container = null;
+      if (item.align === "left")
+        container = navbarLeft;
+      else
+        container = navbarRight;
+
+      // navbar menu if we have multiple items
+      if (item.items) {
+        var menu = navbarMenu(null, item.icon, item.title, container);
+        for (var j = 0; j<item.items.length; j++) {
+          var subItem = item.items[j];
+          var li = $('<li></li>');
+          li.append(navbarLink(subItem.icon, subItem.title, subItem.href, subItem.target));
+          menu.append(li);
+        }
+      } else {
+        var li = $('<li></li>');
+        li.append(navbarLink(item.icon, item.title, item.href, item.target));
+        container.append(li);
+      }
+    }
+  }
+
+  // create or get a reference to an existing dropdown menu
+  function navbarMenu(id, icon, title, container) {
+    var existingMenu = [];
+    if (id)
+      existingMenu = container.children('#' + id);
+    if (existingMenu.length > 0) {
+      return existingMenu.children('ul');
+    } else {
+      var li = $('<li></li>');
+      if (id)
+        li.attr('id', id);
+      li.addClass('dropdown');
+      // auto add "Share" title on mobile if necessary
+      if (!title && icon && (icon === "fa-share-alt") && isMobilePhone())
+        title = "Share";
+      if (title) {
+        title = title + ' <span class="caret"></span>';
+      }
+      var a = navbarLink(icon, title, "#");
+      a.addClass('dropdown-toggle');
+      a.attr('data-toggle', 'dropdown');
+      a.attr('role', 'button');
+      a.attr('aria-expanded', 'false');
+      li.append(a);
+      var ul = $('<ul class="dropdown-menu"></ul>');
+      ul.attr('role', 'menu');
+      li.append(ul);
+      container.append(li);
+      return ul;
+    }
+  }
+
+  function addToNavbar(page, active) {
+
+    // capture the id and data-icon attribute (if any)
+    var id = page.attr('id');
+    var icon = page.attr('data-icon');
+    var navmenu = page.attr('data-navmenu');
+
+    // get hidden state (transfer this to navbar)
+    var hidden = page.hasClass('hidden');
+    page.removeClass('hidden');
+
+    // sanitize the id for use with bootstrap tabs
+    id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
+    page.attr('id', id);
+
+    // get the wrapper
+    var wrapper = page.closest('.dashboard-page-wrapper');
+
+    // move the id to the wrapper
+    page.removeAttr('id');
+    wrapper.attr('id', id);
+
+    // add the tab-pane class to the wrapper
+    wrapper.addClass('tab-pane');
+    if (active)
+      wrapper.addClass('active');
+
+    // get a reference to the h1, discover it's id and title, then remove it
+    var h1 = wrapper.find('h1').first();
+    var title = h1.html();
+    h1.remove();
+
+    // create a navbar item
+    var li = $('<li></li>');
+    var a = navbarLink(icon, title, '#' + id);
+    a.attr('data-toggle', 'tab');
+    li.append(a);
+
+    // add it to the navbar (or navbar menu if specified)
+    var container = $('ul.navbar-left');
+    if (navmenu) {
+      var menuId = navmenu.replace(/\s+/g, '');
+      var menu = navbarMenu(menuId, null, navmenu, container);
+      menu.append(li);
+    } else {
+      container.append(li);
+    }
+
+    // hide it if requested
+    if (hidden)
+      li.addClass('hidden');
+  }
+
+  function navbarLink(icon, title, href, target) {
+
+    var a = $('<a></a>');
+    if (icon) {
+
+      // get the name of the icon set and icon
+      var dashPos = icon.indexOf("-");
+      var iconSet = icon.substring(0, dashPos);
+      var iconName = icon.substring(dashPos + 1);
+
+      // create the icon
+      var iconElement = $('<span class="' + iconSet + ' ' + icon + '"></span>');
+      if (title)
+        iconElement.css('margin-right', '7px');
+      a.append(iconElement);
+      // if href is null see if we can auto-generate based on icon (e.g. social)
+      if (!href)
+        maybeGenerateLinkFromIcon(iconName, a);
+    }
+    if (title)
+      a.append(title);
+
+    // add the href.
+    if (href) {
+      if (href === "source_embed") {
+        a.attr('href', '#');
+        a.attr('data-featherlight', "#flexdashboard-source-code");
+        a.featherlight({
+            beforeOpen: function(event){
+              $('body').addClass('unselectable');
+            },
+            afterClose: function(event){
+              $('body').removeClass('unselectable');
+            }
+        });
+      } else {
+        a.attr('href', href);
+      }
+    }
+
+    // add the arget
+    if (target)
+      a.attr('target', target);
+
+    return a;
+  }
+
+  // auto generate a link from an icon name (e.g. twitter) when possible
+  function maybeGenerateLinkFromIcon(iconName, a) {
+
+     var serviceLinks = {
+      "twitter": "https://twitter.com/share?text=" + encodeURIComponent(document.title) + "&url="+encodeURIComponent(location.href),
+      "facebook": "https://www.facebook.com/sharer/sharer.php?s=100&p[url]="+encodeURIComponent(location.href),
+      "google-plus": "https://plus.google.com/share?url="+encodeURIComponent(location.href),
+      "linkedin": "https://www.linkedin.com/shareArticle?mini=true&url="+encodeURIComponent(location.href) + "&title=" + encodeURIComponent(document.title),
+      "pinterest": "https://pinterest.com/pin/create/link/?url="+encodeURIComponent(location.href) + "&description=" + encodeURIComponent(document.title)
+    };
+
+    var makeSocialLink = function(a, href) {
+      a.attr('href', '#');
+      a.on('click', function(e) {
+        e.preventDefault();
+        window.open(href);
+      });
+    };
+
+    $.each(serviceLinks, function(key, value) {
+      if (iconName.indexOf(key) !== -1)
+        makeSocialLink(a, value);
+    });
+  }
+
+  // layout a dashboard page
+  function layoutDashboardPage(page) {
+
+    // use a page wrapper so that free form content above the
+    // dashboard appears at the top rather than the side (as it
+    // would without the wrapper in a column orientation)
+    var wrapper = $('<div class="dashboard-page-wrapper"></div>');
+    page.wrap(wrapper);
+
+    // if there are no level2 or level3 headers synthesize a level3
+    // header to contain the (e.g. frame it, scroll container, etc.)
+    var headers = page.find('h2,h3');
+    if (headers.length === 0)
+      page.wrapInner('<div class="section level3"></div>');
+
+    // hoist up any content before level 2 or level 3 headers
+    var children = page.children();
+    children.each(function(index) {
+      if ($(this).hasClass('level2') || $(this).hasClass('level3'))
+        return false;
+      $(this).insertBefore(page);
+    });
+
+    // determine orientation and fillPage behavior for distinct media
+    var orientation, fillPage, storyboard;
+
+    // media: mobile phone
+    if (isMobilePhone()) {
+
+      // if there is a sidebar we need to ensure it's content
+      // is properly framed as an h3
+      var sidebar = page.find('.section.sidebar');
+      sidebar.removeClass('sidebar');
+      sidebar.wrapInner('<div class="section level3"></div>');
+      var h2 = sidebar.find('h2');
+      var h3 = $('<h3></h3>');
+      h3.html(h2.html());
+      h3.insertBefore(h2);
+      h2.remove();
+
+      // wipeout h2 elements then enclose them in a single h2
+      var level2 = page.find('div.section.level2');
+      level2.each(function() {
+        level2.children('h2').remove();
+        level2.children().unwrap();
+      });
+      page.wrapInner('<div class="section level2"></div>');
+
+      // substitute mobile images
+      if (isPortrait()) {
+        var mobileFigures = $('img.mobile-figure');
+        mobileFigures.each(function() {
+          // get the src (might be base64 encoded)
+          var src = $(this).attr('src');
+
+          // find it's peer
+          var id = $(this).attr('data-mobile-figure-id');
+          var img = $('img[data-figure-id=' + id + "]");
+          img.attr('src', src)
+             .attr('width', _options.defaultFigWidthMobile)
+             .attr('height', _options.defaultFigHeightMobile);
+        });
+      }
+
+      // hoist storyboard commentary into it's own section
+      if (page.hasClass('storyboard')) {
+        var commentaryHR = page.find('div.section.level3 hr');
+        commentaryHR.each(function() {
+          var commentary = $(this).nextAll().detach();
+          var commentarySection = $('<div class="section level3"></div>');
+          commentarySection.append(commentary);
+          commentarySection.insertAfter($(this).closest('div.section.level3'));
+          $(this).remove();
+        });
+      }
+
+      // force a non full screen layout by columns
+      orientation = _options.orientation = 'columns';
+      fillPage = _options.fillPage = false;
+      storyboard = _options.storyboard = false;
+
+    // media: desktop
+    } else {
+
+      // determine orientation
+      orientation = page.attr('data-orientation');
+      if (orientation !== 'rows' && orientation != 'columns')
+        orientation = _options.orientation;
+
+      // determine storyboard mode
+      storyboard = page.hasClass('storyboard');
+
+      // fillPage based on options (force for storyboard)
+      fillPage = _options.fillPage || storyboard;
+
+      // handle sidebar
+      var sidebar = page.find('.section.level2.sidebar');
+      if (sidebar.length > 0)
+        layoutSidebar(sidebar, page);
+    }
+
+    // give it and it's parent divs height: 100% if we are in fillPage mode
+    if (fillPage) {
+      page.addClass('vertical-layout-fill');
+      page.css('height', '100%');
+      page.parents('div').css('height', '100%');
+    } else {
+      page.addClass('vertical-layout-scroll');
+    }
+
+    // perform the layout
+    if (storyboard)
+      layoutPageAsStoryboard(page);
+    else if (orientation === 'rows')
+      layoutPageByRows(page, fillPage);
+    else if (orientation === 'columns')
+      layoutPageByColumns(page, fillPage);
+  }
+
+  function layoutSidebar(sidebar, content) {
+
+    // get it out of the header hierarchy
+    sidebar = sidebar.first();
+    if (sidebar.hasClass('level1')) {
+      sidebar.removeClass('level1');
+      sidebar.children('h1').remove();
+    } else if (sidebar.hasClass('level2')) {
+      sidebar.removeClass('level2');
+      sidebar.children('h2').remove();
+    }
+
+    // determine width
+    var sidebarWidth = isTablet() ? 220 : 250;
+    var dataWidth = parseInt(sidebar.attr('data-width'));
+    if (dataWidth)
+      sidebarWidth = dataWidth;
+
+    // set the width and shift the page right to accomodate the sidebar
+    sidebar.css('width', sidebarWidth + 'px');
+    content.css('padding-left', sidebarWidth + 'px');
+
+    // wrap it's contents in a form
+    sidebar.wrapInner($('<form></form>'));
+  }
+
+  function layoutPageAsStoryboard(page) {
+
+    // create storyboard navigation
+    var nav = $('<div class="storyboard-nav"></div>');
+
+    // add navigation buttons
+    var prev = $('<button class="sbprev"><i class="fa fa-angle-left"></i></button>');
+    nav.append(prev);
+    var next= $('<button class="sbnext"><i class="fa fa-angle-right"></i></button>');
+    nav.append(next);
+
+    // add navigation frame
+    var frameList = $('<div class="sbframelist"></div>');
+    nav.append(frameList);
+    var ul = $('<ul></ul>');
+    frameList.append(ul);
+
+     // find all the level3 sections (those are the storyboard frames)
+    var frames = page.find('div.section.level3');
+    frames.each(function() {
+
+      // mark it
+      $(this).addClass('sbframe');
+
+      // divide it into chart content and (optional) commentary
+      $(this).addClass('dashboard-column-orientation');
+
+      // stuff the chart into it's own div w/ flex
+      $(this).wrapInner('<div class="sbframe-component"></div>');
+      setFlex($(this), 1);
+      var frame = $(this).children('.sbframe-component');
+
+      // extract the title from the h3
+      var li = $('<li></li>');
+      var h3 = frame.children('h3');
+      li.html(h3.html());
+      h3.remove();
+      ul.append(li);
+
+      // extract commentary
+      var hr = frame.children('hr');
+      if (hr.length) {
+        var commentary = hr.nextAll().detach();
+        hr.remove();
+        var commentaryFrame = $('<div class="sbframe-commentary"></div>');
+        commentaryFrame.addClass('flowing-content-shim');
+        commentaryFrame.addClass('flowing-content-container');
+        commentaryFrame.append(commentary);
+        $(this).append(commentaryFrame);
+
+        // look for a data-commentary-width attribute
+        var commentaryWidth = $(this).attr('data-commentary-width');
+        if (commentaryWidth)
+          commentaryFrame.css('width', commentaryWidth + 'px');
+      }
+
+      // layout the chart (force flex)
+      var result = layoutChart(frame, true);
+
+      // ice the notes if there are none
+      if (!result.notes)
+        frame.find('.chart-notes').remove();
+
+      // set flex on chart
+      setFlex(frame, 1);
+    });
+
+    // create a div to hold all the frames
+    var frameContent = $('<div class="sbframe-content"></div>');
+    frameContent.addClass('dashboard-row-orientation');
+    frameContent.append(frames.detach());
+
+    // row orientation to stack nav and frame content
+    page.addClass('dashboard-row-orientation');
+    page.append(nav);
+    page.append(frameContent);
+    setFlex(frameContent, 1);
+
+    // initialize sly
+    var sly = new Sly(frameList, {
+    		horizontal: true,
+    		itemNav: 'basic',
+    		smart: true,
+    		activateOn: 'click',
+    		startAt: 0,
+    		scrollBy: 1,
+    		activatePageOn: 'click',
+    		speed: 200,
+    		moveBy: 600,
+    		dragHandle: true,
+    		dynamicHandle: true,
+    		clickBar: true,
+    		keyboardNavBy: 'items',
+    		next: next,
+    		prev: prev
+    	}).init();
+
+    // make first frame active
+    frames.removeClass('active');
+    frames.first().addClass('active');
+
+    // subscribe to frame changed events
+    sly.on('active', function (eventName, itemIndex) {
+      frames.removeClass('active');
+      frames.eq(itemIndex).addClass('active')
+                          .trigger('shown');
+    });
+  }
+
+  function layoutPageByRows(page, fillPage) {
+
+    // row orientation
+    page.addClass('dashboard-row-orientation');
+
+    // find all the level2 sections (those are the rows)
+    var rows = page.find('div.section.level2');
+
+    // if there are no level2 sections then treat the
+    // entire page as if it's a level 2 section
+    if (rows.length === 0) {
+      page.wrapInner('<div class="section level2"></div>');
+      rows = page.find('div.section.level2');
+    }
+
+    rows.each(function () {
+
+      // flags
+      var haveNotes = false;
+      var haveFlexHeight = true;
+
+      // remove the h2
+      $(this).children('h2').remove();
+
+      // check for a tabset
+      var isTabset = $(this).hasClass('tabset');
+      if (isTabset)
+        layoutTabset($(this));
+
+      // give it row layout semantics if it's not a tabset
+      if (!isTabset)
+        $(this).addClass('dashboard-row');
+
+      // find all of the level 3 subheads
+      var columns = $(this).find('div.section.level3');
+
+      // determine figureSizes sizes
+      var figureSizes = chartFigureSizes(columns);
+
+      // fixup the columns
+      columns.each(function(index) {
+
+        // layout the chart (force flex if we are in a tabset)
+        var result = layoutChart($(this), isTabset);
+
+        // update flexHeight state
+        if (!result.flex)
+          haveFlexHeight = false;
+
+        // update state
+        if (result.notes)
+          haveNotes = true;
+
+        // set the column flex based on the figure width
+        // (value boxes will just get the default figure width)
+        var chartWidth = figureSizes[index].width;
+        setFlex($(this), chartWidth + ' ' + chartWidth + ' 0px');
+
+      });
+
+      // remove empty chart note divs
+      if (isTabset)
+        $(this).find('.chart-notes').filter(function() {
+            return $(this).html() === "&nbsp;";
+        }).remove();
+      if (!haveNotes)
+        $(this).find('.chart-notes').remove();
+
+       // make it a flexbox row
+      if (haveFlexHeight)
+        $(this).addClass('dashboard-row-flex');
+
+      // now we can set the height on all the wrappers (based on maximum
+      // figure height + room for title and notes, or data-height on the
+      // container if specified). However, don't do this if there is
+      // no flex on any of the constituent columns
+      var flexHeight = null;
+      var dataHeight = parseInt($(this).attr('data-height'));
+      if (dataHeight)
+        flexHeight = adjustedHeight(dataHeight, columns.first());
+      else if (haveFlexHeight)
+        flexHeight = maxChartHeight(figureSizes, columns);
+      if (flexHeight) {
+        if (fillPage)
+          setFlex($(this), flexHeight + ' ' + flexHeight + ' 0px');
+        else {
+          $(this).css('height', flexHeight + 'px');
+          setFlex($(this), '0 0 ' + flexHeight + 'px');
+        }
+      }
+
+    });
+  }
+
+  function layoutPageByColumns(page, fillPage) {
+
+    // column orientation
+    page.addClass('dashboard-column-orientation');
+
+    // find all the level2 sections (those are the columns)
+    var columns = page.find('div.section.level2');
+
+    // if there are no level2 sections then treat the
+    // entire page as if it's a level 2 section
+    if (columns.length === 0) {
+      page.wrapInner('<div class="section level2"></div>');
+      columns = page.find('div.section.level2');
+    }
+
+    // layout each column
+    columns.each(function (index) {
+
+      // remove the h2
+      $(this).children('h2').remove();
+
+      // make it a flexbox column
+      $(this).addClass('dashboard-column');
+
+      // check for a tabset
+      var isTabset = $(this).hasClass('tabset');
+      if (isTabset)
+        layoutTabset($(this));
+
+      // find all the h3 elements
+      var rows = $(this).find('div.section.level3');
+
+      // get the figure sizes for the rows
+      var figureSizes = chartFigureSizes(rows);
+
+      // column flex is the max row width (or data-width if specified)
+      var flexWidth;
+      var dataWidth = parseInt($(this).attr('data-width'));
+      if (dataWidth)
+        flexWidth = dataWidth;
+      else
+        flexWidth = maxChartWidth(figureSizes);
+      setFlex($(this), flexWidth + ' ' + flexWidth + ' 0px');
+
+      // layout each chart
+      rows.each(function(index) {
+
+        // perform the layout
+        var result = layoutChart($(this), false);
+
+        // ice the notes if there are none
+        if (!result.notes)
+          $(this).find('.chart-notes').remove();
+
+        // set flex height based on figHeight, then adjust
+        if (result.flex) {
+          var chartHeight = figureSizes[index].height;
+          chartHeight = adjustedHeight(chartHeight, $(this));
+          if (fillPage)
+            setFlex($(this), chartHeight + ' ' + chartHeight + ' 0px');
+          else {
+            $(this).css('height', chartHeight + 'px');
+            setFlex($(this), chartHeight + ' ' + chartHeight + ' ' + chartHeight + 'px');
+          }
+        }
+      });
+    });
+  }
+
+  function chartFigureSizes(charts) {
+
+    // sizes
+    var figureSizes = new Array(charts.length);
+
+    // check each chart
+    charts.each(function(index) {
+
+      // start with default
+      figureSizes[index] = {
+        width: _options.defaultFigWidth,
+        height: _options.defaultFigHeight
+      };
+
+      // look for data-height or data-width then knit options
+      var dataWidth = parseInt($(this).attr('data-width'));
+      var dataHeight = parseInt($(this).attr('data-height'));
+      var knitrOptions = $(this).find('.knitr-options:first');
+      var knitrWidth, knitrHeight;
+      if (knitrOptions) {
+        knitrWidth = parseInt(knitrOptions.attr('data-fig-width'));
+        knitrHeight =  parseInt(knitrOptions.attr('data-fig-height'));
+      }
+
+      // width
+      if (dataWidth)
+        figureSizes[index].width = dataWidth;
+      else if (knitrWidth)
+        figureSizes[index].width = knitrWidth;
+
+      // height
+      if (dataHeight)
+        figureSizes[index].height = dataHeight;
+      else if (knitrHeight)
+        figureSizes[index].height = knitrHeight;
+    });
+
+    // return sizes
+    return figureSizes;
+  }
+
+  function maxChartHeight(figureSizes, charts) {
+
+    // first compute the maximum height
+    var maxHeight = _options.defaultFigHeight;
+    for (var i = 0; i<figureSizes.length; i++)
+      if (figureSizes[i].height > maxHeight)
+        maxHeight = figureSizes[i].height;
+
+    // now add offests for chart title and chart notes
+    if (charts.length)
+      maxHeight = adjustedHeight(maxHeight, charts.first());
+
+    return maxHeight;
+  }
+
+  function adjustedHeight(height, chart) {
+    if (chart.length > 0) {
+      var chartTitle = chart.find('.chart-title');
+      if (chartTitle.length)
+        height += chartTitle.first().outerHeight();
+      var chartNotes = chart.find('.chart-notes');
+      if (chartNotes.length)
+        height += chartNotes.first().outerHeight();
+    }
+    return height;
+  }
+
+  function maxChartWidth(figureSizes) {
+    var maxWidth = _options.defaultFigWidth;
+    for (var i = 0; i<figureSizes.length; i++)
+      if (figureSizes[i].width > maxWidth)
+        maxWidth = figureSizes[i].width;
+    return maxWidth;
+  }
+
+  // layout a chart
+  function layoutChart(chart, forceFlex) {
+
+    // state to return
+    var result = {
+      notes: false,
+      flex: false
+    };
+
+    // extract the title
+    var title = extractTitle(chart);
+
+    // find components that apply to this container
+    var components = componentsFind(chart);
+
+    // if it's a custom component then call it and return
+    var customComponents = componentsCustom(components);
+    if (customComponents.length) {
+      componentsLayout(customComponents, title, chart);
+      result.notes = false;
+      result.flex = forceFlex || componentsFlex(customComponents);
+      return result;
+    }
+
+    // put all the content in a chart wrapper div
+    chart.addClass('chart-wrapper');
+    chart.wrapInner('<div class="chart-stage"></div>');
+    var chartContent = chart.children('.chart-stage');
+
+    // flex the content if appropriate
+    result.flex = forceFlex || componentsFlex(components);
+    if (result.flex) {
+      // add flex classes
+      chart.addClass('chart-wrapper-flex');
+      chartContent.addClass('chart-stage-flex');
+
+      // additional shim to break out of flexbox sizing
+      chartContent.wrapInner('<div class="chart-shim"></div>');
+      chartContent = chartContent.children('.chart-shim');
+    }
+
+    // set custom data-padding attribute
+    var pad = chart.attr('data-padding');
+    if (pad) {
+      if (pad === "0")
+        chart.addClass('no-padding');
+      else {
+        pad = pad + 'px';
+        chartContent.css('left', pad)
+                    .css('top', pad)
+                    .css('right', pad)
+                    .css('bottom', pad)
+      }
+    }
+
+    // call compoents
+    componentsLayout(components, title, chartContent);
+
+    // also activate components on shiny output
+    findShinyOutput(chartContent).on('shiny:value',
+      function(event) {
+        var element = $(event.target);
+        setTimeout(function() {
+
+          // see if we opted out of flex based on our output (for shiny
+          // we can't tell what type of output we have until after the
+          // value is bound)
+          var components = componentsFind(element);
+          var flex = forceFlex || componentsFlex(components);
+          if (!flex) {
+            chart.css('height', "");
+            setFlex(chart, "");
+            chart.removeClass('chart-wrapper-flex');
+            chartContent.removeClass('chart-stage-flex');
+            chartContent.children().unwrap();
+          }
+
+          // perform layout
+          componentsLayout(components, title, element.parent());
+        }, 10);
+      });
+
+    // add the title
+    var chartTitle = $('<div class="chart-title"></div>');
+    chartTitle.html(title);
+    chart.prepend(chartTitle);
+
+    // add the notes section
+    var chartNotes = $('<div class="chart-notes"></div>');
+    chartNotes.html('&nbsp;');
+    chart.append(chartNotes);
+
+    // attempt to extract notes if we have a component
+    if (components.length)
+      result.notes = extractChartNotes(chartContent, chartNotes);
+
+    // return result
+    return result;
+  }
+
+  // build a tabset from a section div with the .tabset class
+  function layoutTabset(tabset) {
+
+    // check for fade option
+    var fade = tabset.hasClass("tabset-fade");
+    var navClass = "nav-tabs";
+
+    // determine the heading level of the tabset and tabs
+    var match = tabset.attr('class').match(/level(\d) /);
+    if (match === null)
+      return;
+    var tabsetLevel = Number(match[1]);
+    var tabLevel = tabsetLevel + 1;
+
+    // find all subheadings immediately below
+    var tabs = tabset.find("div.section.level" + tabLevel);
+    if (!tabs.length)
+      return;
+
+    // create tablist and tab-content elements
+    var tabList = $('<ul class="nav ' + navClass + '" role="tablist"></ul>');
+    $(tabs[0]).before(tabList);
+    var tabContent = $('<div class="tab-content"></div>');
+    $(tabs[0]).before(tabContent);
+
+    // build the tabset
+    tabs.each(function(i) {
+
+      // get the tab div
+      var tab = $(tabs[i]);
+
+      // get the id then sanitize it for use with bootstrap tabs
+      var id = tab.attr('id');
+
+      // sanitize the id for use with bootstrap tabs
+      id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
+      tab.attr('id', id);
+
+      // get the heading element within it and grab it's text
+      var heading = tab.find('h' + tabLevel + ':first');
+      var headingText = heading.html();
+
+      // build and append the tab list item
+      var a = $('<a role="tab" data-toggle="tab">' + headingText + '</a>');
+      a.attr('href', '#' + id);
+      a.attr('aria-controls', id);
+      var li = $('<li role="presentation"></li>');
+      li.append(a);
+      if (i === 0)
+        li.attr('class', 'active');
+      tabList.append(li);
+
+      // set it's attributes
+      tab.attr('role', 'tabpanel');
+      tab.addClass('tab-pane');
+      tab.addClass('tabbed-pane');
+      tab.addClass('no-title');
+      if (fade)
+        tab.addClass('fade');
+      if (i === 0) {
+        tab.addClass('active');
+        if (fade)
+          tab.addClass('in');
+      }
+
+      // move it into the tab content div
+      tab.detach().appendTo(tabContent);
+    });
+
+    // add nav-tabs-custom
+    tabset.addClass('nav-tabs-custom');
+
+    // internal layout is dashboard-column with tab-content flexing
+    tabset.addClass('dashboard-column');
+    setFlex(tabContent, 1);
+  }
+
+  // one time global initialization for components
+  function componentsInit(dashboardContainer) {
+    for (var i=0; i<window.FlexDashboardComponents.length; i++) {
+      var component = window.FlexDashboardComponents[i];
+      if (component.init)
+        component.init(dashboardContainer);
+    }
+  }
+
+  // find components that apply within a container
+  function componentsFind(container) {
+
+    // look for components
+    var components = [];
+    for (var i=0; i<window.FlexDashboardComponents.length; i++) {
+      var component = window.FlexDashboardComponents[i];
+      if (component.find(container).length)
+        components.push(component);
+    }
+
+    // if there were none then use a special flowing content component
+    // that just adds a scrollbar in fillPage mode
+    if (components.length == 0) {
+      components.push({
+        find: function(container) {
+          return container;
+        },
+
+        flex: function(fillPage) {
+          return fillPage;
+        },
+
+        layout: function(title, container, element, fillPage) {
+          if (fillPage) {
+            container.addClass('flowing-content-shim');
+            container.addClass('flowing-content-container');
+          }
+        }
+      });
+    }
+
+    return components;
+  }
+
+  // if there is a custom component then pick it out
+  function componentsCustom(components) {
+    var customComponent = [];
+    for (var i=0; i<components.length; i++)
+      if (components[i].type === "custom") {
+        customComponent.push(components[i]);
+        break;
+      }
+    return customComponent;
+  }
+
+  // query all components for flex
+  function componentsFlex(components) {
+
+    // no components at all means no flex
+    if (components.length === 0)
+      return false;
+
+    // otherwise query components (assume true unless we see false)
+    var isMobile = isMobilePhone();
+    for (var i=0; i<components.length; i++)
+      if (components[i].flex && !components[i].flex(_options.fillPage))
+        return false;
+    return true;
+  }
+
+  // layout all components
+  function componentsLayout(components, title, container) {
+    var isMobile = isMobilePhone();
+    for (var i=0; i<components.length; i++) {
+      var element = components[i].find(container);
+      if (components[i].layout) {
+        // call layout (don't call other components if it returns false)
+        var result = components[i].layout(title, container, element, _options.fillPage);
+        if (result === false)
+          return;
+      }
+    }
+  }
+
+  // get a reference to the h3, discover it's inner html, and remove it
+  function extractTitle(container) {
+    var h3 = container.children('h3').first();
+    var title = '';
+    if (!container.hasClass('no-title'))
+      title = h3.html();
+    h3.remove();
+    return title;
+  }
+
+  // extract chart notes
+  function extractChartNotes(chartContent, chartNotes) {
+    // look for a terminating blockquote or image caption
+    var blockquote = chartContent.children('blockquote:last-child');
+    var caption = chartContent.children('div.image-container')
+                              .children('p.caption');
+    if (blockquote.length) {
+      chartNotes.html(blockquote.children('p:first-child').html());
+      blockquote.remove();
+      return true;
+    } else if (caption.length) {
+      chartNotes.html(caption.html());
+      caption.remove();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function findShinyOutput(chartContent) {
+    return chartContent.find('.shiny-text-output, .shiny-html-output');
+  }
+
+  // safely detect rendering on a mobile phone
+  function isMobilePhone() {
+    try
+    {
+      return ! window.matchMedia("only screen and (min-width: 768px)").matches;
+    }
+    catch(e) {
+      return false;
+    }
+  }
+
+  function isFillPage() {
+    return _options.fillPage;
+  }
+
+  // detect portrait mode
+  function isPortrait() {
+    return ($(window).width() < $(window).height());
+  }
+
+  // safely detect rendering on a tablet
+  function isTablet() {
+    try
+    {
+      return window.matchMedia("only screen and (min-width: 769px) and (max-width: 992px)").matches;
+    }
+    catch(e) {
+      return false;
+    }
+  }
+
+  // test whether this is a shiny doc
+  function isShinyDoc() {
+    return (typeof(window.Shiny) !== "undefined" && !!window.Shiny.outputBindings);
+  }
+
+  // set flex using vendor specific prefixes
+  function setFlex(el, flex) {
+    el.css('-webkit-box-flex', flex)
+      .css('-webkit-flex', flex)
+      .css('-ms-flex', flex)
+      .css('flex', flex);
+  }
+
+  // support bookmarking of pages
+  function handleLocationHash() {
+
+    // restore tab/page from bookmark
+    var hash = window.location.hash;
+    if (hash.length > 0)
+      $('ul.nav a[href="' + hash + '"]').tab('show');
+    FlexDashboardUtils.manageActiveNavbarMenu();
+
+    // navigate to a tab when the history changes
+    window.addEventListener("popstate", function(e) {
+      var hash = window.location.hash;
+      var activeTab = $('ul.nav a[href="' + hash + '"]');
+      if (activeTab.length) {
+        activeTab.tab('show');
+      } else {
+        $('ul.nav a:first').tab('show');
+      }
+      FlexDashboardUtils.manageActiveNavbarMenu();
+    });
+
+    // add a hash to the URL when the user clicks on a tab/page
+    $('.navbar-nav a[data-toggle="tab"]').on('click', function(e) {
+      var baseUrl = FlexDashboardUtils.urlWithoutHash(window.location.href);
+      var hash = FlexDashboardUtils.urlHash($(this).attr('href'));
+      var href = baseUrl + hash;
+      FlexDashboardUtils.setLocation(href);
+    });
+
+    // handle clicks of other links that should activate pages
+    var navPages = $('ul.navbar-nav li a[data-toggle=tab]');
+    navPages.each(function() {
+      var href =  $(this).attr('href');
+      var links = $('a[href="' + href + '"][data-toggle!=tab]');
+      links.each(function() {
+        $(this).on('click', function(e) {
+          window.FlexDashboardUtils.showPage(href);
+        });
+      });
+    });
+  }
+
+  // tweak Prism highlighting
+  function initPrismHighlighting() {
+
+    if (window.Prism) {
+      Prism.languages.insertBefore('r', 'comment', {
+        'heading': [
+          {
+            // title 1
+        	  // =======
+
+        	  // title 2
+        	  // -------
+        	  pattern: /\w+.*(?:\r?\n|\r)(?:====+|----+)/,
+            alias: 'operator'
+          },
+          {
+            // ### title 3
+            pattern: /(^\s*)###[^#].+/m,
+            lookbehind: true,
+            alias: 'operator'
+          }
+        ]
+      });
+
+      // prism highlight
+      Prism.highlightAll();
+    }
+  }
+
+
+  // get theme color
+  var themeColors = {
+    bootstrap: {
+      primary: "rgba(51, 122, 183, 0.4)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    cerulean: {
+      primary: "rgb(47, 164, 231)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    journal: {
+      primary: "rgba(235, 104, 100, 0.70)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    flatly: {
+      primary: "rgba(44, 62, 80, 0.70)",
+      info: "rgba(52, 152, 219, 0.70)",
+      success: "rgba(24, 188, 156, 0.70)",
+      warning: "rgba(243, 156, 18, 0.70)",
+      danger: "rgba(231, 76, 60, 0.70)"
+    },
+    readable: {
+      primary: "rgba(69, 130, 236, 0.4)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    spacelab: {
+      primary: "rgba(68, 110, 155, 0.25)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    united: {
+      primary: "rgba(221, 72, 20, 0.30)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    cosmo: {
+      primary: "rgba(39, 128, 227, 0.7)",
+      info: "rgba(153, 84, 187, 0.7)",
+      success: "rgba(63, 182, 24, 0.7)",
+      warning: "rgba(255, 117, 24, 0.7)",
+      danger: "rgba(255, 0, 57, 0.7)"
+    },
+    lumen: {
+      primary: "rgba(21, 140, 186, 0.70)",
+      info: "rgba(117, 202, 235, 0.90)",
+      success: "rgba(40, 182, 44, 0.70)",
+      warning: "rgba(255, 133, 27, 0.70)",
+      danger: "rgba(255, 65, 54, 0.70)"
+    },
+    paper: {
+      primary: "rgba(33, 150, 243, 0.35)",
+      info: "rgb(225, 190, 231)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(255, 224, 178)",
+      danger: "rgb(249, 189, 187)"
+    },
+    sandstone: {
+      primary: "rgba(50, 93, 136, 0.3)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    simplex: {
+      primary: "rgba(217, 35, 15, 0.25)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    yeti: {
+      primary: "rgba(0, 140, 186, 0.298039)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    }
+  }
+  function themeColor(color) {
+    return themeColors[_options.theme][color];
+  }
+
+  FlexDashboard.prototype = {
+    constructor: FlexDashboard,
+    init: init,
+    isMobilePhone: isMobilePhone,
+    isFillPage: isFillPage,
+    themeColor: themeColor
+  };
+
+  return FlexDashboard;
+
+})();
+
+// utils
+window.FlexDashboardUtils = {
+  resizableImage: function(img) {
+    var src = img.attr('src');
+    var url = 'url("' + src + '")';
+    img.parent().css('background', url)
+                .css('background-size', 'contain')
+                .css('background-repeat', 'no-repeat')
+                .css('background-position', 'center')
+                .addClass('image-container');
+  },
+  setLocation: function(href) {
+    if (history && history.pushState) {
+      history.pushState(null, null, href);
+    } else {
+      window.location.replace(href);
+    }
+    setTimeout(function() {
+        window.scrollTo(0, 0);
+    }, 10);
+    this.manageActiveNavbarMenu();
+  },
+  showPage: function(href) {
+    $('ul.navbar-nav li a[href="' + href + '"]').tab('show');
+    var baseUrl = this.urlWithoutHash(window.location.href);
+    var loc = baseUrl + href;
+    this.setLocation(loc);
+  },
+  showLinkedValue: function(href) {
+    // check for a page link
+    if ($('ul.navbar-nav li a[data-toggle=tab][href="' + href + '"]').length > 0)
+      this.showPage(href);
+    else
+      window.open(href);
+  },
+  urlWithoutHash: function(url) {
+    var hashLoc = url.indexOf('#');
+    if (hashLoc != -1)
+      return url.substring(0, hashLoc);
+    else
+      return url;
+  },
+  urlHash: function(url) {
+    var hashLoc = url.indexOf('#');
+    if (hashLoc != -1)
+      return url.substring(hashLoc);
+    else
+      return "";
+  },
+  manageActiveNavbarMenu: function () {
+    // remove active from anyone currently active
+    $('.navbar ul.nav').find('li').removeClass('active');
+    // find the active tab
+    var activeTab = $('.dashboard-page-wrapper.tab-pane.active');
+    if (activeTab.length > 0) {
+      var tabId = activeTab.attr('id');
+      if (tabId)
+        $(".navbar ul.nav a[href='#" + tabId + "']").parents('li').addClass('active');
+    }
+  }
+};
+
+window.FlexDashboard = new FlexDashboard();
+
+// empty content
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    if (container.find('p').length == 0)
+      return container;
+    else
+      return $();
+  }
+})
+
+// plot image
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('p')
+                    .children('img:only-child');
+  },
+
+  layout: function(title, container, element, fillPage) {
+    FlexDashboardUtils.resizableImage(element);
+  }
+});
+
+// plot image (figure style)
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('div.figure').children('img');
+  },
+
+  layout: function(title, container, element, fillPage) {
+    FlexDashboardUtils.resizableImage(element);
+  }
+});
+
+// htmlwidget
+window.FlexDashboardComponents.push({
+
+  init: function(dashboardContainer) {
+    // trigger "shown" after initial layout to force static htmlwidgets
+    // in runtime: shiny to be resized after the dom has been transformed
+    dashboardContainer.on('flexdashboard:layoutcomplete', function(event) {
+      setTimeout(function() {
+        dashboardContainer.trigger('shown');
+      }, 200);
+    });
+  },
+
+  find: function(container) {
+    return container.children('div[id^="htmlwidget-"],div.html-widget');
+  }
+});
+
+// gauge
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('div.html-widget.gauge');
+  },
+
+  flex: function(fillPage) {
+    return false;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+
+  }
+
+});
+
+// shiny output
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    return container.children('div[class^="shiny-"]');
+  }
+});
+
+// datatables
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    return container.find('.datatables');
+  },
+  flex: function(fillPage) {
+    return fillPage;
+  }
+});
+
+// bootstrap table
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    var bsTable = container.find('table.table');
+    if (bsTable.length !== 0)
+      return bsTable;
+    else
+      return container.find('tr.header').parent('thead').parent('table');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+    // alias variables
+    var bsTable = element;
+
+    // fixup xtable generated tables with a proper thead
+    var headerRow = bsTable.find('tbody > tr:first-child > th').parent();
+    if (headerRow.length > 0) {
+      var thead = $('<thead></thead>');
+      bsTable.prepend(thead);
+      headerRow.detach().appendTo(thead);
+    }
+
+    // improve appearance
+    container.addClass('bootstrap-table');
+
+    // for fill page provide scrolling w/ sticky headers
+    if (fillPage) {
+      // force scrollbar on overflow
+      container.addClass('flowing-content-shim');
+
+      // stable table headers when scrolling
+      bsTable.stickyTableHeaders({
+        scrollableArea: container
+      });
+    }
+  }
+});
+
+// embedded shiny app
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.find('iframe.shiny-frame');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+    if (fillPage) {
+      element.attr('height', '100%');
+    } else {
+      // provide default height if necessary
+      var height = element.get(0).style.height;
+      if (!height)
+        height = element.attr('height');
+      if (!height)
+        element.attr('height', 500);
+    }
+  }
+});
+
+// shiny fillRow or fillCol
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.find('.flexfill-container');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+    if (fillPage)
+      element.css('height', '100%');
+    else {
+      // provide default height if necessary
+      var height = element.get(0).style.height;
+      if (height === "100%" || height === "auto" || height === "initial" ||
+          height === "inherit" || !height) {
+        element.css('height', 500);
+      }
+    }
+  }
+});
+
+// valueBox
+window.FlexDashboardComponents.push({
+
+  type: "custom",
+
+  find: function(container) {
+    if (container.find('span.value-output, .shiny-valuebox-output').length)
+      return container;
+    else
+      return $();
+  },
+
+  flex: function(fillPage) {
+    return false;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+    // alias variables
+    var chartTitle = title;
+    var valueBox = element;
+
+    // add value-box class to container
+    container.addClass('value-box');
+
+    // value paragraph
+    var value = $('<p class="value"></p>');
+
+    // if we have shiny-text-output then just move it in
+    var valueOutputSpan = [];
+    var shinyOutput = valueBox.find('.shiny-valuebox-output').detach();
+    if (shinyOutput.length) {
+      valueBox.children().remove();
+      shinyOutput.html("&mdash;");
+      value.append(shinyOutput);
+    } else {
+      // extract the value (remove leading vector index)
+      var chartValue = valueBox.text().trim();
+      chartValue = chartValue.replace("[1] ", "");
+      valueOutputSpan = valueBox.find('span.value-output').detach();
+      valueBox.children().remove();
+      value.text(chartValue);
+    }
+
+    // caption
+    var caption = $('<p class="caption"></p>');
+    caption.html(chartTitle);
+
+    // build inner div for value box and add it
+    var inner = $('<div class="inner"></div>');
+    inner.append(value);
+    inner.append(caption);
+    valueBox.append(inner);
+
+    // add icon if specified
+    var icon = $('<div class="icon"><i></i></div>');
+    valueBox.append(icon);
+    function setIcon(chartIcon) {
+      var iconLib = "";
+      var components = chartIcon.split("-");
+      if (components.length > 1)
+        iconLib = components[0];
+      icon.children('i').attr('class', iconLib + ' ' + chartIcon);
+    }
+    var chartIcon = valueBox.attr('data-icon');
+    if (chartIcon)
+      setIcon(chartIcon);
+
+    // set color based on data-background if necessary
+    var dataBackground = valueBox.attr('data-background');
+    if (dataBackground)
+      valueBox.css('background-color', bgColor);
+    else {
+      // default to bg-primary if no other background is specified
+      if (!valueBox.hasClass('bg-primary') &&
+          !valueBox.hasClass('bg-info') &&
+          !valueBox.hasClass('bg-warning') &&
+          !valueBox.hasClass('bg-success') &&
+          !valueBox.hasClass('bg-danger')) {
+        valueBox.addClass('bg-primary');
+      }
+    }
+
+    // handle data attributes in valueOutputSpan
+    function handleValueOutput(valueOutput) {
+
+      // caption
+      var dataCaption = valueOutput.attr('data-caption');
+      if (dataCaption)
+        caption.html(dataCaption);
+
+      // icon
+      var dataIcon = valueOutput.attr('data-icon');
+      if (dataIcon)
+        setIcon(dataIcon);
+
+      // color
+      var dataColor = valueOutput.attr('data-color');
+      if (dataColor) {
+        if (dataColor.indexOf('bg-') === 0) {
+          valueBox.css('background-color', '');
+          if (!valueBox.hasClass(dataColor)) {
+             valueBox.removeClass('bg-primary bg-info bg-warning bg-danger bg-success');
+             valueBox.addClass(dataColor);
+          }
+        } else {
+          valueBox.removeClass('bg-primary bg-info bg-warning bg-danger bg-success');
+          valueBox.css('background-color', dataColor);
+        }
+      }
+
+      // url
+      var dataHref = valueOutput.attr('data-href');
+      if (dataHref) {
+        valueBox.addClass('linked-value');
+        valueBox.off('click.value-box');
+        valueBox.on('click.value-box', function(e) {
+          window.FlexDashboardUtils.showLinkedValue(dataHref);
+        });
+      }
+    }
+
+    // check for a valueOutputSpan
+    if (valueOutputSpan.length > 0) {
+      handleValueOutput(valueOutputSpan);
+    }
+
+    // if we have a shinyOutput then bind a listener to handle
+    // new valueOutputSpan values
+    shinyOutput.on('shiny:value',
+      function(event) {
+        var element = $(event.target);
+        setTimeout(function() {
+          var valueOutputSpan = element.find('span.value-output');
+          if (valueOutputSpan.length > 0)
+            handleValueOutput(valueOutputSpan);
+        }, 10);
+      }
+    );
+  }
+});
+
+
+</script>
+
+<div id="dashboard-container">
+
+<!-- a wee bit of JS that allows a modal popup when the first -->
+<!-- list element of the navbar (Instructions) is clicked -->
+<!-- adapted from: https://github.com/rstudio/flexdashboard/issues/208 -->
+<script>
+
+  $('.navbar-brand').wrap('<a href="http://www.gsawellfailure.com">');
+  
+  <!-- modal popup when navbar list elements are clicked -->
+  $(document).ready(function() {
+    $('#dashboard-container').on('flexdashboard:layoutcomplete', 
+      function() {
+        $('#navbar li:nth-child(1)').click(function() {
+          $('#md-instructions').modal(); });
+    })
+  })
+  
+  $(document).ready(function() {
+    $('#dashboard-container').on('flexdashboard:layoutcomplete', 
+      function() {
+        $('#navbar li:nth-child(2)').click(function() {
+          $('#md-about').modal(); });
+    })
+  })
+  
+  <!-- modal popup when valueBoxes are clicked -->
+  $(document).ready(function() {
+    $('#dashboard-container').on('flexdashboard:layoutcomplete', 
+      function() {
+        $('#groundwater-level-decline').click(function() {
+          $('#md-groundwater-level-decline').modal(); });
+    })
+  })
+  
+  $(document).ready(function() {
+    $('#dashboard-container').on('flexdashboard:layoutcomplete', 
+      function() {
+        $('#well-failure-count').click(function() {
+          $('#md-well-failure-count').modal(); });
+    })
+  })
+  
+  $(document).ready(function() {
+    $('#dashboard-container').on('flexdashboard:layoutcomplete', 
+      function() {
+        $('#well-failure-percent').click(function() {
+          $('#md-well-failure-percent').modal(); });
+    })
+  })
+  
+  $(document).ready(function() {
+    $('#dashboard-container').on('flexdashboard:layoutcomplete', 
+      function() {
+        $('#cost-estimate').click(function() {
+          $('#md-cost-estimate').modal(); });
+    })
+  })
+</script>
+<div id="row" class="section level2 sidebar" data-width="150" data-padding="10">
+<h2>Row</h2>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<p><div class="dropdown">
+<button class="dropbtn">GSA</button>
+<div class="dropdown-content">
+<a href="https://www.gsawellfailure.com/gsas/ALL/500">ALL</a>
+<a href="https://www.gsawellfailure.com/gsas/northern-central/500">Northern Central (DM)</a>
+<a href="https://www.gsawellfailure.com/gsas/farmers/500">Farmers (DM)</a>
+<a href="https://www.gsawellfailure.com/gsas/east-kaweah/500">East Kaweah</a>
+<a href="https://www.gsawellfailure.com/gsas/chowchilla/500">Chowchilla</a>
+<a href="https://www.gsawellfailure.com/gsas/madera-joint/500">Madera Joint</a>
+<a href="https://www.gsawellfailure.com/gsas/central-kings/500">Central Kings</a>
+<a href="https://www.gsawellfailure.com/gsas/north-fork-kings/500">North Fork Kings</a>
+<a href="https://www.gsawellfailure.com/gsas/south-kings/500">South Kings</a>
+<a href="https://www.gsawellfailure.com/gsas/mc-mullin/500">Mc Mullin</a>
+<a href="https://www.gsawellfailure.com/gsas/gravelly-ford-madera/500">Gravelly Ford (Madera)</a>
+<a href="https://www.gsawellfailure.com/gsas/pixley-tule/500">Pixley (Tule)</a>
+<a href="https://www.gsawellfailure.com/gsas/westside/500">Westside</a>
+<a href="https://www.gsawellfailure.com/gsas/greater-kaweah/500">Greater Kaweah</a>
+<a href="https://www.gsawellfailure.com/gsas/new-stone-madera/500">New Stone (Madera)</a>
+<a href="https://www.gsawellfailure.com/gsas/mid-kaweah/500">Mid Kaweah</a>
+<a href="https://www.gsawellfailure.com/gsas/aliso/500">Aliso (DM)</a>
+<a href="https://www.gsawellfailure.com/gsas/merced/500">Merced</a>
+<a href="https://www.gsawellfailure.com/gsas/kings-river-east/500">Kings River East</a>
+<a href="https://www.gsawellfailure.com/gsas/north-kings/500">North Kings</a>
+<a href="https://www.gsawellfailure.com/gsas/henry-miller-kern/500">Henry Miller (Kern)</a>
+<a href="https://www.gsawellfailure.com/gsas/grassland/500">Grassland (DM)</a>
+<a href="https://www.gsawellfailure.com/gsas/tulare-lake/500">Tulare Lake</a>
+<a href="https://www.gsawellfailure.com/gsas/east-tule/500">East Tule</a>
+<a href="https://www.gsawellfailure.com/gsas/olcese-kern/500">Olcese (Kern)</a>
+<a href="https://www.gsawellfailure.com/gsas/root-creek-madera/500">Root Creek (Madera)</a>
+<a href="https://www.gsawellfailure.com/gsas/buena-vista-kern/500">Buena Vista (Kern)</a>
+<a href="https://www.gsawellfailure.com/gsas/kern-river/500">Kern River</a>
+<a href="https://www.gsawellfailure.com/gsas/delano-earlimart-tule/500">Delano-Earlimart (Tule)</a>
+<a href="https://www.gsawellfailure.com/gsas/sjrec/500">SJREC (DM)</a>
+<a href="https://www.gsawellfailure.com/gsas/fresno-county/500">Fresno County (DM)</a>
+<a href="https://www.gsawellfailure.com/gsas/james-kings/500">James (Kings)</a>
+<a href="https://www.gsawellfailure.com/gsas/kern-groundwater-authority/500">Kern Groundwater Authority</a>
+<a href="https://www.gsawellfailure.com/gsas/eastern-san-joaquin/500">Eastern San Joaquin</a>
+<a href="https://www.gsawellfailure.com/gsas/alpaugh-tule/500">Alpaugh (Tule)</a>
+<a href="https://www.gsawellfailure.com/gsas/lower-tule-river/500">Lower Tule River</a>
+<a href="https://www.gsawellfailure.com/gsas/tri-county-tule/500">Tri-County (Tule)</a>
+</div>
+</div><br/><br/><div class="dropdown">
+<button class="dropbtn">Groundwater scenario</button>
+<div class="dropdown-content">
+<a href="https://www.gsawellfailure.com/gsas/greater-kaweah/mt">Minimum Threshold</a>
+<a href="https://www.gsawellfailure.com/gsas/greater-kaweah/0">0 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/greater-kaweah/10">10 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/greater-kaweah/20">20 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/greater-kaweah/30">30 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/greater-kaweah/40">40 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/greater-kaweah/50">50 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/greater-kaweah/100">100 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/greater-kaweah/150">150 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/greater-kaweah/200">200 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/greater-kaweah/250">250 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/greater-kaweah/300">300 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/greater-kaweah/400">400 ft decline</a>
+<a href="https://www.gsawellfailure.com/gsas/greater-kaweah/500">500 ft decline</a>
+</div>
+</div></p>
+<!-- Row {data-width=100} -->
+</div>
+<div id="row-1" class="section level2">
+<h2>Row</h2>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<p><div aria-labelledby="md-instructions-title" class="modal fade bs-example-modal-lg" id="md-instructions" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="md-instructions-title"><h1>Instructions</h1></h4>
+</div>
+<div class="modal-body"><p><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous"></p>
+
+<h4><i class="fas fa-angle-double-right fa-lg"></i> <strong>How to navigate</strong></h4>
+
+<p>To navigate to different GSAs and groundwater level decline scenarios, click the <code>GSA</code> and <code>Groundwater scenario</code> buttons in the left sidebar, scroll to the desired GSA and Groundwater scenario, and click to select.  </p>
+
+<p><center>
+  <img src="../../../etc/inst_1.png" style="width: 75%">
+</center></p>
+
+<p><br> </p>
+
+<h4><i class="fas fa-angle-double-right fa-lg"></i> <strong>Locate the GSA and groundwater scenario</strong></h4>
+
+<p>Results shown correspond to the GSA, circled in <a style="color:red;">red</a>, and groundwater level decline circled in <a style="color:#b4dc8c;">green</a> as shown below.  </p>
+
+<p><center>
+  <img src="../../../etc/inst_2.png" style="width: 75%">
+</center></p>
+
+<p><br></p>
+
+<h4><i class="fas fa-angle-double-right fa-lg"></i> <strong>Controls</strong></h4>
+
+<p>Controls are labeled in the image and described below: </p>
+
+<p><center>
+  <img src="../../../etc/inst_3.png" style="width: 75%">
+</center></p>
+
+<ol>
+<li><code>Groundwater level decline</code>, <code>Well failure count</code>, <code>Well failure percent</code>, and <code>Cost estimate</code> for the selected scenario. Click buttons to view methods.<br/></li>
+<li>Map controls:<br/>
+
+<ul>
+<li>zoom in/out<br/></li>
+<li>full screen mode<br/></li>
+<li>zoom to home<br/></li>
+<li>groundwater depth in feet below land surface (BLS)<br/></li>
+<li>toggle data layers<br/></li>
+</ul></li>
+<li>Hover for info. All forecasted well failures at various levels of groundwater level decline for the selected GSA are shown. The width of the bars shows the forecasted well failure range. The red shaded area shows the selected groundwater level decline.<br/></li>
+</ol>
+
+<p><br></p>
+
+<h4><i class="fas fa-angle-double-right fa-lg"></i> <strong>Additional features</strong></h4>
+
+<p>On the <a href="https://www.gsawellfailure.com">main page showing all GSAs</a>, click on a GSA in the map to view the forecasted well failure plot for the selected GSA, and hover over the plot to view failure and cost statistics for each scenario.  </p>
+
+<p><center>
+  <img src="../../../etc/inst_4.png" style="width: 75%">
+</center></p>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div><div aria-labelledby="md-about-title" class="modal fade bs-example-modal-lg" id="md-about" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="md-about-title"><h1>About</h1></h4>
+</div>
+<div class="modal-body"><p><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous"></p>
+
+<style>
+
+
+input[type="text"] {
+  padding: 0.2em;
+}
+input[type="email"]{
+  padding: 0.2em;
+}
+input[type="message"]{
+  padding: 0.2em;
+}
+</style>
+
+<h4><i class="fas fa-angle-double-right fa-lg"></i> <strong>Project Summary</strong></h4>
+
+<p>About 1.5 million residents of California’s Central Valley rely on private domestic wells for drinking water (<a href="https://www.sciencedirect.com/science/article/pii/S0048969717317217">Johnson and Belitz, 2016</a>), and many of these wells can, and oftentimes do, fail during drought or as the result of unsustainable groundwater management. This project integrates and builds upon the body of existing literature and research to provide estimates of drinking water shortages for underserved populations. Local groundwater sustainability agencies (GSAs) and state regulators may use this information to inform and anticipate the impacts of groundwater sustainability plans (GSPs) on domestic well failure. Consulting firms may use this open model as a baseline for domestic well failure planning, and a jumping off point for more detailed spatial analyses and models.  </p>
+
+<p>This project aims to integrate existing approaches (<a href="https://iopscience.iop.org/article/10.1088/1748-9326/aa8ac0/meta">Perrone and Jasechko, 2017</a>; <a href="https://link.springer.com/article/10.1007/s10040-019-01929-w">Gailey et al., 2019</a>; <a href="https://iopscience.iop.org/article/10.1088/1748-9326/ab6f10">Pauloo, et al. 2020</a>; Bostic, et al. 2020) into a unified, transparent, extensible well failure model. In order to facilitate decision-making and planning for sustainable groundwater management in California we present model estimates in an interactive decision-support tool.  </p>
+
+<p>Importantly, the well failure and cost estimates provided herein (assuming groundwater levels reach specified minimum thresholds in critical priority basins) are consistent with results obtained in previous analyses by <a href="https://waterfdn.org/wp-content/uploads/2020/06/Groundwater-Management-and-Safe-Drinking-Water-in-the-San-Joaquin-Valley-Brief-6-2020.pdf">EKI (2020)</a>, and Bostic et al. (2020).  The well failure model itself is based on the model described in <a href="https://iopscience.iop.org/article/10.1088/1748-9326/ab6f10">Pauloo, et al. (2020)</a>, which is consistent in terms of well failure estimates from the model described by <a href="https://link.springer.com/article/10.1007/s10040-019-01929-w">Gailey et al., 2019</a>.  </p>
+
+<p><br></p>
+
+<h4><i class="fas fa-angle-double-right fa-lg"></i> <strong>Funding and open access</strong></h4>
+
+<p>This ongoing work is made possible with support from the AI for Earth Innovation Program Grant provided by Global Wildlife Conservation and Microsoft Corporation (<a href="https://www.globalwildlife.org/press/winners-of-ai-for-earth-innovation-grants-poised-to-address-urgent-environmental-challenges-with-creative-use-of-technology/">see press release</a>), and the Water Foundation.  </p>
+
+<p>The code and model results for this study are openly available on <a href="https://github.com/richpauloo/aife"><i class="fab fa-github fa-lg" style="color:#be4bdc"></i> Github</a>.  </p>
+
+<p><br></p>
+
+<h4><i class="fas fa-angle-double-right fa-lg"></i> <strong>Team</strong></h4>
+
+<p><strong><a href="https://richpauloo.com/">Rich Pauloo</a></strong>, PhD [richpauloo at gmail dot com], Larry Walker Associates, <a href="https://www.waterdatalab.com/">WaDL</a>, UC Davis<br/>
+<strong>Darcy Bostic</strong>, MS [djbostic at ucdavis dot edu], Pacific Institute, UC Davis<br/>
+<strong>Amanda Monaco</strong>, JD [amonaco at leadershipcounsel dot org], Leadership Counsel<br/>
+<strong>Kaylon Hammond</strong>, JD [khammond at leadershipcounsel dot org], Leadership Counsel  </p>
+
+<p><br></p>
+
+<h4><i class="fas fa-angle-double-right fa-lg"></i> <strong>Contact</strong></h4>
+
+<p>Have feedback or want to get in touch? Feel free to contact us using the form below:  </p>
+
+<p><br>  </p>
+
+<form action="https://formspree.io/mpzyozye" method="POST">
+  <label for="name">Your name: </label>
+  <input type="text" name="name" required="required" placeholder="Name"><br>
+  <label for="email">Your email: </label>
+  <input type="email" name="_replyto" required="required" placeholder="email"><br>
+  <label for="message">Your message:</label><br>
+  <textarea rows="5" name="message" id="message" required="required" class="form-control" placeholder="Your message here."></textarea>
+  <input type="hidden" name="_next" value="/html/thanks.html" />
+
+  <br>
+
+  <input type="submit" value="Send" name="submit" class="btn-default">
+
+  <!-- Hidden Fields -->
+  <input type="text" name="_gotcha" style="display:none" />
+  <input type="hidden" name="_next" value="http://www.ewu.edu"
+</form>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div><div aria-labelledby="md-groundwater-level-decline-title" class="modal fade bs-example-modal-lg" id="md-groundwater-level-decline" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="md-groundwater-level-decline-title"><h1 style="color:cornflowerblue"><i class="fas fa-arrow-down"></i> Groundwater level decline</h1></h4>
+</div>
+<div class="modal-body"><p><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous"></p>
+
+<h4><i class="fas fa-angle-double-right fa-lg"></i> <strong>Interpretation</strong></h4>
+
+<p>The <code>Groundwater scenario</code>s presented in this tool include projected groundwater level decline at:  </p>
+
+<ul>
+<li>the minimum threshold specified by the GSP<br/></li>
+<li>declines ranging from 0 - 500 ft relative to the 2019 groundwater level<br/></li>
+</ul>
+
+<p>To view alternate groundwater level decline scenarios, click the <code>Groundwater scenario</code> button on the left-hand sidebar, scroll to the desired scenario, and select it from the list.  </p>
+
+<p><center>
+  <img src="../../../etc/gw_button.png" alt=""/>
+</center></p>
+
+<p><br></p>
+
+<h4><i class="fas fa-angle-double-right fa-lg"></i> <strong>Methods</strong></h4>
+
+<p>Determination of the 2019 groundwater level and 2040 minimum threshold surface is detailed in Bostic et al. (2020), based upon the kriging model described in Pauloo, et al. (2020) and consistent with Gailey et al., (2019) and EKI (2020). Generally speaking, ordinary kriging with \(ln\) transformation and backtransformation was used to estimate groundwater level from unconfined to semi-confined aquifer head measurements reported by <a href="https://water.ca.gov/Programs/Groundwater-Management/Groundwater-Elevation-Monitoring--CASGEM">CASGEM</a>.  </p>
+
+<p>Next, <code>Groundwater scenario</code>s ranging from 0 - 500 ft of decline are specified by applying a uniform decline to the 2019 groundwater level. In contrast, the minimum threshold surface is directly kriged from 865 minimum thresholds specified at specific monitoring wells in GSAs (according to critical priority GSPs as of 2020-08-31). Next, for CV as a whole and in each GSA, Minimum Threshold scenarios are related to uniform decline scenarios via bootstrapping (details provided in Bostic et al. (2020)), such that the Minimum Threshold scenario can be interpreted as, and compared against, one of many uniform groundwater level decline scenarios.  </p>
+
+<p><br></p>
+
+<h4><i class="fas fa-angle-double-right fa-lg"></i> <strong>References</strong></h4>
+
+<ol>
+<li>Bostic, <em>&ldquo;Sustainable for Whom? The Impact of Groundwater Sustainability Plans on Domestic Wells&rdquo;</em>. UC Davis Center for Regional Change. (2020)<br/></li>
+<li><a href="https://doi.org/10.1088/1748-9326/ab6f10">Pauloo, R. A., et al. <em>&ldquo;Domestic well vulnerability to drought duration and unsustainable groundwater management in California’s Central Valley.&rdquo;</em> Environmental Research Letters 15.4 (2020): 044010.</a><br/></li>
+<li><a href="https://link.springer.com/article/10.1007/s10040-019-01929-w">Gailey, Robert M., Jay R. Lund, and Josué Medellín-Azuara. <em>&ldquo;Domestic well reliability: evaluating supply interruptions from groundwater overdraft, estimating costs and managing economic externalities.&rdquo;</em> Hydrogeology Journal 27.4 (2019): 1159-1182.</a><br/></li>
+<li><a href="(https://waterfdn.org/wp-content/uploads/2020/06/Groundwater-Management-and-Safe-Drinking-Water-in-the-San-Joaquin-Valley-Brief-6-2020.pdf">EKI Environment and Water Inc. <em>&ldquo;Groundwater Management and Safe Drinking Water in the San Joaquin Valley: Analysis of Critically Over-drafted Basins&#39; Groundwater Sustainability Plans&rdquo;</em> (2020)</a><br/></li>
+</ol>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div><div aria-labelledby="md-well-failure-count-title" class="modal fade bs-example-modal-lg" id="md-well-failure-count" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="md-well-failure-count-title"><h1 style="color:#fb4f73"><i class="fas fa-times-circle"></i> Well failure count</h1></h4>
+</div>
+<div class="modal-body"><p><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous"></p>
+
+<h4><i class="fas fa-angle-double-right fa-lg"></i> <strong>Interpretation</strong></h4>
+
+<p>The <code>Well failure count</code> is the range of domestic wells projected to fail for the selected <code>GSA</code>(s) and <code>Groundwater scenario</code>.  </p>
+
+<p>The lower estimate can be interpreted as the number of wells that require <strong>well deepening</strong> in order to remain operational, and the higher estimate can be interpreted as the number of wells that require <strong>pump lowering</strong> in order to remain operational. Both <strong>pump lowering</strong> and <strong>well deepening events</strong> are commonly accepted remediation actions in response to well failure with established costs (Gailey et al., 2019; EKI, 2020).  </p>
+
+<p><br></p>
+
+<h4><i class="fas fa-angle-double-right fa-lg"></i> <strong>Methods</strong></h4>
+
+<p>We calculate a lower and an upper well failure count to account for uncertainty in well completion data (i.e., estimated pump location). The lower and upper bounds correspond to two critical vertical datum per well: the <em>total completed depth</em> of the well with an operating margin of 3 meters chosen to maintain a net positive suction head (e.g., Tullis, 1989; Gailey et al., 2019; Pauloo et al., 2020) and the <em>pump location</em> estimated by Pauloo et al. (2020).  </p>
+
+<p>Thus, for each <code>Groundwater scenario</code>, the <em>lower</em> and <em>upper</em> failure counts represent the number of wells where the groundwater level falls below the:  </p>
+
+<ul>
+<li><em>lower count:</em> total completed depth plus the operating margin<br/></li>
+<li><em>upper count:</em> pump location<br/></li>
+</ul>
+
+<p>To illustrate, in the figure below, <strong>(A)</strong> fails according to both metrics, <strong>(B)</strong> fails according to the pump location, and <strong>&#40;C)</strong> is active according to both criteria.  </p>
+
+<p><center>
+  <img src="../../../etc/well_failure.png" style="width: 75%">
+</center></p>
+
+<p>As detailed in the <code>Cost estimate</code> summary, a well that fails according to pump location triggers a <strong>pumping lowering</strong> event and is lowered to the total completed depth plus the operating margin. If the groundwater then falls below this second depth, a <strong>well deepening</strong> event is triggered.  </p>
+
+<p>Further details on the well failure model are provided in Bostic et al. (2020), which adopts the framework of Pauloo et al. (2020) and bears many critical similarities to the model described by Gailey et al. (2019).  </p>
+
+<p><br></p>
+
+<h4><i class="fas fa-angle-double-right fa-lg"></i> <strong>References</strong></h4>
+
+<ol>
+<li><a href="https://link.springer.com/article/10.1007/s10040-019-01929-w">Gailey, Robert M., Jay R. Lund, and Josué Medellín-Azuara. <em>&ldquo;Domestic well reliability: evaluating supply interruptions from groundwater overdraft, estimating costs and managing economic externalities.&rdquo;</em> Hydrogeology Journal 27.4 (2019): 1159-1182.</a>   1159-1182.](<a href="https://link.springer.com/article/10.1007/s10040-019-01929-w">https://link.springer.com/article/10.1007/s10040-019-01929-w</a>)<br/></li>
+<li><a href="(https://waterfdn.org/wp-content/uploads/2020/06/Groundwater-Management-and-Safe-Drinking-Water-in-the-San-Joaquin-Valley-Brief-6-2020.pdf">EKI Environment and Water Inc. <em>&ldquo;Groundwater Management and Safe Drinking Water in the San Joaquin Valley: Analysis of Critically Over-drafted Basins&#39; Groundwater Sustainability Plans&rdquo;</em> (2020)</a> </li>
+<li>Tullis, J. Paul. <em>&ldquo;Hydraulics of pipelines: Pumps, valves, cavitation, transients.&rdquo;</em> John Wiley &amp; Sons, 1989.<br/></li>
+<li><a href="https://doi.org/10.1088/1748-9326/ab6f10">Pauloo, R. A., et al. <em>&ldquo;Domestic well vulnerability to drought duration and unsustainable groundwater management in California’s Central Valley.&rdquo;</em> Environmental Research Letters 15.4 (2020): 044010.</a><br/></li>
+<li>Bostic, <em>&ldquo;Sustainable for Whom? The Impact of Groundwater Sustainability Plans on Domestic Wells&rdquo;</em>. UC Davis Center for Regional Change. (2020)<br/></li>
+</ol>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div><div aria-labelledby="md-well-failure-percent-title" class="modal fade bs-example-modal-lg" id="md-well-failure-percent" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="md-well-failure-percent-title"><h1 style="color:sandybrown"><i class="fas fa-percent"></i> Well failure percent</h1></h4>
+</div>
+<div class="modal-body"><p><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous"></p>
+
+<h4><i class="fas fa-angle-double-right fa-lg"></i> <strong>Interpretation</strong></h4>
+
+<p>For a given <code>Groundwater scenario</code>, the <code>Well failure percent</code> is the <code>Well failure count</code> divided by the total number of active wells in the selected <code>GSA</code>(s).  </p>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div><div aria-labelledby="md-cost-estimate-title" class="modal fade bs-example-modal-lg" id="md-cost-estimate" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="md-cost-estimate-title"><h1 style="color:darkseagreen"><i class="fas fa-money-check-alt"></i> Cost estimate</h1></h4>
+</div>
+<div class="modal-body"><p><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous"></p>
+
+<h4><i class="fas fa-angle-double-right fa-lg"></i> <strong>Interpretation</strong></h4>
+
+<p>The <code>Cost estimate</code> is the estimated cost of <strong>pump lowering</strong> and <strong>well deepening</strong> events for the selected <code>GSA</code>(s) and selected <code>Groundwater scenario</code>. There are both <em>lower</em> and <em>upper</em> cost estimates, commensurate with remediation actions taken as groundwater levels fall.  </p>
+
+<ul>
+<li>The <em>lower</em> <code>Cost estimate</code> can be interpreted as the cost of <strong>well deepening</strong> events associated with the lower bound of <code>Well failure count</code> that arises when groundwater levels reach the total completed depth plus an operating margin of 3 meters.<br/></li>
+<li>The <em>upper</em> <code>Cost estimate</code> can be interpreted as the combined cost of <strong>pump lowering AND well deepening</strong> events.<br/></li>
+</ul>
+
+<p><br></p>
+
+<h4><i class="fas fa-angle-double-right fa-lg"></i> <strong>Methods</strong></h4>
+
+<p>A <strong>pump lowering</strong> occurs when the groundwater level falls below the pump location. Pumps are lowered to the total completed depth at a rate of $100/ft, consistent with the methodology of Gailey et al. (2019) and EKI (2020). Wells with lowered pumps can fail again when the groundwater level falls below the total completed depth plus an operating margin of 3 meters, whereupon a net positive suction head cannot be maintained (e.g., Tullis, 1989; Gailey, et al. 2019; Pauloo et al., 2020), and consequently, a <strong>well deepening</strong> is required.  </p>
+
+<p>In this study, <strong>well deepening</strong> event increases the total completed depth of the well by 100 ft, at a cost of $115/ft, consistent with the methodology of Gailey et al. (2019) and EKI (2020).  </p>
+
+<p>We neglect costs associated with increased lift, as these constitute around 1% of total costs (EKI, 2020). We also neglect costs associated with screen cleaning, as this action is unlikely to yield significant additional water when groundwater levels have fallen below pumps.  </p>
+
+<p><br></p>
+
+<h4><i class="fas fa-angle-double-right fa-lg"></i> <strong>References</strong></h4>
+
+<ol>
+<li><a href="https://link.springer.com/article/10.1007/s10040-019-01929-w">Gailey, Robert M., Jay R. Lund, and Josué Medellín-Azuara. <em>&ldquo;Domestic well reliability: evaluating supply interruptions from groundwater overdraft, estimating costs and managing economic externalities.&rdquo;</em> Hydrogeology Journal 27.4 (2019): 1159-1182.</a><br/></li>
+<li><a href="(https://waterfdn.org/wp-content/uploads/2020/06/Groundwater-Management-and-Safe-Drinking-Water-in-the-San-Joaquin-Valley-Brief-6-2020.pdf">EKI Environment and Water Inc. <em>&ldquo;Groundwater Management and Safe Drinking Water in the San Joaquin Valley: Analysis of Critically Over-drafted Basins&#39; Groundwater Sustainability Plans&rdquo;</em> (2020)</a><br/></li>
+<li>Tullis, J. Paul. <em>&ldquo;Hydraulics of pipelines: Pumps, valves, cavitation, transients.&rdquo;</em> John Wiley &amp; Sons, 1989.<br/></li>
+<li><a href="https://doi.org/10.1088/1748-9326/ab6f10">Pauloo, R. A., et al. <em>&ldquo;Domestic well vulnerability to drought duration and unsustainable groundwater management in California’s Central Valley.&rdquo;</em> Environmental Research Letters 15.4 (2020): 044010.</a><br/></li>
+</ol>
+</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div></p>
+<div id="groundwater-level-decline" class="section level3">
+<h3>Groundwater level decline</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<span class="value-output" data-icon="ion-arrow-down-a" data-color="bg-primary">500 ft.</span>
+</div>
+<div id="well-failure-count" class="section level3">
+<h3>Well failure count</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<span class="value-output" data-icon="fa-times-circle" data-color="bg-danger">794-797</span>
+</div>
+<div id="well-failure-percent" class="section level3">
+<h3>Well failure percent</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<span class="value-output" data-icon="fa-percent" data-color="bg-warning">99.6-100.0</span>
+</div>
+<div id="cost-estimate" class="section level3">
+<h3>Cost estimate</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<span class="value-output" data-icon="ion-cash" data-color="bg-success">$9.1-19.4M</span>
+</div>
+</div>
+<div id="row-2" class="section level2">
+<h2>Row</h2>
+<div id="greater-kaweah-gsa-and-groundwater-levels" class="section level3">
+<h3>Greater Kaweah GSA and groundwater levels</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-a93c25f199fef1acd7f6" style="width:100%;height:400px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a93c25f199fef1acd7f6">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}},"fullscreenControl":{"position":"topleft","pseudoFullscreen":false}},"calls":[{"method":"addProviderTiles","args":["CartoDB",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addRasterImage","args":["data:image/png;base64,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",[[41.0652008079021,-123.077303607865],[34.4977008079021,-118.138303607865]],0.8,null,"2019","2019 groundwater level"]},{"method":"addRasterImage","args":["data:image/png;base64,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",[[38.5161264475661,-121.809057908504],[34.7361264475661,-118.351757908504]],0.8,null,"2040","2040 min threshold"]},{"method":"addLegend","args":[{"colors":["#FDE1A5 , #FEBD84 8.02448321164206%, #FB8661 20.8970537669029%, #E45064 33.7696243221637%, #B63779 46.6421948774246%, #822681 59.5147654326854%, #53147C 72.3873359879462%, #201048 85.2599065432071%, #03020D 98.1324770984679%, #000004 "],"labels":["100","200","300","400","500","600","700","800"],"na_color":null,"na_label":"NA","opacity":0.5,"position":"bottomright","type":"numeric","title":"Groundwater <br>level (ft. BLS)","extra":{"p_1":0.0802448321164206,"p_n":0.981324770984679},"layerId":null,"className":"info legend","group":null}]},{"method":"addLayersControl","args":[["2019 groundwater level","2040 min threshold"],"Greater Kaweah",{"collapsed":false,"autoZIndex":true,"position":"bottomleft","position.1":"topright"}]},{"method":"addEasyButton","args":[{"icon":"fa-globe","title":"Zoom to center","onClick":"function(btn, map){ map.setView([36.4633367396938,-118.936936148657],8); }","position":"topleft"}]},{"method":"addPolygons","args":[[[[{"lng":[-119.335800006283,-119.334359878655,-119.334336878351,-119.332950482301,-119.331147478526,-119.328682027447,-119.356962154151,-119.356975244648,-119.372848088642,-119.3768516735,-119.380850350331,-119.384556859821,-119.387549746958,-119.39069128094,-119.39626966462,-119.400995547768,-119.404422107979,-119.413721998608,-119.418145278488,-119.424721530555,-119.430303980848,-119.434456490653,-119.440610566023,-119.443180141886,-119.44674542891,-119.454471620571,-119.457605296532,-119.536181718153,-119.536318855301,-119.532086855877,-119.527530171525,-119.527812875406,-119.518577856994,-119.509598489581,-119.509645873427,-119.464958327359,-119.464801518075,-119.457300727111,-119.457266319993,-119.4303009985,-119.430280511029,-119.421397040909,-119.421290684859,-119.411838261492,-119.411875563305,-119.402017590708,-119.40151389414,-119.394058198953,-119.384837756674,-119.384929888517,-119.373986692807,-119.367013398188,-119.367008906053,-119.36705388737,-119.362240095019,-119.358074433097,-119.357938338308,-119.349299848755,-119.349280659026,-119.344789500062,-119.33683638931,-119.335617917457,-119.335800006283],"lat":[36.1525970212502,36.1463887645165,36.1462899542513,36.14033332246,36.1342782082887,36.1235875295576,36.123336791065,36.1090918875752,36.1089104400322,36.1076238673153,36.1051783543056,36.1014589782879,36.0983209699195,36.0964571974406,36.0953967880644,36.0944413728311,36.0937485034249,36.0926752404186,36.0896476783073,36.0878872690319,36.0877523372675,36.0880856151751,36.0879480999044,36.0865484679925,36.0839864501916,36.0833790621515,36.0804705363604,36.0803873704241,36.115938370215,36.1159366866756,36.1089532881682,36.0979360993464,36.097992849838,36.101641033666,36.10888731483,36.1088764091875,36.1376415442218,36.1377078363756,36.1523278329344,36.1524745548579,36.1598543967304,36.159846021952,36.1525526202759,36.152613607679,36.1596676330643,36.1597174174514,36.1416882000912,36.1380040870048,36.1381289863508,36.1468452206292,36.1458301945632,36.1454542067426,36.141888352006,36.1380971898902,36.1418874732848,36.1419096862368,36.1528149322795,36.152820145084,36.1517352634553,36.1517484244646,36.1550822653161,36.1525975364807,36.1525970212502]},{"lng":[-119.366821593893,-119.366843793658,-119.375994365083,-119.375909776996,-119.366821593893],"lat":[36.1232608647336,36.1296508632882,36.1297054588283,36.1233585796835,36.1232608647336]},{"lng":[-119.380397114308,-119.385050387045,-119.380397820331,-119.380397114308],"lat":[36.1233503651941,36.1233463863424,36.1197396414451,36.1233503651941]}],[{"lng":[-119.339595503772,-119.340948317058,-119.340551379741,-119.340231362628,-119.339595503772],"lat":[36.1689397514038,36.1738131896027,36.1738143319926,36.1724436654436,36.1689397514038]}],[{"lng":[-119.150243358308,-119.150207345121,-119.149450053195,-119.149063638018,-119.148444820414,-119.148298267251,-119.150108463866,-119.150243358308],"lat":[36.3047993963636,36.3056653613823,36.3064201602568,36.3071144767718,36.3069756374805,36.3064631348983,36.3048095191939,36.3047993963636]}],[{"lng":[-119.354179354757,-119.358716773806,-119.358666161143,-119.367612529328,-119.380997467378,-119.380746790022,-119.354179354757],"lat":[36.3268813980063,36.3236246851599,36.3163736427126,36.3128376372688,36.3127254719778,36.3267597650718,36.3268813980063]}],[{"lng":[-119.370660828412,-119.368040759541,-119.38075996314,-119.385523375453,-119.381121382925,-119.370660828412],"lat":[36.3382532278352,36.3281946061252,36.3274300822148,36.3345686737724,36.3381867418933,36.3382532278352]}],[{"lng":[-119.11090454213,-119.113627558137,-119.108525101157,-119.115292748893,-119.103747711148,-119.103901734034,-119.103610052385,-119.081372542963,-119.076564270016,-119.065325078918,-119.052911399099,-119.04559258696,-119.038419564129,-119.040108770268,-119.050529369166,-119.057323840143,-119.055732576895,-119.062305849859,-119.062309332928,-119.080297964379,-119.082826220924,-119.098575369781,-119.098813917934,-119.108485133977,-119.114986654467,-119.130012279116,-119.134730999655,-119.143661824884,-119.143928050862,-119.147102075889,-119.152923798279,-119.1529535423,-119.15297739387,-119.153301830362,-119.153486351742,-119.144720686722,-119.144614853794,-119.144414691918,-119.140251792391,-119.139958348034,-119.135672310154,-119.135404987676,-119.135453759709,-119.13408561534,-119.127900982121,-119.12804311741,-119.128047932522,-119.129093738758,-119.129147734038,-119.129187820352,-119.129215999159,-119.129511559287,-119.129564652329,-119.12959987167,-119.137285579262,-119.136296229772,-119.136287435316,-119.136397305142,-119.140532813034,-119.14369285049,-119.143693296822,-119.143693734518,-119.143975500716,-119.143972413802,-119.144130200987,-119.144343082036,-119.145047926885,-119.145200490969,-119.150139626041,-119.154194494954,-119.154232814661,-119.154234755695,-119.154167693809,-119.154243534623,-119.154243730335,-119.154253629454,-119.154113772539,-119.154204546817,-119.172348329767,-119.171983159986,-119.189882480035,-119.188615832283,-119.206012226455,-119.205967104074,-119.240986969991,-119.240968764485,-119.27650081166,-119.276520845975,-119.321261153109,-119.325426578578,-119.328540630091,-119.329503088076,-119.329128897986,-119.32878498196,-119.321839674223,-119.319740492403,-119.319707732266,-119.319712996468,-119.318261784052,-119.322078141783,-119.31617439857,-119.320922417682,-119.305171469466,-119.305454132421,-119.308007107726,-119.310261797507,-119.310418912136,-119.310567510303,-119.313236251453,-119.313237817942,-119.310780759225,-119.304352937246,-119.295743988483,-119.29592637926,-119.298800446175,-119.2972244386,-119.297262948176,-119.297275800079,-119.296063136897,-119.296130382182,-119.287279050416,-119.278462379891,-119.278673507799,-119.305347336338,-119.305435977498,-119.305513804677,-119.305514258826,-119.312656094694,-119.312734154331,-119.287986421187,-119.287853462696,-119.287631524488,-119.283000652841,-119.283003171752,-119.27858054986,-119.26072870949,-119.260421528998,-119.251705463995,-119.24735805491,-119.24263648245,-119.242777515105,-119.245082839857,-119.245117791893,-119.245144772187,-119.23378617371,-119.233718296228,-119.233809973543,-119.233945832748,-119.243025856,-119.243139984098,-119.243173701073,-119.251959547781,-119.260984612393,-119.260986486324,-119.269940087239,-119.269939985696,-119.270187868539,-119.273271922448,-119.278917641683,-119.279087276983,-119.279085828111,-119.283223340749,-119.283224520931,-119.285016525391,-119.285877222615,-119.287615494947,-119.287926804547,-119.28792504139,-119.287918826741,-119.287911891463,-119.287906694807,-119.28820627886,-119.288334341048,-119.288678439823,-119.290104923857,-119.291807521688,-119.293817066603,-119.296857806885,-119.297118714109,-119.299151367389,-119.302617099149,-119.314511665524,-119.314511548832,-119.318784563462,-119.318787501199,-119.332168373499,-119.332168174245,-119.345517529601,-119.345505060809,-119.342156292822,-119.342146447716,-119.349887066169,-119.350276471089,-119.359231602381,-119.358895665788,-119.385705230615,-119.385788418447,-119.403658765322,-119.403630152603,-119.394824080862,-119.39491822857,-119.403601191805,-119.403538923486,-119.414385577235,-119.409629673288,-119.409399971415,-119.399029084911,-119.399018114965,-119.40348070663,-119.397634952853,-119.395209687065,-119.389829344639,-119.385414252083,-119.380923071486,-119.380899890792,-119.37729564222,-119.37158629981,-119.374067793739,-119.374097770071,-119.376791671256,-119.378729523585,-119.378756065774,-119.367610926428,-119.360765876258,-119.358425434603,-119.349362532451,-119.331590787982,-119.322477790196,-119.317942558705,-119.37244001441,-119.375977156348,-119.421290403643,-119.421292565518,-119.46560177724,-119.465586272145,-119.529468165804,-119.529116330234,-119.535747620199,-119.529758608102,-119.529296872329,-119.53618676382,-119.536235126791,-119.53641582064,-119.536302175439,-119.543295641002,-119.544518802926,-119.547026531274,-119.547054821588,-119.542544823733,-119.542570391853,-119.538708770673,-119.538069944894,-119.529992470671,-119.530197307794,-119.542600490562,-119.542603876652,-119.645765055223,-119.645825082688,-119.645857369111,-119.672692927595,-119.672652801715,-119.654824080162,-119.65483202066,-119.654832038669,-119.65483231539,-119.654832331167,-119.565160504726,-119.565160430027,-119.565151973816,-119.547059815213,-119.547085304322,-119.537934984256,-119.538064867538,-119.540940879489,-119.547073532754,-119.547015648345,-119.546976326388,-119.546942466828,-119.546920291108,-119.546919698102,-119.546991005136,-119.546878099485,-119.545012788364,-119.54169791645,-119.540961285515,-119.540954606169,-119.537181803462,-119.535973159543,-119.533783025728,-119.533136042257,-119.527783370614,-119.527719207935,-119.511013890495,-119.492597721881,-119.492162758658,-119.487035534662,-119.48398898053,-119.483709017568,-119.483547192016,-119.483383750795,-119.483178041793,-119.482978024408,-119.48270131369,-119.482000108587,-119.481859171443,-119.481710290562,-119.481481236866,-119.481122192904,-119.480769222776,-119.48062288671,-119.48053000479,-119.479411921087,-119.479118466649,-119.478718755419,-119.478360899453,-119.478074778199,-119.478134510857,-119.477768700124,-119.477810489569,-119.477935062911,-119.477912287575,-119.477718380568,-119.477500481051,-119.477311519907,-119.47679822694,-119.476704859492,-119.476629215197,-119.476665193789,-119.476766078287,-119.476837610738,-119.476698770371,-119.476270638224,-119.47594821121,-119.475736803499,-119.474772674681,-119.474577666236,-119.47434113729,-119.47415826038,-119.473975125951,-119.473574844573,-119.473356312009,-119.473202269884,-119.473024540387,-119.472830262083,-119.472452752781,-119.472141119858,-119.470846361688,-119.470558062614,-119.470282025798,-119.470053275546,-119.46977888119,-119.469572953505,-119.469342177174,-119.469105186526,-119.468932755384,-119.468636506492,-119.467666804814,-119.467348338873,-119.467059573779,-119.466176065735,-119.465722779248,-119.465363552862,-119.464452613926,-119.464169817454,-119.463945476057,-119.463332672054,-119.463109486779,-119.462821026022,-119.462626830618,-119.462356214031,-119.461957878364,-119.461790713351,-119.46150585514,-119.461263124344,-119.461086166496,-119.460950241716,-119.460767816772,-119.460591403676,-119.460420891802,-119.46024538184,-119.459869120801,-119.459556955522,-119.458978747505,-119.458736548135,-119.457973168598,-119.457720916649,-119.457521822159,-119.456239156393,-119.455886026457,-119.455674227059,-119.455232625698,-119.455037538556,-119.454943120778,-119.454751008779,-119.454160692494,-119.453806113173,-119.453642980765,-119.453524940587,-119.453259982662,-119.452906378428,-119.452376093225,-119.451992430965,-119.451680804651,-119.45125178187,-119.45057372965,-119.449955575264,-119.449528515411,-119.449203625887,-119.448570085589,-119.4479350484,-119.447420209756,-119.446536251702,-119.44605022181,-119.445387247686,-119.445108413742,-119.44478552915,-119.444358473376,-119.444077610259,-119.443869663002,-119.443735471293,-119.443291033678,-119.44301001612,-119.442817165433,-119.442463493042,-119.441991249058,-119.441578944504,-119.441238477415,-119.440855284572,-119.440427177474,-119.439514645023,-119.438999034271,-119.438733815149,-119.438438496278,-119.438158931412,-119.437996369514,-119.437542313183,-119.437057338221,-119.436704986831,-119.435175936043,-119.434726527986,-119.434276743037,-119.43076072881,-119.429321340522,-119.428842707064,-119.428467498215,-119.428195647138,-119.427931136201,-119.427651775585,-119.427438959321,-119.427196508147,-119.427005194576,-119.426725205581,-119.426511829635,-119.425810782079,-119.425604518183,-119.425329983673,-119.4251045213,-119.424979967804,-119.424874076359,-119.424758841639,-119.424605324883,-119.424470420088,-119.424335110304,-119.424366810674,-119.424436017754,-119.424486709572,-119.424487819741,-119.424417586824,-119.42432605452,-119.424173099121,-119.424046036275,-119.423935671459,-119.423844273823,-119.423679973847,-119.423597777418,-119.423411682213,-119.423258641925,-119.423105851978,-119.422835778219,-119.422659912168,-119.422517100537,-119.422583324304,-119.422706746613,-119.42275230735,-119.422741154895,-119.422644953243,-119.422463738187,-119.422277668867,-119.421992615046,-119.421761831422,-119.421483970414,-119.421234352651,-119.420963469549,-119.420553545349,-119.42010340865,-119.419858363635,-119.419645942084,-119.41939892834,-119.418731585149,-119.418455102416,-119.418218881844,-119.417935440615,-119.417707300182,-119.417595554331,-119.41747099339,-119.41737473842,-119.417304569968,-119.417047764287,-119.417027186035,-119.417014557355,-119.416986938244,-119.416832790613,-119.416727355641,-119.416491035349,-119.403590826131,-119.403728942284,-119.367947747897,-119.349975325315,-119.349986738163,-119.350054005735,-119.331992876663,-119.313875898352,-119.29584744958,-119.286979029307,-119.286979481345,-119.287484968629,-119.242529540921,-119.242803500054,-119.228492153458,-119.220832994667,-119.220827006447,-119.219721322901,-119.219739880357,-119.218464235028,-119.218419095563,-119.212437649159,-119.208814924272,-119.206614835902,-119.193348137711,-119.193389846783,-119.193691710138,-119.175514542062,-119.171242832467,-119.177973081458,-119.177149994466,-119.167940013473,-119.165096768999,-119.155024027821,-119.154559566823,-119.152873886609,-119.153130869555,-119.142579682659,-119.125485596054,-119.112495135902,-119.112532812706,-119.103364043283,-119.103366361004,-119.103360324163,-119.103355513849,-119.110253422725,-119.110239155576,-119.116922448264,-119.116905435655,-119.107861439679,-119.107888771004,-119.086744959099,-119.085357697335,-119.087125231234,-119.0808303328,-119.080826079131,-119.08537578804,-119.082018405678,-119.080762367252,-119.080866093476,-119.092516552625,-119.094358394392,-119.072036312891,-119.071945128894,-119.071946677985,-119.058402217227,-119.058411513184,-119.053802475209,-119.05222299746,-119.032765320219,-119.027052916042,-119.026975793011,-119.026053890617,-119.031054942507,-119.024822697486,-119.030956152104,-119.023400054462,-119.016174990501,-119.006729864506,-119.00117936972,-119.011863905361,-119.006665718043,-119.010694275941,-119.012294214596,-119.00339808989,-119.002102337452,-119.03192811776,-119.037961876976,-119.03417523446,-119.020864754465,-119.038100645646,-119.043728494903,-119.068529784195,-119.067728620032,-119.061761158968,-119.057114247528,-119.064958864546,-119.064923328376,-119.051470040272,-119.055461514869,-119.074304303659,-119.079065786621,-119.074075946655,-119.074449714688,-119.085448219361,-119.077908724687,-119.080362280515,-119.092131643887,-119.098973332376,-119.088083940807,-119.091185557478,-119.109024730667,-119.11090454213],"lat":[36.2877717505166,36.2904769709171,36.3036344375663,36.3112532259588,36.3134837750063,36.3134861530096,36.3254840365019,36.3237799251178,36.327144205683,36.3410138515152,36.3497793111681,36.3534647389552,36.3627095593966,36.3722099119795,36.3723352728988,36.3511682563599,36.3496645568535,36.3515075418361,36.3688572301846,36.3691901338072,36.3582178979078,36.3583768807962,36.3456720982021,36.3476201783411,36.343976711617,36.3438259178241,36.3368639433026,36.3368865510069,36.3262264317544,36.3262599250815,36.3263211362833,36.3255629457338,36.3244705016786,36.3096083379859,36.3046158464368,36.3044668263226,36.3062756757263,36.3062751098811,36.3062184235667,36.3062144766202,36.3061572942361,36.3061575084543,36.3052692616238,36.3052714216861,36.3006573880315,36.2970955549294,36.2969472470693,36.2969602030781,36.2956133157698,36.2944310073019,36.2935201338362,36.293524607846,36.2916359240832,36.289880866025,36.286077442083,36.2840055778,36.2833085930916,36.2835171625193,36.2835635561485,36.2845710126278,36.284959951558,36.2854227951742,36.2854196063464,36.2858737038529,36.2863262406889,36.2863257760652,36.2826240158048,36.2826254242833,36.2827041734182,36.282743669303,36.2827435943155,36.2825920504063,36.277511882862,36.2684468939208,36.2681326801754,36.2548461857626,36.2500871372111,36.2246814735833,36.2249710026776,36.2108463004729,36.210873906405,36.1672750272928,36.1673029541314,36.1526969912253,36.1528338253406,36.1455804079867,36.1456969124376,36.1382943348149,36.1381370644514,36.1274002600875,36.1418721149433,36.1449955855097,36.145128693917,36.1450563082124,36.1498044490677,36.1510477125769,36.1512545805096,36.151594909381,36.1600200864915,36.1646868809113,36.1681220858356,36.1728703264328,36.182648177071,36.182881652566,36.1849854493116,36.1868442683619,36.1869726434964,36.1869210800949,36.186034649574,36.1862852316405,36.1874927893192,36.1860549700599,36.1889882731321,36.2109092303364,36.2159234903066,36.2159695706251,36.2174152788398,36.220779560866,36.2236900065652,36.2347061028338,36.2402681764605,36.2402339303657,36.2783496415451,36.2782839751182,36.2843037934903,36.2843007845756,36.2843814485505,36.2840594671249,36.291233005166,36.2914160669899,36.2938915836656,36.2980234405812,36.2923801806084,36.2922963617529,36.2980515491947,36.2981470507235,36.309097716479,36.3090446868551,36.3125342791651,36.3125004664242,36.3198597745409,36.3235122559268,36.3253906209486,36.3268404777596,36.3271286514434,36.3271299294358,36.3344696409353,36.3344711178568,36.3345699824795,36.3428630027283,36.3492561779118,36.3492239555121,36.3491896817518,36.3474972951473,36.3482261370226,36.349137656634,36.3491365512122,36.3521433671703,36.352725191892,36.3527256033514,36.3526106407879,36.3538971788391,36.3554375410305,36.3563779340945,36.3574239939355,36.3590783435034,36.3597539050554,36.3602185504654,36.3618567804382,36.3636847451241,36.3650998082722,36.3668875147335,36.366887545772,36.3673352204269,36.3673339749683,36.3670036327808,36.3654615585208,36.3644615011758,36.3643714396924,36.3645877120911,36.364598552154,36.3637958145322,36.3637270601283,36.3637396410372,36.3656919415926,36.3656435222209,36.3655884052101,36.3638305332625,36.360153129184,36.3601526689618,36.35658405409,36.3565876624267,36.3636524950219,36.3636683111425,36.3565682209022,36.3564539127287,36.3709204291234,36.3709361595539,36.363588971514,36.3636070545867,36.356408295719,36.3563645970473,36.3436095605311,36.341649635275,36.3344377533889,36.3344395427647,36.3344640382666,36.3308325156289,36.3251128939324,36.3162468316978,36.3162537814222,36.3053152047275,36.3053361599405,36.3053528616575,36.3031553836626,36.3031692215695,36.3049231818406,36.3063966230171,36.3090361261456,36.3090241229368,36.3101745817748,36.3126149572942,36.3126728254495,36.3090611540333,36.3018142791922,36.2909750414139,36.2910459656449,36.2855895472632,36.2782508830072,36.2780922843848,36.2835166164303,36.283380213404,36.276097969218,36.2759351379825,36.2689034097723,36.2697576651222,36.1378899445924,36.1378635619445,36.1268902353576,36.120186883685,36.1199295921513,36.119927784722,36.1199210317192,36.137938465744,36.1541675898612,36.1556442477074,36.1566795252332,36.1597788196857,36.1597344941312,36.1634043949652,36.1634633212608,36.1670949421984,36.1673249638816,36.2002622103634,36.2003567384329,36.1967474429844,36.1968316637978,36.2063259352002,36.2112915108951,36.2112116305694,36.2693308887207,36.2693150381773,36.2833197925935,36.2833521987131,36.2838378957972,36.2838677910509,36.2841207456617,36.2842467141002,36.2986734845383,36.2987120657832,36.3429484144771,36.3429822119704,36.3576117719435,36.3575839340471,36.3575243382558,36.3630186734266,36.3667506323965,36.3700479408523,36.3722073904769,36.3722650785898,36.3862936061439,36.3954541500453,36.3957370259289,36.3959572980768,36.3960431675031,36.3960439459064,36.3964836665307,36.3966011553165,36.3969432180296,36.3969578929931,36.395814146722,36.3958162116315,36.3965490953679,36.4009622204419,36.4011184470524,36.4027821301803,36.4038139594385,36.403856828434,36.4039230610539,36.4039666477729,36.4040914783476,36.4041829030206,36.4042746398017,36.4044110191474,36.4045165094578,36.4052420057996,36.4054098488912,36.4055448358901,36.4057084476147,36.4058949951558,36.4061385934471,36.4075595432752,36.4078086802021,36.4080487420323,36.4083792453255,36.4088620522275,36.4089810899246,36.4099363616081,36.4100172343322,36.4101264203156,36.4102600447448,36.4103895881598,36.4104429042479,36.4104293750836,36.4104314360401,36.4105987292327,36.410770716541,36.4108659867586,36.4109609263465,36.4110799002028,36.4115287117731,36.4119501353985,36.4122900275263,36.4124529848029,36.4130004643977,36.4129774428297,36.4128925450921,36.4128409158088,36.4128606227477,36.4129957269381,36.41297754637,36.412873242193,36.4127547238053,36.4127317215006,36.4128428411553,36.4130205329863,36.4135645698728,36.4136992450781,36.4139101734356,36.4141352222749,36.4146179789417,36.4146521134282,36.4146053979908,36.4144441873838,36.4142254917757,36.4140215936056,36.4136820451306,36.4137071430427,36.4137655072377,36.4140217346151,36.4141951959792,36.4143110605571,36.4149155202862,36.4149786116884,36.4149651915284,36.4151059195006,36.4152784389633,36.4153892852659,36.4154758451937,36.4154626380645,36.4151064675694,36.4147780556757,36.4145025597204,36.4143652007618,36.4142992886026,36.414337800499,36.4144196171965,36.4145204151248,36.4146212248335,36.4148746624471,36.4151050319975,36.4151586586104,36.4150847254867,36.4151571358477,36.4157800160339,36.4160289766894,36.4162873060596,36.4169074035636,36.4170613680207,36.4171671345616,36.41728797949,36.4172649180362,36.4162566348897,36.4161977572795,36.4161523246374,36.4160582992083,36.4158802715943,36.4159043802339,36.4160007706721,36.416073658093,36.41605187291,36.4160294888037,36.4158637137558,36.4156507392562,36.415736769916,36.4159775626361,36.416074522085,36.416040056317,36.4160186116384,36.4160448093977,36.4162971219728,36.4164912072158,36.4166241802989,36.4167697368871,36.4170211548606,36.4173085405933,36.4173815843856,36.4173349967852,36.4170854008038,36.4168355295712,36.4165033584764,36.4163732584615,36.4161832176763,36.4161369283223,36.4162101730264,36.4161997704339,36.4161294770864,36.4160832847437,36.4161324869902,36.4164935769108,36.4166146724501,36.4166394825386,36.4166167413753,36.4165939991167,36.4166899083571,36.4172638973833,36.4175875535562,36.4178869120973,36.4187986328403,36.4188916042398,36.4189170939401,36.4188941349299,36.419131822047,36.4192766209554,36.419450850647,36.4196425905258,36.4198283775295,36.4199962985773,36.4201937499969,36.4203675337945,36.420451642686,36.4205063000144,36.4206024460499,36.4210809663592,36.4212409584897,36.4215376193562,36.4217444468183,36.4218440871148,36.4219036014012,36.4219154236321,36.4218931737031,36.4218974135841,36.4221878881511,36.4223728097895,36.4225118191694,36.4227176599312,36.4229198091174,36.4230269014767,36.4231226082459,36.4232089969385,36.4232819397139,36.4233872498881,36.4235077559463,36.4236781174894,36.4237547504602,36.4238240511818,36.4238951776714,36.4240120851387,36.4242648499414,36.4244791272281,36.4246951934024,36.4251527823256,36.4252763705947,36.4254078357104,36.4255260934119,36.4256332776737,36.4257331176645,36.4258081750418,36.4259121971413,36.4260122118694,36.4261371923139,36.4262468101947,36.4263526884011,36.4265010237983,36.4266342769604,36.4267171330953,36.4267217078435,36.4267130762866,36.426566593645,36.4265103392903,36.4264787422081,36.4264454020195,36.4264348014066,36.4264504123774,36.4265519522543,36.4266495783294,36.4267700391761,36.4272993113423,36.4274233682159,36.4277095435822,36.4278412815181,36.4281489449774,36.4282962356634,36.4291456101883,36.4291123958765,36.436470466192,36.436500921015,36.4337205444661,36.4330413737476,36.4290381646057,36.4290021878461,36.4289917726986,36.4287466673985,36.428709730942,36.42868368391,36.3995542733774,36.3994428469404,36.392389746329,36.3923286504612,36.3922896663502,36.3928419842266,36.3933148175772,36.3922845799759,36.3922786314861,36.3941674633599,36.3922442697821,36.388649542284,36.3794820751005,36.3776965153299,36.3724065521871,36.3667982717819,36.3600639531169,36.3680233350615,36.3724208015501,36.3787940664136,36.3837694961226,36.3883424393039,36.391971229203,36.3919777756246,36.3918908490086,36.3845531459692,36.3833486879013,36.3845481235868,36.3956255238733,36.3992928813474,36.4026845871924,36.4028431453178,36.4064355791166,36.4064709512534,36.406468114192,36.4063514311381,36.4064559689949,36.4101468616891,36.4138790123762,36.4281702966334,36.4281627917253,36.4255896518925,36.4227407622213,36.4216420417033,36.4211002532258,36.4173883270049,36.4192417165579,36.4192437726715,36.4024527737273,36.4041931069541,36.3994076305597,36.399184061365,36.3991324892684,36.3991835820683,36.3991506346189,36.3990732327576,36.3947582716975,36.3947360280432,36.3936279650978,36.3991835425533,36.4058822765495,36.4120410481753,36.4226632736621,36.4258194930965,36.4354105260105,36.4462861089635,36.4281226263292,36.4250532716816,36.419346973139,36.4107533961298,36.4041320649369,36.3996089616621,36.3896597220292,36.3789292810718,36.3724149276505,36.3664133790919,36.3483947652457,36.3394278664367,36.3212759363473,36.3271294157562,36.335749407351,36.3358657270902,36.3302654928371,36.3261062326973,36.314912399747,36.3100356437799,36.3007177716603,36.2823407582782,36.2702700476714,36.2728562602542,36.2773037383588,36.2868051941063,36.2917777013384,36.2970673736338,36.306746728142,36.3180022410904,36.3202596210537,36.313153601765,36.3007765237356,36.2972245219087,36.2952916050693,36.2877717505166]},{"lng":[-119.148995616257,-119.154420090986,-119.15160707902,-119.143333702918,-119.148995616257],"lat":[36.3685539787062,36.3663735373522,36.3584348134423,36.3643728096314,36.3685539787062]},{"lng":[-119.421237060251,-119.419180414415,-119.386488916086,-119.39561862703,-119.421313593445,-119.421237060251],"lat":[36.3052065547233,36.2980219412022,36.2984615849604,36.312604612628,36.312460133368,36.3052065547233]}]]],null,"Greater Kaweah",{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":1,"opacity":1,"fill":true,"fillColor":"#03F","fillOpacity":0.1,"smoothFactor":1,"noClip":false},null,null,"Greater Kaweah",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"13px","textOnly":false,"className":"","sticky":true},{"color":"black","weight":2,"bringToFront":true}]}],"limits":{"lat":[34.4977008079021,41.0652008079021],"lng":[-123.077303607865,-118.138303607865]},"setView":[[36.4633367396938,-118.936936148657],8,[]]},"evals":["calls.5.args.0.onClick"],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\n      function(el, x, data) {\n      // get the leaflet map\n      var map = this; //HTMLWidgets.find('#' + el.id);\n      // we need a new div element because we have to handle\n      // the mouseover output separately\n      // debugger;\n      function addElement () {\n      // generate new div Element\n      var newDiv = $(document.createElement('div'));\n      // append at end of leaflet htmlwidget container\n      $(el).append(newDiv);\n      //provide ID and style\n      newDiv.addClass('lnlt');\n      newDiv.css({\n      'position': 'relative',\n      'bottomleft':  '0px',\n      'background-color': 'rgba(255, 255, 255, 0.7)',\n      'box-shadow': '0 0 2px #bbb',\n      'background-clip': 'padding-box',\n      'margin': '0',\n      'padding-left': '5px',\n      'color': '#333',\n      'font': '9px/1.5 \"Helvetica Neue\", Arial, Helvetica, sans-serif',\n      'z-index': '700',\n      });\n      return newDiv;\n      }\n\n\n      // check for already existing lnlt class to not duplicate\n      var lnlt = $(el).find('.lnlt');\n\n      if(!lnlt.length) {\n      lnlt = addElement();\n\n      // grab the special div we generated in the beginning\n      // and put the mousmove output there\n\n      map.on('mousemove', function (e) {\n      if (e.originalEvent.ctrlKey) {\n      if (document.querySelector('.lnlt') === null) lnlt = addElement();\n      lnlt.text(\n                           ' lon: ' + (e.latlng.lng).toFixed(5) +\n                           ' | lat: ' + (e.latlng.lat).toFixed(5) +\n                           ' | zoom: ' + map.getZoom() +\n                           ' | x: ' + L.CRS.EPSG3857.project(e.latlng).x.toFixed(0) +\n                           ' | y: ' + L.CRS.EPSG3857.project(e.latlng).y.toFixed(0) +\n                           ' | epsg: 3857 ' +\n                           ' | proj4: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs ');\n      } else {\n      if (document.querySelector('.lnlt') === null) lnlt = addElement();\n      lnlt.text(\n                      ' lon: ' + (e.latlng.lng).toFixed(5) +\n                      ' | lat: ' + (e.latlng.lat).toFixed(5) +\n                      ' | zoom: ' + map.getZoom() + ' ');\n      }\n      });\n\n      // remove the lnlt div when mouse leaves map\n      map.on('mouseout', function (e) {\n      var strip = document.querySelector('.lnlt');\n      if( strip !==null) strip.remove();\n      });\n\n      };\n\n      //$(el).keypress(67, function(e) {\n      map.on('preclick', function(e) {\n      if (e.originalEvent.ctrlKey) {\n      if (document.querySelector('.lnlt') === null) lnlt = addElement();\n      lnlt.text(\n                      ' lon: ' + (e.latlng.lng).toFixed(5) +\n                      ' | lat: ' + (e.latlng.lat).toFixed(5) +\n                      ' | zoom: ' + map.getZoom() + ' ');\n      var txt = document.querySelector('.lnlt').textContent;\n      console.log(txt);\n      //txt.innerText.focus();\n      //txt.select();\n      setClipboardText('\"' + txt + '\"');\n      }\n      });\n\n      }\n      ).call(this.getMap(), el, x, data);\n}","data":null},{"code":"function(el, x, data) {\n  return (function(el,x) {\n    this.on('popupopen', function() {HTMLWidgets.staticRender(); remove()})\n    }).call(this.getMap(), el, x, data);\n}","data":null}]}}</script>
+</div>
+<div id="forecasted-well-failure-rates-for-greater-kaweah" class="section level3">
+<h3>Forecasted well failure rates for Greater Kaweah</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-eb3a806a20220c4b4dd2" style="width:576px;height:460.8px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-eb3a806a20220c4b4dd2">{"x":{"data":[{"x":[0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0,null,0,0,500,500,0],"y":[0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0,null,0,1,1,0,0],"text":"","type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"transparent","dash":"solid"},"fill":"toself","fillcolor":"rgba(255,0,0,0.15)","hoveron":"fills","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250,260,270,280,290,300,310,320,330,340,350,360,370,380,390,400,410,420,430,440,450,460,470,480,490,500],"y":[0.2465495608532,0.299874529485571,0.341279799247177,0.385194479297365,0.441656210790464,0.496863237139272,0.542659974905897,0.584065244667503,0.617314930991217,0.656838143036386,0.689460476787955,0.72396486825596,0.7465495608532,0.765370138017566,0.793601003764115,0.821204516938519,0.836888331242158,0.851317440401506,0.867001254705144,0.87892095357591,0.893977415307403,0.904015056461732,0.920326223337516,0.933500627352572,0.949184441656211,0.961104140526976,0.969259723964868,0.973651191969887,0.974905897114178,0.978670012547051,0.983688833124216,0.98870765370138,0.989335006273526,0.989962358845671,0.992471769134254,0.993726474278545,0.994981179422836,0.995608531994981,0.995608531994981,0.995608531994981,0.995608531994981,0.996235884567127,0.996235884567127,0.996235884567127,0.996863237139272,0.997490589711418,0.997490589711418,0.997490589711418,0.997490589711418,0.998117942283563],"text":["<em>groundwater decline:<\/em> 10 ft<br><em>failure count:<\/em>   7 - 386<br><em>failure rate:<\/em> 0.9 - 48.4 %<br><em>estimated cost:<\/em> $0.1 - 4.6M","<em>groundwater decline:<\/em> 20 ft<br><em>failure count:<\/em>  11 - 467<br><em>failure rate:<\/em> 1.4 - 58.6 %<br><em>estimated cost:<\/em> $0.1 - 5.6M","<em>groundwater decline:<\/em> 30 ft<br><em>failure count:<\/em>  26 - 518<br><em>failure rate:<\/em> 3.3 - 65 %<br><em>estimated cost:<\/em> $0.3 - 6.4M","<em>groundwater decline:<\/em> 40 ft<br><em>failure count:<\/em>  47 - 567<br><em>failure rate:<\/em> 5.9 - 71.1 %<br><em>estimated cost:<\/em> $0.5 - 7.2M","<em>groundwater decline:<\/em> 50 ft<br><em>failure count:<\/em>  79 - 625<br><em>failure rate:<\/em> 9.9 - 78.4 %<br><em>estimated cost:<\/em> $0.9 - 8.4M","<em>groundwater decline:<\/em> 60 ft<br><em>failure count:<\/em> 111 - 681<br><em>failure rate:<\/em> 13.9 - 85.4 %<br><em>estimated cost:<\/em> $1.3 - 9.6M","<em>groundwater decline:<\/em> 70 ft<br><em>failure count:<\/em> 151 - 714<br><em>failure rate:<\/em> 18.9 - 89.6 %<br><em>estimated cost:<\/em> $1.7 - 10.5M","<em>groundwater decline:<\/em> 80 ft<br><em>failure count:<\/em> 193 - 738<br><em>failure rate:<\/em> 24.2 - 92.6 %<br><em>estimated cost:<\/em> $2.2 - 11.4M","<em>groundwater decline:<\/em> 90 ft<br><em>failure count:<\/em> 236 - 748<br><em>failure rate:<\/em> 29.6 - 93.9 %<br><em>estimated cost:<\/em> $2.7 - 12.0M","<em>groundwater decline:<\/em> 100 ft<br><em>failure count:<\/em> 289 - 758<br><em>failure rate:<\/em> 36.3 - 95.1 %<br><em>estimated cost:<\/em> $3.3 - 12.8M","<em>groundwater decline:<\/em> 110 ft<br><em>failure count:<\/em> 327 - 772<br><em>failure rate:<\/em> 41 - 96.9 %<br><em>estimated cost:<\/em> $3.8 - 13.5M","<em>groundwater decline:<\/em> 120 ft<br><em>failure count:<\/em> 372 - 782<br><em>failure rate:<\/em> 46.7 - 98.1 %<br><em>estimated cost:<\/em> $4.3 - 14.2M","<em>groundwater decline:<\/em> 130 ft<br><em>failure count:<\/em> 400 - 790<br><em>failure rate:<\/em> 50.2 - 99.1 %<br><em>estimated cost:<\/em> $4.6 - 14.7M","<em>groundwater decline:<\/em> 140 ft<br><em>failure count:<\/em> 429 - 791<br><em>failure rate:<\/em> 53.8 - 99.2 %<br><em>estimated cost:<\/em> $4.9 - 15.0M","<em>groundwater decline:<\/em> 150 ft<br><em>failure count:<\/em> 474 - 791<br><em>failure rate:<\/em> 59.5 - 99.2 %<br><em>estimated cost:<\/em> $5.5 - 15.5M","<em>groundwater decline:<\/em> 160 ft<br><em>failure count:<\/em> 516 - 793<br><em>failure rate:<\/em> 64.7 - 99.5 %<br><em>estimated cost:<\/em> $5.9 - 16.1M","<em>groundwater decline:<\/em> 170 ft<br><em>failure count:<\/em> 541 - 793<br><em>failure rate:<\/em> 67.9 - 99.5 %<br><em>estimated cost:<\/em> $6.2 - 16.4M","<em>groundwater decline:<\/em> 180 ft<br><em>failure count:<\/em> 563 - 794<br><em>failure rate:<\/em> 70.6 - 99.6 %<br><em>estimated cost:<\/em> $6.5 - 16.6M","<em>groundwater decline:<\/em> 190 ft<br><em>failure count:<\/em> 588 - 794<br><em>failure rate:<\/em> 73.8 - 99.6 %<br><em>estimated cost:<\/em> $6.8 - 16.9M","<em>groundwater decline:<\/em> 200 ft<br><em>failure count:<\/em> 607 - 794<br><em>failure rate:<\/em> 76.2 - 99.6 %<br><em>estimated cost:<\/em> $7.0 - 17.2M","<em>groundwater decline:<\/em> 210 ft<br><em>failure count:<\/em> 630 - 795<br><em>failure rate:<\/em> 79 - 99.7 %<br><em>estimated cost:<\/em> $7.2 - 17.4M","<em>groundwater decline:<\/em> 220 ft<br><em>failure count:<\/em> 646 - 795<br><em>failure rate:<\/em> 81.1 - 99.7 %<br><em>estimated cost:<\/em> $7.4 - 17.6M","<em>groundwater decline:<\/em> 230 ft<br><em>failure count:<\/em> 672 - 795<br><em>failure rate:<\/em> 84.3 - 99.7 %<br><em>estimated cost:<\/em> $7.7 - 17.9M","<em>groundwater decline:<\/em> 240 ft<br><em>failure count:<\/em> 693 - 795<br><em>failure rate:<\/em> 87 - 99.7 %<br><em>estimated cost:<\/em> $8.0 - 18.2M","<em>groundwater decline:<\/em> 250 ft<br><em>failure count:<\/em> 717 - 796<br><em>failure rate:<\/em> 90 - 99.9 %<br><em>estimated cost:<\/em> $8.2 - 18.5M","<em>groundwater decline:<\/em> 260 ft<br><em>failure count:<\/em> 736 - 796<br><em>failure rate:<\/em> 92.3 - 99.9 %<br><em>estimated cost:<\/em> $8.5 - 18.7M","<em>groundwater decline:<\/em> 270 ft<br><em>failure count:<\/em> 748 - 797<br><em>failure rate:<\/em> 93.9 - 100 %<br><em>estimated cost:<\/em> $8.6 - 18.9M","<em>groundwater decline:<\/em> 280 ft<br><em>failure count:<\/em> 755 - 797<br><em>failure rate:<\/em> 94.7 - 100 %<br><em>estimated cost:<\/em> $8.7 - 19.0M","<em>groundwater decline:<\/em> 290 ft<br><em>failure count:<\/em> 757 - 797<br><em>failure rate:<\/em> 95 - 100 %<br><em>estimated cost:<\/em> $8.7 - 19.0M","<em>groundwater decline:<\/em> 300 ft<br><em>failure count:<\/em> 763 - 797<br><em>failure rate:<\/em> 95.7 - 100 %<br><em>estimated cost:<\/em> $8.8 - 19.1M","<em>groundwater decline:<\/em> 310 ft<br><em>failure count:<\/em> 771 - 797<br><em>failure rate:<\/em> 96.7 - 100 %<br><em>estimated cost:<\/em> $8.9 - 19.1M","<em>groundwater decline:<\/em> 320 ft<br><em>failure count:<\/em> 779 - 797<br><em>failure rate:<\/em> 97.7 - 100 %<br><em>estimated cost:<\/em> $9.0 - 19.2M","<em>groundwater decline:<\/em> 330 ft<br><em>failure count:<\/em> 780 - 797<br><em>failure rate:<\/em> 97.9 - 100 %<br><em>estimated cost:<\/em> $9.0 - 19.2M","<em>groundwater decline:<\/em> 340 ft<br><em>failure count:<\/em> 781 - 797<br><em>failure rate:<\/em> 98 - 100 %<br><em>estimated cost:<\/em> $9.0 - 19.3M","<em>groundwater decline:<\/em> 350 ft<br><em>failure count:<\/em> 785 - 797<br><em>failure rate:<\/em> 98.5 - 100 %<br><em>estimated cost:<\/em> $9.0 - 19.3M","<em>groundwater decline:<\/em> 360 ft<br><em>failure count:<\/em> 787 - 797<br><em>failure rate:<\/em> 98.7 - 100 %<br><em>estimated cost:<\/em> $9.1 - 19.3M","<em>groundwater decline:<\/em> 370 ft<br><em>failure count:<\/em> 789 - 797<br><em>failure rate:<\/em> 99 - 100 %<br><em>estimated cost:<\/em> $9.1 - 19.3M","<em>groundwater decline:<\/em> 380 ft<br><em>failure count:<\/em> 790 - 797<br><em>failure rate:<\/em> 99.1 - 100 %<br><em>estimated cost:<\/em> $9.1 - 19.4M","<em>groundwater decline:<\/em> 390 ft<br><em>failure count:<\/em> 790 - 797<br><em>failure rate:<\/em> 99.1 - 100 %<br><em>estimated cost:<\/em> $9.1 - 19.4M","<em>groundwater decline:<\/em> 400 ft<br><em>failure count:<\/em> 790 - 797<br><em>failure rate:<\/em> 99.1 - 100 %<br><em>estimated cost:<\/em> $9.1 - 19.4M","<em>groundwater decline:<\/em> 410 ft<br><em>failure count:<\/em> 790 - 797<br><em>failure rate:<\/em> 99.1 - 100 %<br><em>estimated cost:<\/em> $9.1 - 19.4M","<em>groundwater decline:<\/em> 420 ft<br><em>failure count:<\/em> 791 - 797<br><em>failure rate:<\/em> 99.2 - 100 %<br><em>estimated cost:<\/em> $9.1 - 19.4M","<em>groundwater decline:<\/em> 430 ft<br><em>failure count:<\/em> 791 - 797<br><em>failure rate:<\/em> 99.2 - 100 %<br><em>estimated cost:<\/em> $9.1 - 19.4M","<em>groundwater decline:<\/em> 440 ft<br><em>failure count:<\/em> 791 - 797<br><em>failure rate:<\/em> 99.2 - 100 %<br><em>estimated cost:<\/em> $9.1 - 19.4M","<em>groundwater decline:<\/em> 450 ft<br><em>failure count:<\/em> 792 - 797<br><em>failure rate:<\/em> 99.4 - 100 %<br><em>estimated cost:<\/em> $9.1 - 19.4M","<em>groundwater decline:<\/em> 460 ft<br><em>failure count:<\/em> 793 - 797<br><em>failure rate:<\/em> 99.5 - 100 %<br><em>estimated cost:<\/em> $9.1 - 19.4M","<em>groundwater decline:<\/em> 470 ft<br><em>failure count:<\/em> 793 - 797<br><em>failure rate:<\/em> 99.5 - 100 %<br><em>estimated cost:<\/em> $9.1 - 19.4M","<em>groundwater decline:<\/em> 480 ft<br><em>failure count:<\/em> 793 - 797<br><em>failure rate:<\/em> 99.5 - 100 %<br><em>estimated cost:<\/em> $9.1 - 19.4M","<em>groundwater decline:<\/em> 490 ft<br><em>failure count:<\/em> 793 - 797<br><em>failure rate:<\/em> 99.5 - 100 %<br><em>estimated cost:<\/em> $9.1 - 19.4M","<em>groundwater decline:<\/em> 500 ft<br><em>failure count:<\/em> 794 - 797<br><em>failure rate:<\/em> 99.6 - 100 %<br><em>estimated cost:<\/em> $9.1 - 19.4M"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":["rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(192,192,192,0.3)","rgba(255,0,0,0.3)"],"opacity":0,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":["rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(153,153,153,1)","rgba(0,0,0,1)"]}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[500],"y":[0.998117942283563],"text":"","type":"scatter","mode":"lines","opacity":1,"line":{"color":"transparent"},"error_y":{"array":[0.00188205771643668],"arrayminus":[0.00188205771643657],"type":"data","width":2.20560410847824,"symmetric":false,"color":"rgba(0,0,0,1)"},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250,260,270,280,290,300,310,320,330,340,350,360,370,380,390,400,410,420,430,440,450,460,470,480,490],"y":[0.2465495608532,0.299874529485571,0.341279799247177,0.385194479297365,0.441656210790464,0.496863237139272,0.542659974905897,0.584065244667503,0.617314930991217,0.656838143036386,0.689460476787955,0.72396486825596,0.7465495608532,0.765370138017566,0.793601003764115,0.821204516938519,0.836888331242158,0.851317440401506,0.867001254705144,0.87892095357591,0.893977415307403,0.904015056461732,0.920326223337516,0.933500627352572,0.949184441656211,0.961104140526976,0.969259723964868,0.973651191969887,0.974905897114178,0.978670012547051,0.983688833124216,0.98870765370138,0.989335006273526,0.989962358845671,0.992471769134254,0.993726474278545,0.994981179422836,0.995608531994981,0.995608531994981,0.995608531994981,0.995608531994981,0.996235884567127,0.996235884567127,0.996235884567127,0.996863237139272,0.997490589711418,0.997490589711418,0.997490589711418,0.997490589711418],"text":"","type":"scatter","mode":"lines","opacity":1,"line":{"color":"transparent"},"error_y":{"array":[0.237766624843162,0.286072772898369,0.308657465495609,0.326223337515684,0.342534504391468,0.357590966122961,0.353199498117942,0.341907151819322,0.321204516938519,0.294228356336261,0.279171894604768,0.257214554579674,0.244667503136763,0.227101631116688,0.198870765370138,0.173776662484316,0.158092848180678,0.144918444165621,0.129234629861982,0.117314930991217,0.103513174404015,0.0934755332496863,0.0771643663739021,0.0639899623588457,0.0495608531994982,0.0376411543287327,0.0307402760351317,0.0263488080301129,0.0250941028858218,0.0213299874529486,0.0163111668757843,0.0112923462986199,0.0106649937264742,0.0100376411543288,0.0075282308657465,0.00627352572145545,0.00501882057716441,0.00439146800501877,0.00439146800501877,0.00439146800501877,0.00439146800501877,0.00376411543287325,0.00376411543287325,0.00376411543287325,0.00313676286072773,0.0025094102885822,0.0025094102885822,0.0025094102885822,0.0025094102885822],"arrayminus":[0.237766624843162,0.286072772898369,0.308657465495609,0.326223337515684,0.342534504391468,0.357590966122961,0.353199498117942,0.341907151819323,0.321204516938519,0.294228356336261,0.279171894604768,0.257214554579674,0.244667503136763,0.227101631116688,0.198870765370138,0.173776662484316,0.158092848180677,0.144918444165621,0.129234629861982,0.117314930991217,0.103513174404015,0.0934755332496864,0.0771643663739021,0.0639899623588457,0.0495608531994981,0.0376411543287328,0.0307402760351317,0.026348808030113,0.0250941028858218,0.0213299874529486,0.0163111668757842,0.0112923462986197,0.0106649937264743,0.0100376411543287,0.00752823086574661,0.00627352572145545,0.0050188205771643,0.00439146800501888,0.00439146800501888,0.00439146800501888,0.00439146800501888,0.00376411543287325,0.00376411543287325,0.00376411543287325,0.00313676286072773,0.0025094102885822,0.0025094102885822,0.0025094102885822,0.0025094102885822],"type":"data","width":2.20560410847824,"symmetric":false,"color":"rgba(153,153,153,1)"},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":26.1734536443967,"r":7.30593607305936,"b":40.12779154394,"l":48.9497716894977},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-25.225,529.725],"tickmode":"array","ticktext":["0","100","200","300","400","500"],"tickvals":[0,100,200,300,400,500],"categoryorder":"array","categoryarray":["0","100","200","300","400","500"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":{"text":"Groundwater level decline (ft)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.05,1.05],"tickmode":"array","ticktext":["0%","25%","50%","75%","100%"],"tickvals":[0,0.25,0.5,0.75,1],"categoryorder":"array","categoryarray":["0%","25%","50%","75%","100%"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":{"text":"Failure percentage","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895}},"hovermode":"x unified","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false,"modeBarButtonsToRemove":["zoom2d","select2d","lasso2d","autoscale","hoverClosestCartesian","hoverCompareCartesian","zoom3d","pan3d","resetCameraDefault3d","resetCameraLastSave3d","hoverClosest3d","orbitRotation","tableRotation","zoomInGeo","zoomOutGeo","resetGeo","hoverClosestGeo","sendDataToCloud","pan2d","hoverClosestGl2d","hoverClosestPie","toggleHover","toggleSpikelines","autoScale2d","zoomIn2d","zoomOut2d"],"displaylogo":false},"source":"A","attrs":{"1633b655a2b65":{"xmin":{},"xmax":{},"ymin":{},"ymax":{},"x":{},"y":{},"ymin.1":{},"ymax.1":{},"type":"scatter"},"1633b2d727df":{"text":{},"x":{},"y":{},"ymin":{},"ymax":{}},"1633b7b7aa2ed":{"x":{},"y":{},"ymin":{},"ymax":{}}},"cur_data":"1633b655a2b65","visdat":{"1633b655a2b65":["function (y) ","x"],"1633b2d727df":["function (y) ","x"],"1633b7b7aa2ed":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+
+</div>
+
+<script>
+
+$(document).ready(function () {
+
+  // add bootstrap table styles to pandoc tables
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+
+  // initialize mathjax
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+  document.getElementsByTagName("head")[0].appendChild(script);
+
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+  FlexDashboard.init({
+    theme: "cosmo",
+    fillPage: true,
+    orientation: "rows",
+    storyboard: false,
+    defaultFigWidth: 576,
+    defaultFigHeight: 460,
+    defaultFigWidthMobile: 360,
+    defaultFigHeightMobile: 460
+  });
+});
+</script>
+
+</body>
+</html>
