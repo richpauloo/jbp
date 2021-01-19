@@ -101,9 +101,44 @@ p, li, table{
   cursor: pointer;
 }
 
-
+/* footer*/
 footer {
   text-align: center;
-  background-color: #f2f2f2;;
+  background-color: #f2f2f2;
   color: black;
 }
+
+
+/* hide some content on mobile*/
+#content-desktop {display: block;}
+#content-mobile {display: none;}
+
+@media screen and (max-width: 768px) {
+
+#content-desktop {display: none;}
+#content-mobile {display: block;}
+
+}
+
+/* tble widths 100% in mobile*/
+table{
+    width:100%;
+    table-layout: fixed;
+    overflow-wrap: break-word;
+    font-size: 14px;
+}
+
+/* cleanup code appearance*/
+pre {
+  border-style: none!important;
+  background-color: #f2f2f2;
+}
+
+.python {
+  border-radius: 5px;
+}
+
+.r {
+  border-radius: 5px;
+}
+
