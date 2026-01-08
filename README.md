@@ -1,4 +1,4 @@
-# [gspdrywells.com](gspdrywells.com)
+# [gspdrywells.netlify.app](gspdrywells.netlify.app)
 
 Github page for the project detailed at [github.com/richpauloo/aife](github.com/richpauloo/aife).
 
@@ -9,6 +9,10 @@ Github page for the project detailed at [github.com/richpauloo/aife](github.com/
 `/etc`: additional CSS files for pages  
 `/gsas`: directories for each GSA, which each contain an `index.html` and additional directories for the various groundwater level scenarios   
 
+## Netlify deployment
+
+This repo already contains prebuilt HTML (root `index.html` plus `gsas/`), so Netlify should publish the repo root without running a build. See `netlify.toml` for the static deploy settings.
+
 
 ## Static site engine and template
 
@@ -17,7 +21,6 @@ Github page for the project detailed at [github.com/richpauloo/aife](github.com/
 Developed using [Alembic](https://alembic.darn.es/) [Jekyll](https://jekyllrb.com/), described as: 
 
 > ⚗ A Jekyll boilerplate theme designed to be a starting point for any Jekyll website.  
-
 
 
 
